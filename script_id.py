@@ -5,7 +5,7 @@ import sys
 #py script_id.py nome_do_ficheiro 
 
 input = sys.argv[1]
-id = input.lit("_")[0].upper()
+id = input.split("_")[0].upper()
 
 f = open("dataset/"+input, encoding="utf-8")
 registos = json.load(f)
