@@ -1,0 +1,515 @@
+header
+  .container
+    .hidden-xs
+      .row
+        .col-lg-5.col-md-2.col-sm-12
+          span.csm-header
+            img(src='../public/images/foto1.png', alt='CSM', style='max-width: 25px;')
+            span.hidden-md.hidden-sm Conselho Superior da Magistratura
+            span.hidden-lg CSM
+        .col-lg-7.col-md-10.col-sm-12.text-right
+          #top-menu-links.top-menu-links
+            .pull-right
+              a#perform-login(href='#', title='Iniciar Sessão', data-tooltip='ui-tooltip', data-placement='bottom')
+                span Entrar
+            .pull-right
+              a(href='/manual') Manual
+              span &middot;
+              a(href='/ecli') ECLI
+              span &middot;
+              a(href='/ficha') Ficha T&eacute;cnica
+              span &middot;
+              a(href='/advertencia') Advert&ecirc;ncia
+              span &middot;
+              a(href='/contactos') Contactos
+              span &middot;
+              a(href='/estatisticas') Estat&iacute;sticas
+              span &middot;
+              a(href='#', data-toggle='modal', data-target='#changelogModal') Altera&ccedil;&otilde;es
+              span &middot;
+    #changelogModal.modal.fade.in(tabindex='-1', role='dialog', aria-labelledby='changelogModalLabel', aria-hidden='true')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            div(style='width: 90%; float: left;')
+              h3#changelogModalLabel.modal-title.left Lista de Altera&ccedil;&otilde;es
+            div(style='width: 10%; float: left;')
+              button.close.right(type='button', data-dismiss='modal', aria-label='Close')
+                span(aria-hidden='true') &times;
+          .modal-body
+            .card.text-center
+              .card-body
+                h4.card-title M&oacute;dulo de Notas Pessoais
+                h5.card-subtitle.mb-2.text-muted 23-08-2021
+                p.card-text Adi&ccedil;&atilde;o de m&oacute;dulo de notas pessoais para utilizadores registados.
+            hr
+            .card.text-center
+              .card-body
+                h4.card-title Altera&ccedil;&otilde;es de Layout
+                h5.card-subtitle.mb-2.text-muted 23-08-2021
+                p.card-text
+                  | Altera&ccedil;&otilde;es de layout para uma melhor navega&ccedil;&atilde;o incluindo:
+                  ul
+                    li
+                      | Pesquisa movida para a lateral.
+                    li
+                      | Pesquisa por relator integrada nos nomes dos mesmos.
+            hr
+            .card.text-center
+              .card-body
+                h4.card-title Indicadores Visuais
+                h5.card-subtitle.mb-2.text-muted 09-07-2021
+                p.card-text
+                  | Indicadores visuais adicionados:
+                  ul
+                    li
+                      | Aumento da visibilidade do manual de utilizador.
+                    li
+                      | Aumento da visibilidade da pesquisa avan&ccedil;ada.
+                    li
+                      | Adicionada listagem de altera&ccedil;&otilde;es.
+            hr
+            .card.text-center
+              .card-body
+                h4.card-title Mudan&ccedil;a para o CSM
+                h5.card-subtitle.mb-2.text-muted 26-06-2021
+                p.card-text
+                  | Migra&ccedil;&atilde;o dos servidores ECLI PT do IGFEJ para o Conselho Superior da Magistratura.
+          .modal-footer
+            button.btn.btn-primary(type='button', data-dismiss='modal') Fechar
+    .hidden-lg.hidden-md.hidden-sm
+      nav.navbar.navbar-default
+        .container-fluid
+          // Brand and toggle get grouped for better mobile display
+          .navbar-header
+            button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#mobile-menu', aria-expanded='false')
+              span.sr-only Toggle navigation
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+            span.csm-header
+              img(src='../public/images/foto1.png', alt='CSM', style='max-width: 25px;')
+              span#header-mobile Conselho Superior da Magistratura
+          // Collect the nav links, forms, and other content for toggling
+          #mobile-menu.collapse.navbar-collapse
+            ul.nav.navbar-nav
+              li.active
+                a(href='/items') In&iacute;cio
+              li
+                a(href='/ecli') ECLI
+              li
+                a(href='/ficha') Ficha T&eacute;cnica
+              li
+                a(href='/advertencia') Advert&ecirc;ncia
+              li
+                a(href='/contactos') Contactos
+              li
+                a(href='/estatisticas') Estat&iacute;sticas
+          // /.navbar-collapse
+        // /.container-fluid
+      .row
+        .col-xs-12.top-menu-links.top-menu-links-xs
+          a#perform-login-quite-small(href='#', title='Iniciar Sessão', data-tooltip='ui-tooltip', data-placement='bottom')
+            span Entrar
+nav.navbar(role='navigation')
+  .container
+    .navbar-header
+      .row
+        .col-xs-3
+        .col-xs-6
+          h1.ecli
+            a(href='/', title='European Case Law Identifier')
+              span.hidden-xs(title='European Case Law Identifier')
+                | ECLI &middot; European Case Law Identifier
+                a.manual-info(href='/manual', target='_blank', data-tooltip='ui-tooltip', title='Ver o Manual de Utilização', data-placement='bottom')
+              span.hidden-lg.hidden-md.hidden-sm(title='European Case Law Identifier') ECLI
+        .col-xs-3
+.container
+  .row
+    .col-sm-12
+      // === Render Flash Messages ===
+.container
+  // Modal
+  #login-area-modal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='appModalLabel', data-backdrop='static', autofocus='')
+    .modal-dialog.modal-center-ecli(role='document')
+      .modal-content
+        .modal-body
+          .row
+            .col-md-4.social-login-area
+              .center-block(style='margin-bottom: -21px;')
+                span
+                  strong
+                    a.text-info(href='/criar-conta', data-index='31') Registar
+            .col-md-8.local-login-area
+              form#login-form(method='post', accept-charset='utf-8', action='/users/login')
+                div(style='display:none;')
+                  input(type='hidden', name='_method', value='POST')
+                  input(type='hidden', name='_csrfToken', autocomplete='off', value='2316e55cd09e87bac19b9134b31b499d47e0a75b25d8c5e7841fc02df922ac1f6c9efd5c57602cbf1ffab946d2de489be63fbf3251d09227ff4499a91e37605c')
+                .row
+                  #manage-login-error.col-md-12
+                    #local-login-error.alert.alert-danger(role='alert')
+                      button#local-login-error-button.close(type='button', aria-label='Close', data-index='32')
+                        span(aria-hidden='true') &times;
+                      #local-login-error-message &nbsp;
+                .row
+                  .col-md-12
+                    .form-group
+                      .input.email
+                        label(for='login-email') Email
+                        input#login-email.form-control.input-sm(type='email', name='email', data-index='26', placeholder='Introduza o seu Email', style='margin-bottom: 10px;')
+                      .input.password
+                        label(for='login-password') Palavra-passe
+                        input#login-password.form-control.input-sm(type='password', name='password', data-index='27', placeholder='Introduza a sua palavra-passe')
+                .row
+                  .col-md-12
+                    button#login-form-button.btn.btn-success.pull-right(data-index='28', type='submit') Iniciar Sess&atilde;o
+        .modal-footer(style='background-color:#f1f1f1')
+          // data-dismiss="modal"
+          button.btn.btn-danger(type='button', data-dismiss='modal') Fechar
+          h5.reset-pass-text-area-login.pull-left
+            | Se esqueceu a palavra-passe, clique 
+            strong
+              a.text-info(href='/pedido-alteracao-palavra-passe') aqui
+            | .
+  // Full Summary Text Modal
+  #show-complete-summary.modal.fade(tabindex='-1', role='dialog', data-backdrop='static')
+    .modal-dialog.modal-lg.modal-center-ecli(role='document')
+      .modal-content
+        .modal-body
+          .message
+            h4
+              a#ecli-item-pop(href='#', target='_blank', title='Abrir ECLI', data-placement='bottom', data-tooltip='ui-tooltip')
+              i.fa.fa-external-link
+            h3#summary-title-pop Sum&aacute;rio
+            p#summary-item-pop
+        .modal-footer
+          .row
+            .col-md-12
+              button.btn.btn-info.btn-lg(data-dismiss='modal') Fechar
+  .row.pading-login-filtros
+    .col-md-12
+      .well.well-sm.filters-header
+        button#filter-ecli-list.btn.btn-search.btn-md(type='button', title='Abrir Pesquisa Avançada', data-tooltip='ui-tooltip', data-placement='right', data-index='13')
+          span.fa.fa-plus
+          span.glyphicon.glyphicon-search
+        span.search-header
+          | Pesquisa Avan&ccedil;ada
+        button#clear-filters.btn.btn-danger.btn-md.pull-right(type='button', title='Limpar Toda a Pesquisa', data-tooltip='ui-tooltip', data-placement='left', data-index='14')
+          span.glyphicon.glyphicon-erase
+  .row
+    .col-md-12
+      #filters-section
+        .well.well-sm.inner-filters-body
+          .search-filters
+            .row
+              .col-md-3.col-sm-6
+                .form-group
+                  label(for='filter-voting') Vota&ccedil;&atilde;o
+                  .input-group
+                    input#filter-voting.form-control.ecli-form-control(type='text', name='filter_voting', maxlength='50', data-index='6')
+                    .input-group-addon.input-clear(title='Limpar', data-tooltip='ui-tooltip')
+                      span.glyphicon.glyphicon-erase
+              .col-md-3.col-sm-6
+                .form-group
+                  label(for='filter-proc-via') Meio Processual
+                  .input-group
+                    input#filter-proc-via.form-control.ecli-form-control(type='text', name='filter_proc_via', maxlength='50', data-index='7')
+                    .input-group-addon.input-clear(title='Limpar', data-tooltip='ui-tooltip')
+                      span.glyphicon.glyphicon-erase
+              .col-md-6.col-sm-6
+                .form-group
+                  label(for='filter-decision') Decis&atilde;o
+                  .input-group
+                    input#filter-decision.form-control.ecli-form-control(type='text', name='filter_decision', maxlength='50', data-index='8')
+                    .input-group-addon.input-clear(title='Limpar', data-tooltip='ui-tooltip')
+                      span.glyphicon.glyphicon-erase
+            .row
+              .col-md-3.col-sm-6
+                .form-group
+                  label(for='filter-attached') Apenso
+                  .input-group
+                    input#filter-attached.form-control.ecli-form-control(type='text', name='filter_attached', maxlength='50', data-index='10')
+                    .input-group-addon.input-clear(title='Limpar', data-tooltip='ui-tooltip')
+                      span.glyphicon.glyphicon-erase
+              .col-md-3.col-sm-6
+                .form-group
+                  label(for='filter-publication-ref') Refer&ecirc;ncia de Publica&ccedil;&atilde;o
+                  .input-group
+                    input#filter-publication-ref.form-control.ecli-form-control(type='text', name='filter_publication_ref', maxlength='50', data-index='11')
+                    .input-group-addon.input-clear(title='Limpar', data-tooltip='ui-tooltip')
+                      span.glyphicon.glyphicon-erase
+              .col-md-6.col-sm-6
+                .form-group
+                  label(for='filter-appeal-court') Tribunal de Recurso
+                  .input-group
+                    input#filter-appeal-court.form-control.ecli-form-control(type='text', name='filter_appeal_court', maxlength='50', data-index='12')
+                    .input-group-addon.input-clear(title='Limpar', data-tooltip='ui-tooltip')
+                      span.glyphicon.glyphicon-erase
+            .row
+              .col-md-3.col-sm-6
+                .form-group
+                  label(for='filter-appeal-court-proc') Processo no Tribunal de Recurso
+                  .input-group
+                    input#filter-appeal-court-proc.form-control.ecli-form-control(type='text', name='filter_appeal_court_proc', maxlength='50', data-index='13')
+                    .input-group-addon.input-clear(title='Limpar', data-tooltip='ui-tooltip')
+                      span.glyphicon.glyphicon-erase
+              .col-md-3.col-sm-6
+                .form-group
+                  label(for='filter-appeal') Recurso
+                  .input-group
+                    input#filter-appeal.form-control.ecli-form-control(type='text', name='filter_appeal', maxlength='50', data-index='14')
+                    .input-group-addon.input-clear(title='Limpar', data-tooltip='ui-tooltip')
+                      span.glyphicon.glyphicon-erase
+              .col-md-3.col-sm-6
+                .form-group
+                  label(for='filter-process-ref') Refer&ecirc;ncia do Processo
+                  .input-group
+                    input#filter-process-ref.form-control.ecli-form-control(type='text', name='filter_process_ref', maxlength='50', data-index='15')
+                    .input-group-addon.input-clear(title='Limpar', data-tooltip='ui-tooltip')
+                      span.glyphicon.glyphicon-erase
+              .col-md-3.col-sm-6
+                .form-group
+                  label(for='filter-eventual-indications') Indica&ccedil;&otilde;es Eventuais
+                  .input-group
+                    input#filter-eventual-indications.form-control.ecli-form-control(type='text', name='filter_eventual_indications', maxlength='50', data-index='16')
+                    .input-group-addon.input-clear(title='Limpar', data-tooltip='ui-tooltip')
+                      span.glyphicon.glyphicon-erase
+            .row
+              .col-md-3.col-sm-6
+                .form-group
+                  label(for='filter-tematic-area') &Aacute;rea Tem&aacute;tica
+                  .input-group
+                    input#filter-tematic-area.form-control.ecli-form-control(type='text', name='filter_tematic_area', maxlength='50', data-index='17')
+                    .input-group-addon.input-clear(title='Limpar', data-tooltip='ui-tooltip')
+                      span.glyphicon.glyphicon-erase
+              .col-md-3.col-sm-6
+                .form-group
+                  label(for='filter-doctrine') Doutrina
+                  .input-group
+                    input#filter-doctrine.form-control.ecli-form-control(type='text', name='filter_doctrine', maxlength='50', data-index='18')
+                    .input-group-addon.input-clear(title='Limpar', data-tooltip='ui-tooltip')
+                      span.glyphicon.glyphicon-erase
+              .col-md-3.col-sm-6
+                .form-group
+                  label(for='filter-legislation') Legisla&ccedil;&otilde;es
+                  .input-group
+                    input#filter-legislation.form-control.ecli-form-control(type='text', name='filter_legislation', maxlength='50', data-index='19')
+                    .input-group-addon.input-clear(title='Limpar', data-tooltip='ui-tooltip')
+                      span.glyphicon.glyphicon-erase
+              .col-md-3.col-sm-6
+                .form-group
+                  label(for='filter-international-ref') Refer&ecirc;ncias Internacionais
+                  .input-group
+                    input#filter-international-ref.form-control.ecli-form-control(type='text', name='filter_international_ref', maxlength='50', data-index='20')
+                    .input-group-addon.input-clear(title='Limpar', data-tooltip='ui-tooltip')
+                      span.glyphicon.glyphicon-erase
+            .row
+              .col-sm-12
+                .form-group
+                  label(for='filter-jurisprudence') Jurisprud&ecirc;ncias
+                  .input-group
+                    input#filter-jurisprudence.form-control.ecli-form-control(type='text', name='filter_jurisprudence', maxlength='50', data-index='21')
+                    .input-group-addon.input-clear(title='Limpar', data-tooltip='ui-tooltip')
+                      span.glyphicon.glyphicon-erase
+            .row
+              .col-md-3.col-sm-6
+                .form-group
+                  label(for='filter-summary-decision-date-start') De (Data Decis&atilde;o Sum&aacute;ria)
+                  .input-group
+                    input#filter-summary-decision-date-start.form-control.ecli-form-control(type='text', name='filter_summary_decision_date_start', maxlength='50', data-index='22', readonly='')
+                    .input-group-addon.input-clear(title='Limpar', data-tooltip='ui-tooltip')
+                      span.glyphicon.glyphicon-erase
+              .col-md-3.col-sm-6
+                .form-group
+                  label(for='filter-summary-decision-date-end') A (Data Decis&atilde;o Sum&aacute;ria)
+                  .input-group
+                    input#filter-summary-decision-date-end.form-control.ecli-form-control(type='text', name='filter_summary_decision_date_end', maxlength='50', data-index='23', readonly='')
+                    .input-group-addon.input-clear(title='Limpar', data-tooltip='ui-tooltip')
+                      span.glyphicon.glyphicon-erase
+              .col-md-3.col-sm-6
+                .form-group
+                  label(for='filter-date-start') De (Data)
+                  .input-group
+                    input#filter-date-start.form-control.ecli-form-control(type='text', name='filter_date_start', maxlength='50', data-index='24', readonly='')
+                    .input-group-addon.input-clear(title='Limpar', data-tooltip='ui-tooltip')
+                      span.glyphicon.glyphicon-erase
+              .col-md-3.col-sm-6
+                .form-group
+                  label(for='filter-date-end') A (Data)
+                  .input-group
+                    input#filter-date-end.form-control.ecli-form-control(type='text', name='filter_date_end', maxlength='50', data-index='25', readonly='')
+                    .input-group-addon.input-clear(title='Limpar', data-tooltip='ui-tooltip')
+                      span.glyphicon.glyphicon-erase
+            .row.hidden-lg.hidden-md
+              .col-sm-12
+                button#inner-filters-search.btn.btn-info.btn-lg.pull-left
+                  span.fa.fa-search
+                  | &nbsp;Pesquisar
+                button#inner-filters-close.btn.btn-danger.btn-lg.pull-right
+                  span.fa.fa-eraser
+                  | &nbsp;Limpar
+  .row.side-containers
+    .col-md-12
+      #search-panel.panel.panel-default.dyna-panel
+        .panel-heading
+          h3.panel-title
+            a#sort-ecli(href='#', data-sort='1', data-name='dataAcordao', data-placement='bottom', data-tooltip='ui-tooltip', title='Ordenar por Data do Acórdão')
+              span.sort-caret.fa
+              span Ordenar Cronologicamente
+            //
+              <span class="order-separator">|</span>
+              <a href="#"
+              id="sort-relev"
+              data-sort="1"
+              data-name="relevancia"
+              data-placement="bottom"
+              data-tooltip="ui-tooltip"
+              title="Ordenar por Data do Acórdão"
+              >
+              <span class="sort-caret fa"></span>
+              &nbsp;<span>Ordenar por Relevância</span>
+              </a>
+            span.search-count
+    #left-side.col-md-3
+      #ecli-form-control
+        .row
+          .col-sm-12
+            .form-group
+              .input-group
+                input#filter-freesearch.form-control.ecli-form-control(type='search', name='freesearch', data-index='0', placeholder='Pesquisa Livre ...')
+                .input-group-addon.input-clear(title='Limpar', data-tooltip='ui-tooltip')
+                  span.glyphicon.glyphicon-erase
+        .row
+          .col-sm-12
+            .form-group
+              .input-group
+                input#filter-unique-number.form-control.ecli-form-control(type='text', name='filter_unique_number', maxlength='50', data-index='1', placeholder='Número de Processo ...')
+                .input-group-addon.input-clear(title='Limpar', data-tooltip='ui-tooltip')
+                  span.glyphicon.glyphicon-erase
+        .row
+          .col-sm-12
+            .form-group
+              .input-group
+                input#filter-search-reporter.form-control.ecli-form-control(type='search', name='relator', data-index='2', placeholder='Pesquisar por Relator ...')
+                .input-group-addon.input-clear(title='Limpar', data-tooltip='ui-tooltip')
+                  span.glyphicon.glyphicon-erase
+        .row
+          .col-sm-12
+            .form-group
+              .input-group
+                input#filter-descriptors.form-control.ecli-form-control(type='search', name='descriptors', data-index='3', placeholder='Pesquisar por Descritores ...')
+                .input-group-addon.input-clear(title='Limpar', data-tooltip='ui-tooltip')
+                  span.glyphicon.glyphicon-erase
+        .row
+          .col-sm-12
+            .form-group
+              .input-group
+                input#filter-initial-date.form-control.ecli-form-control.date-filters(type='search', name='initial_date', data-index='4', readonly='', placeholder='Data de Acordão Superior a')
+                .input-group-addon.input-clear(title='Limpar', data-tooltip='ui-tooltip')
+                  span.glyphicon.glyphicon-erase
+        .row
+          .col-sm-12
+            .form-group
+              .input-group
+                input#filter-end-date.form-control.ecli-form-control.date-filters(type='search', name='end_date', data-index='5', readonly='', placeholder='Data de Acordão Inferior a')
+                .input-group-addon.input-clear(title='Limpar', data-tooltip='ui-tooltip')
+                  span.glyphicon.glyphicon-erase
+        .row
+          .col-md-12
+            .quick-search
+              .form-group.courts-filter
+                select#filter-courts.form-control.ecli-form-control.select2-courts-selector(placelhoder='Tribunais ...', data-index='6', name='courts', multiple='')
+    #right-side.col-md-9
+      .row
+        .col-md-12
+          #search-panel.panel.panel-default.dyna-panel
+            .panel-body
+              ul#ecli-list
+  .row
+    .stats-container
+      .col-md-12
+        .row
+          .col-md-4
+            .inner-container
+              .row
+                .col-xs-12
+                  h2#eclisCount.animateNumber(data-num='0') &nbsp;
+              .row
+                .col-xs-6
+                  span.fa.fa-area-chart
+                .col-xs-6
+                  h4 Acord&atilde;os
+          .col-md-4
+            .inner-container
+              .row
+                .col-xs-12
+                  h2#appealsCount.animateNumber(data-num='0') &nbsp;
+              .row
+                .col-xs-6
+                  span.fa.fa-clipboard
+                .col-xs-6
+                  h4 Recursos
+          .col-md-4
+            .inner-container
+              .row
+                .col-xs-12
+                  h2#courtsCount.animateNumber(data-num='0') &nbsp;
+              .row
+                .col-xs-6
+                  span.fa.fa-gavel
+                .col-xs-6
+                  h4 Tribunais
+footer
+  #submenu
+    .container.loggedcontainer
+      .row
+        .col-md-12
+          a(href='/manual') Manual
+          span &middot;
+          a(href='/ecli') ECLI
+          span &middot;
+          a(href='/ficha') Ficha T&eacute;cnica
+          span &middot;
+          a(href='/advertencia') Advert&ecirc;ncia
+          span &middot;
+          a(href='/contactos') Contactos
+          span &middot;
+          a(href='/estatisticas') Estat&iacute;sticas
+          span &middot;
+          a(href='#', data-toggle='modal', data-target='#changelogModal') Altera&ccedil;&otilde;es
+          span &middot;
+  .container.loggedcontainer
+    .row
+      .col-md-4
+        .text-left.footer-img-container
+          a(href='https://www.csm.org.pt', target='_blank')
+            img#csmLogoImage(src='', alt='ECLI - Portugal')
+      .col-md-4
+        .text-center.footer-img-container
+          a(href='http://igfej.mj.pt/PT/Paginas/Default.aspx', target='_blank')
+            img#igfejLogoImage(src='', alt='IGFEJ')
+      .col-md-4
+        .text-right.footer-img-container
+          a(href='https://europa.eu/european-union/index_pt', target='_blank')
+            img#euLogoImage(src='', alt='ECLI - Portugal')
+    .row
+      .col-md-8
+        .footer-disclaimer
+          p.text-uppercase &copy; 2023 ECLIPT. Todos os direitos reservados.
+          p.text-justify
+            | Esta publica&ccedil;&atilde;o foi produzida com o apoio financeiro do Programa de Justi&ccedil;a da Uni&atilde;o
+            | Europeia. O conte&uacute;do desta publica&ccedil;&atilde;o &eacute; da exclusiva responsabilidade dos parceiros
+            | do projecto ECLI-PT e n&atilde;o reflecte, de forma alguma, as opini&otilde;es da Comiss&atilde;o Europeia.
+      .col-md-4
+        .footer-info
+          p
+            | Desenvolvido por 
+            a(href='http://www.csm.org.pt') CSM/DDIJ
+          p
+            a(href='mailto:informatica@csm.org.pt?subject=ECLI - Portugal.') DDIJ (informatica@csm.org.pt)
+            |  &ndash; 2023
+script(type='text/javascript', src='/js/analytics.min.js', defer='')
+script(src='/js/users/local_login.js', defer='defer')
+script(type='text/javascript', src='/bnith__K821Jiym-hzPdS8cXcHM0zs-CZeZjZ0Xc1BWiIGI3gTWgbTrsid2sBDWrbIeEsjxDRJsn0ZSq5k=')
+script(language='JavaScript', type='text/javascript').
+  const _0x35e8=['visitorId','18127kSXadA','356575NPKVMA','7306axxsAH','get','657833TzFjkt','717302TQdBjl','34lMHocq','x-bni-rncf=1687358862898;expires=Thu, 01 Jan 2037 00:00:00 UTC;path=/;','61XMWbpU','cookie',';expires=Thu, 01 Jan 2037 00:00:00 UTC;path=/;','then','651866OSUgMa','811155xdatvf','x-bni-fpc='];function _0x258e(_0x5954fe,_0x43567d){return _0x258e=function(_0x35e81f,_0x258e26){_0x35e81f=_0x35e81f-0x179;let _0x1280dc=_0x35e8[_0x35e81f];return _0x1280dc;},_0x258e(_0x5954fe,_0x43567d);}(function(_0x5674de,_0xdcf1af){const _0x512a29=_0x258e;while(!![]){try{const _0x55f636=parseInt(_0x512a29(0x17b))+-parseInt(_0x512a29(0x179))*parseInt(_0x512a29(0x17f))+-parseInt(_0x512a29(0x183))+-parseInt(_0x512a29(0x184))+parseInt(_0x512a29(0x187))*parseInt(_0x512a29(0x17d))+parseInt(_0x512a29(0x188))+parseInt(_0x512a29(0x17c));if(_0x55f636===_0xdcf1af)break;else _0x5674de['push'](_0x5674de['shift']());}catch(_0xd3a1ce){_0x5674de['push'](_0x5674de['shift']());}}}(_0x35e8,0x6b42d));function getClientIdentity(){const _0x47e86b=_0x258e,_0x448fbc=FingerprintJS['load']();_0x448fbc[_0x47e86b(0x182)](_0x4bb924=>_0x4bb924[_0x47e86b(0x17a)]())[_0x47e86b(0x182)](_0x2f8ca1=>{const _0x44872c=_0x47e86b,_0xa48f50=_0x2f8ca1[_0x44872c(0x186)];document[_0x44872c(0x180)]=_0x44872c(0x185)+_0xa48f50+_0x44872c(0x181),document[_0x44872c(0x180)]=_0x44872c(0x17e);});}getClientIdentity();
