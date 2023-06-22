@@ -16,8 +16,11 @@ var jdgpjSchema = new mongoose.Schema({
         "Texto Integral": String,
         "url": String,
         "tribunal": String,
-        "_id": String
-});
+        "_id": String,
+        "Relator": String,
+        "Data do Acordão": String,
+        "Decisão": String
+    });
 
 
 module.exports = new mongoose.model('jdgpj',jdgpjSchema);
