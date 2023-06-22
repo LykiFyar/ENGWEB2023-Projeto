@@ -39,7 +39,7 @@ for arquivo in arquivos:
                     descritores_comuns[campo] += 1
                     
                 break
-    print("Nº de registos: " + str(length))
+        print("Nº de registos: " + str(length))
     
 
 

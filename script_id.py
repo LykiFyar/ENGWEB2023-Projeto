@@ -7,7 +7,7 @@ import sys
 input = sys.argv[1]
 id = input.split("_")[0].upper()
 
-f = open("dataset/"+input, encoding="utf-8")
+f = open("../dataset/"+input, encoding="utf-8")
 registos = json.load(f)
 f.close()
 
@@ -16,5 +16,5 @@ for registo in registos:
     registo["_id"] = id + str(d)
     d += 1
 
-with codecs.open("dataset_id/"+input, "w", encoding="utf-8") as arquivo:
+with codecs.open("../dataset_id/"+input, "w", encoding="utf-8") as arquivo:
     json.dump(registos, arquivo, ensure_ascii=False)
