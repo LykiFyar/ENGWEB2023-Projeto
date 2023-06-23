@@ -20,4 +20,4 @@ var jtrgSchema = new mongoose.Schema({
 });
 
 
-module.exports = new mongoose.model('jtrg',jtrgSchema);
+module.exports = new mongoose.model('jtrg',jtrgSchema,'jtrg');

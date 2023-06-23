@@ -21,4 +21,4 @@ var jtrcSchema = new mongoose.Schema({
 });
 
 
-module.exports = new mongoose.model('jtrc',jtrcSchema);
+module.exports = new mongoose.model('jtrc',jtrcSchema,'jtcr');

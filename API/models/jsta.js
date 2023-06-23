@@ -20,4 +20,4 @@ var jstaSchema = new mongoose.Schema({
 });
 
 
-module.exports = new mongoose.model('jsta',jstaSchema);
+module.exports = new mongoose.model('jsta',jstaSchema,'jsta');

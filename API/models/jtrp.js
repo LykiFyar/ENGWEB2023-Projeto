@@ -24,4 +24,4 @@ var jtrpSchema = new mongoose.Schema({
 });
 
 
-module.exports = new mongoose.model('jtrp',jtrpSchema);
+module.exports = new mongoose.model('jtrp',jtrpSchema,'jtrp');

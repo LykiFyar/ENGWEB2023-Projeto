@@ -17,4 +17,4 @@ var jtcampctSchema = new mongoose.Schema({
 });
 
 
-module.exports = new mongoose.model('jtcampct',jtcampctSchema);
+module.exports = new mongoose.model('jtcampct',jtcampctSchema,'jtcampct');

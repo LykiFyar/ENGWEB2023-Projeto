@@ -20,4 +20,4 @@ var jstjSchema = new mongoose.Schema({
 });
 
 
-module.exports = new mongoose.model('jstj',jstjSchema);
+module.exports = new mongoose.model('jstj',jstjSchema,'jstj');

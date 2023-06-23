@@ -1,7 +1,7 @@
 var Jcon = require('../models/jcon')
 
 module.exports.list = () =>{
-    return Jcon.find()
+    return Jcon.find({},{"Processo":1, "Data do Acordão":1, "Relator":1, "Descritores":1})
                 .then(dados=>{
                     return dados
                 }
@@ -23,9 +23,17 @@ module.exports.getAcordao = id =>{
                 })
 }
 
-/*
-module.exports.acordaosData = (data) =>{
-    return Jcon.aggregate([{$match: {"data": {$gte: parseInt(data)}}}])
+module.exports.acordaosDataDesde = (data) =>{
+    var date = new Date(data)
+    return Jcon.aggregate([{$match: { 
+                                        $expr: {
+                                            $gte:[
+                                                {$dateFromString: {dateString:  '$Data do Acordão'}}, 
+                                                date
+                                            ]
+                                        }
+                                    }
+                         }])
                 .then(dados=>{
                     return dados
                 }
@@ -34,16 +42,6 @@ module.exports.acordaosData = (data) =>{
                    return erro
                 })
 }
-
-module.exports.acordaosDescritor = () =>{
-    return Jcon.aggregate([{$unwind:"$operacoes"}, {$group: {_id:"$operacoes.codigo",nome: {$first:"$operacoes.nome"}, desc: { $first: "$operacoes.descricao" }}}])
-                .then(dados=>{
-                    return dados
-                })
-                .catch(erro=>{
-                   return erro
-                })
-}*/
 
 module.exports.acordaosProcesso = (processo) =>{
     return Jcon.find({"Processo":processo})
@@ -69,6 +67,17 @@ module.exports.acordaosRelator = (relator) =>{
 
 module.exports.acordaosTribunal = (tribunal) =>{
     return Jcon.find({"tribunal":tribunal})
+                .then(dados=>{
+                    return dados
+                }
+                )
+                .catch(erro=>{
+                   return erro
+                })
+}
+
+module.exports.acordaosDescritor = (descritor) =>{
+    return Jcon.find({"Descritores":descritor})
                 .then(dados=>{
                     return dados
                 }

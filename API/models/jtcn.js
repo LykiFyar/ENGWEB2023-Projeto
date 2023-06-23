@@ -21,4 +21,4 @@ var jtcnSchema = new mongoose.Schema({
 });
 
 
-module.exports = new mongoose.model('jtcn',jtcnSchema);
+module.exports = new mongoose.model('jtcn',jtcnSchema,'jtcn');

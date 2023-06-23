@@ -20,4 +20,4 @@ var jtrlSchema = new mongoose.Schema({
 });
 
 
-module.exports = new mongoose.model('jtrl',jtrlSchema);
+module.exports = new mongoose.model('jtrl',jtrlSchema,'jtrl');

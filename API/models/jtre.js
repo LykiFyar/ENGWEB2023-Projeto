@@ -16,4 +16,4 @@ var jtreSchema = new mongoose.Schema({
 });
 
 
-module.exports = new mongoose.model('jtre',jtreSchema);
+module.exports = new mongoose.model('jtre',jtreSchema,'jtre');

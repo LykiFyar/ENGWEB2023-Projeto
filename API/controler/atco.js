@@ -1,7 +1,7 @@
 var Atco = require('../models/atco')
 
 module.exports.list = () =>{
-    return Atco.find()
+    return Atco.find({},{"Processo":1, "Data do Acordão":1, "Relator":1, "Descritores":1})
                 .then(dados=>{
                     return dados
                 }
@@ -22,9 +22,18 @@ module.exports.getAcordao = id =>{
                 })
 }
 
-/*
-module.exports.acordaosData = (data) =>{
-    return Atco.aggregate([{$match: {"data": {$gte: parseInt(data)}}}])
+
+module.exports.acordaosDataDesde = (data) =>{
+    var date = new Date(data)
+    return Atco.aggregate([{$match: { 
+                                        $expr: {
+                                            $gte:[
+                                                {$dateFromString: {dateString:  '$Data do Acordão'}}, 
+                                                date
+                                            ]
+                                        }
+                                    }
+                         }])
                 .then(dados=>{
                     return dados
                 }
@@ -33,16 +42,6 @@ module.exports.acordaosData = (data) =>{
                    return erro
                 })
 }
-
-module.exports.acordaosDescritor = () =>{
-    return Atco.aggregate([{$unwind:"$operacoes"}, {$group: {_id:"$operacoes.codigo",nome: {$first:"$operacoes.nome"}, desc: { $first: "$operacoes.descricao" }}}])
-                .then(dados=>{
-                    return dados
-                })
-                .catch(erro=>{
-                   return erro
-                })
-}*/
 
 module.exports.acordaosProcesso = (processo) =>{
     return Atco.find({"Processo":processo})
@@ -68,6 +67,17 @@ module.exports.acordaosRelator = (relator) =>{
 
 module.exports.acordaosTribunal = (tribunal) =>{
     return Atco.find({"tribunal":tribunal})
+                .then(dados=>{
+                    return dados
+                }
+                )
+                .catch(erro=>{
+                   return erro
+                })
+}
+
+module.exports.acordaosDescritor = (descritor) =>{
+    return Atco.find({"Descritores":descritor})
                 .then(dados=>{
                     return dados
                 }

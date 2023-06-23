@@ -15,4 +15,4 @@ var jtcaSchema = new mongoose.Schema({
 });
 
 
-module.exports = new mongoose.model('jtca',jtcaSchema);
+module.exports = new mongoose.model('jtca',jtcaSchema,'jtca');

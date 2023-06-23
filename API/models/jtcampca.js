@@ -15,4 +15,4 @@ var jtcampcaSchema = new mongoose.Schema({
 });
 
 
-module.exports = new mongoose.model('jtcampca',jtcampcaSchema);
+module.exports = new mongoose.model('jtcampca',jtcampcaSchema,'jtcampca');
