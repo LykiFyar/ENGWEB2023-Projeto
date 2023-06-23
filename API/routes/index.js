@@ -1,11 +1,14 @@
 var express = require('express');
 var router = express.Router();
+var Jcon = require('../controler/jcon');
+var Jdgpj = require('../controler/jdgpj');
 var Atco = require('../controler/atco');
+
 
 /* GET home page. */
 router.get('/acordaos', function(req, res, next) {
   if(req.query.processo){
-    Atco.acordaosProcesso(req.query.processo)
+    Jdgpj.acordaosProcesso(req.query.processo)
         .then(acordao=>{
           res.json(acordao)
         })
@@ -14,7 +17,7 @@ router.get('/acordaos', function(req, res, next) {
         })
   }
   else if(req.query.relator){
-    Atco.acordaosRelator(req.query.relator)
+    Jdgpj.acordaosRelator(req.query.relator)
         .then(acordao=>{
           res.json(acordao)
         })
@@ -23,7 +26,7 @@ router.get('/acordaos', function(req, res, next) {
         })
   }
   else{
-    Atco.list()
+    Promise.all([Jdgpj.list(), Atco.list(), Jcon.list()])
     .then(acordaos=>{
       res.json(acordaos)
     })
@@ -47,7 +50,7 @@ router.get('/consultas/nomes', function(req, res, next) {
 
 
 router.post('/acordaos', function(req, res, next) {
-  Atco.addAcordao(req.body)
+  Jdgpj.addAcordao(req.body)
     .then(acordao=>{
       res.status(201).json(acordao)
     })
@@ -58,7 +61,7 @@ router.post('/acordaos', function(req, res, next) {
 
 
 router.delete('/acordaos/:id', function(req, res, next) {
-  Atco.deleteAcordao(req.params.id)
+  Jdgpj.deleteAcordao(req.params.id)
     .then(acordao=>{
       res.json(acordao)
     })

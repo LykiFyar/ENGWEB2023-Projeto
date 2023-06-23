@@ -41,4 +41,4 @@ var jconSchema = new mongoose.Schema({
 });
 
 
-module.exports = new mongoose.model('jcon',jconSchema);
+module.exports = new mongoose.model('jcon',jconSchema, 'jcon');

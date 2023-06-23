@@ -1,7 +1,7 @@
-var Atco = require('../models/atco')
+var Jdgpj = require('../models/jdgpj')
 
 module.exports.list = () =>{
-    return Atco.find()
+    return Jdgpj.find()
                 .then(dados=>{
                     return dados
                 }
@@ -12,7 +12,7 @@ module.exports.list = () =>{
 }
 
 module.exports.getAcordao = id =>{
-    return Atco.findOne({_id:id})
+    return Jdgpj.findOne({_id:id})
                 .then(dados=>{
                     return dados
                 }
@@ -24,7 +24,7 @@ module.exports.getAcordao = id =>{
 
 /*
 module.exports.acordaosData = (data) =>{
-    return Atco.aggregate([{$match: {"data": {$gte: parseInt(data)}}}])
+    return Jdgpj.aggregate([{$match: {"data": {$gte: parseInt(data)}}}])
                 .then(dados=>{
                     return dados
                 }
@@ -35,7 +35,7 @@ module.exports.acordaosData = (data) =>{
 }
 
 module.exports.acordaosDescritor = () =>{
-    return Atco.aggregate([{$unwind:"$operacoes"}, {$group: {_id:"$operacoes.codigo",nome: {$first:"$operacoes.nome"}, desc: { $first: "$operacoes.descricao" }}}])
+    return Jdgpj.aggregate([{$unwind:"$operacoes"}, {$group: {_id:"$operacoes.codigo",nome: {$first:"$operacoes.nome"}, desc: { $first: "$operacoes.descricao" }}}])
                 .then(dados=>{
                     return dados
                 })
@@ -45,7 +45,7 @@ module.exports.acordaosDescritor = () =>{
 }*/
 
 module.exports.acordaosProcesso = (processo) =>{
-    return Atco.find({"Processo":processo})
+    return Jdgpj.find({"Processo":processo})
                 .then(dados=>{
                     return dados
                 }
@@ -56,7 +56,7 @@ module.exports.acordaosProcesso = (processo) =>{
 }
 
 module.exports.acordaosRelator = (relator) =>{
-    return Atco.find({"Relator":relator})
+    return Jdgpj.find({"Relator":relator})
                 .then(dados=>{
                     return dados
                 }
@@ -67,7 +67,7 @@ module.exports.acordaosRelator = (relator) =>{
 }
 
 module.exports.acordaosTribunal = (tribunal) =>{
-    return Atco.find({"tribunal":tribunal})
+    return Jdgpj.find({"tribunal":tribunal})
                 .then(dados=>{
                     return dados
                 }
@@ -78,7 +78,7 @@ module.exports.acordaosTribunal = (tribunal) =>{
 }
 
 module.exports.addAcordao = (acordao) => {
-    return Atco.collection.insertOne(acordao)
+    return Jdgpj.collection.insertOne(acordao)
                 .then(dados=>{
                     return dados
                 }
@@ -89,7 +89,7 @@ module.exports.addAcordao = (acordao) => {
   }
 
 module.exports.deleteAcordao = id =>{
-    return Atco.deleteOne({_id:id})
+    return Jdgpj.deleteOne({_id:id})
                 .then(dados=>{
                     return dados
                 }

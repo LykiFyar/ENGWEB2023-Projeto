@@ -51,4 +51,4 @@ var atcoSchema = new mongoose.Schema({
 });
 
 
-module.exports = new mongoose.model('atco',atcoSchema);
+module.exports = new mongoose.model('atco',atcoSchema,'atco');

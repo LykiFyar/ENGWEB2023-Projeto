@@ -23,4 +23,4 @@ var jdgpjSchema = new mongoose.Schema({
     });
 
 
-module.exports = new mongoose.model('jdgpj',jdgpjSchema);
+module.exports = new mongoose.model('Jdgpj',jdgpjSchema,'jdgpj');
