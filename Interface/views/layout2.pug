@@ -1,0 +1,25 @@
+doctype html
+head
+  link(rel='stylesheet', href='/stylesheets/style.css', type='text/css')
+  link(rel='stylesheet', href='/stylesheets/w3.css', type='text/css')
+  meta(charset='utf-8')
+  meta(name='keywords', content='Base de Dados de Jurisprudencia, DGSI, Legislação, Portugal')
+  meta(name='description', content='Portal de pesquisa das decisões de todos os Tribunais Superiores desde 1932.')
+  meta(name='viewport', content='width=device-width,initial-scale=1.0')
+  title EW - Acordãos
+  link(rel='icon', href='/favicon.ico', type='image/x-icon')
+  link(rel='apple-touch-icon', href='/images/favicon.ico')
+  link(rel='apple-touch-icon-precomposed', sizes='256x256', href='/images/apple-touch-icon.png')
+  script(type='text/javascript', src='/js/main-jscript.min.js', defer='')
+input#is-mobile-app(type='hidden', value='')
+  .w3-top
+  .w3-bar.w3-white.w3-wide.w3-padding.w3-card
+    a.w3-bar-item.w3-button(href='#home')
+      img(src='/images/favicon.ico', alt='Logo', style='width=0.5; height; 1')
+      | EW - Sistema de Acordãos
+    // Float links to the right. Hide them on small screens
+    .w3-right.w3-hide-small
+      a.w3-bar-item.w3-button(href='#about') LOGIN
+      a.w3-bar-item.w3-button(href='#contact') FAQ
+body         
+  block content

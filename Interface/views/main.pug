@@ -1,17 +1,15 @@
 extends layout
 block content
   .w3-card-4
-    header.w3-container.w3-teal
-      table
-        tr
-          th 
-            img(src='/images/favicon.ico', alt='Logo', style='width: 30px')
-          th
-            h1 Acordãos Portugueses
-          th
-            nav
-                a.w3-btn.w3-right-align(href='login.pug') LOGIN
-                a.w3-btn(href='faq.pug') FAQ   
+    header.w3-top.w3-wide(style='width:100%')
+      .w3-bar.w3-teal.w3-wide.w3-padding.w3-card
+        a.w3-bar-item
+          img(src='/images/favicn.ico', alt='Logo')
+          | EW - Sistema de Acordãos
+        // Float links to the right. Hide them on small screens
+        .w3-right.w3-hide-small
+          a.w3-bar-item.w3-button(href='#about') LOGIN
+          a.w3-bar-item.w3-button(href='#contact') FAQ   
     .w3-container
       table.w3-table-all
         tr
