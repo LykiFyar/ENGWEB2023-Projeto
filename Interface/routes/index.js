@@ -6,6 +6,7 @@ var axios = require("axios")
 router.get('/', function(req, res, next) {
   axios.get("http://localhost:5555/acordaos")
     .then(dados=>{
+      console.log(dados.data)
       res.render('main', { processos: dados.data });
     })
     .catch(erro=>{

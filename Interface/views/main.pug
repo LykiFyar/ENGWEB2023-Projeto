@@ -2,7 +2,16 @@ extends layout
 block content
   .w3-card-4
     header.w3-container.w3-teal
-      h1 Acordãos Portugueses
+      table
+        tr
+          th 
+            img(src='/images/favicon.ico', alt='Logo', style='width: 30px')
+          th
+            h1 Acordãos Portugueses
+          th
+            nav
+                a.w3-btn.w3-right-align(href='login.pug') LOGIN
+                a.w3-btn(href='faq.pug') FAQ   
     .w3-container
       table.w3-table-all
         tr
@@ -12,7 +21,7 @@ block content
           th Descritores
         each processo in processos
           tr
-            td= processo['Processo']
+            td= processo.Processo
                 a(href="/retrieveList/" + processo._id)
             td= processo['Data do Acordão']
             td= processo.Relator
