@@ -1,25 +1,96 @@
-doctype html
-head
-  link(rel='stylesheet', href='/stylesheets/style.css', type='text/css')
-  link(rel='stylesheet', href='/stylesheets/w3.css', type='text/css')
-  meta(charset='utf-8')
-  meta(name='keywords', content='Base de Dados de Jurisprudencia, DGSI, Legislação, Portugal')
-  meta(name='description', content='Portal de pesquisa das decisões de todos os Tribunais Superiores desde 1932.')
-  meta(name='viewport', content='width=device-width,initial-scale=1.0')
-  title EW - Acordãos
-  link(rel='icon', href='/favicon.ico', type='image/x-icon')
-  link(rel='apple-touch-icon', href='/images/favicon.ico')
-  link(rel='apple-touch-icon-precomposed', sizes='256x256', href='/images/apple-touch-icon.png')
-  script(type='text/javascript', src='/js/main-jscript.min.js', defer='')
-input#is-mobile-app(type='hidden', value='')
-  .w3-top
-  .w3-bar.w3-white.w3-wide.w3-padding.w3-card
-    a.w3-bar-item.w3-button(href='#home')
-      img(src='/images/favicon.ico', alt='Logo', style='width=0.5; height; 1')
-      | EW - Sistema de Acordãos
-    // Float links to the right. Hide them on small screens
-    .w3-right.w3-hide-small
-      a.w3-bar-item.w3-button(href='#about') LOGIN
-      a.w3-bar-item.w3-button(href='#contact') FAQ
-body         
-  block content
+#left-side.col-md-3
+  #ecli-form-control
+    .row
+      .col-sm-12
+        .form-group
+          .input-group
+            input#filter-freesearch.form-control.ecli-form-control(type='search', name='freesearch', data-index='0', placeholder='Pesquisa Livre ...', data-dynatable-query='freesearch')
+            .input-group-addon.input-clear(title='', data-tooltip='ui-tooltip', data-original-title='Limpar')
+              span.glyphicon.glyphicon-erase
+    .row
+      .col-sm-12
+        .form-group
+          .input-group
+            input#filter-unique-number.form-control.ecli-form-control(type='text', name='filter_unique_number', maxlength='50', data-index='1', placeholder='Número de Processo ...', data-dynatable-query='filter_unique_number')
+            .input-group-addon.input-clear(title='', data-tooltip='ui-tooltip', data-original-title='Limpar')
+              span.glyphicon.glyphicon-erase
+    .row
+      .col-sm-12
+        .form-group
+          .input-group
+            input#filter-search-reporter.form-control.ecli-form-control(type='search', name='relator', data-index='2', placeholder='Pesquisar por Relator ...', data-dynatable-query='relator')
+            .input-group-addon.input-clear(title='', data-tooltip='ui-tooltip', data-original-title='Limpar')
+              span.glyphicon.glyphicon-erase
+    .row
+      .col-sm-12
+        .form-group
+          .input-group
+            input#filter-descriptors.form-control.ecli-form-control(type='search', name='descriptors', data-index='3', placeholder='Pesquisar por Descritores ...', data-dynatable-query='descriptors')
+            .input-group-addon.input-clear(title='', data-tooltip='ui-tooltip', data-original-title='Limpar')
+              span.glyphicon.glyphicon-erase
+    .row
+      .col-sm-12
+        .form-group
+          .input-group
+            input#filter-initial-date.form-control.ecli-form-control.date-filters(type='search', name='initial_date', data-index='4', readonly='', placeholder='Data de Acordão Superior a', data-dynatable-query='initial_date')
+            .input-group-addon.input-clear(title='', data-tooltip='ui-tooltip', data-original-title='Limpar')
+              span.glyphicon.glyphicon-erase
+    .row
+      .col-sm-12
+        .form-group
+          .input-group
+            input#filter-end-date.form-control.ecli-form-control.date-filters(type='search', name='end_date', data-index='5', readonly='', placeholder='Data de Acordão Inferior a', data-dynatable-query='end_date')
+            .input-group-addon.input-clear(title='', data-tooltip='ui-tooltip', data-original-title='Limpar')
+              span.glyphicon.glyphicon-erase
+    .row
+      .col-md-12
+        .quick-search
+          .form-group.courts-filter
+            select#filter-courts.form-control.ecli-form-control.select2-courts-selector.select2-hidden-accessible(placelhoder='Tribunais ...', data-index='6', name='courts', multiple='', data-dynatable-query='courts', tabindex='-1', aria-hidden='true')
+              option(value='1') Supremo Tribunal de Justi&ccedil;a
+              option(value='4') Tribunal da Rela&ccedil;&atilde;o de Coimbra
+              option(value='6') Tribunal da Rela&ccedil;&atilde;o de &Eacute;vora
+              option(value='5') Tribunal da Rela&ccedil;&atilde;o de Guimar&atilde;es
+              option(value='3') Tribunal da Rela&ccedil;&atilde;o de Lisboa
+              option(value='2') Tribunal da Rela&ccedil;&atilde;o do Porto
+              option(value='7') Tribunal da Comarca dos A&ccedil;ores
+              option(value='8') Tribunal da Comarca de Aveiro
+              option(value='9') Tribunal da Comarca de Beja
+              option(value='10') Tribunal da Comarca de Braga
+              option(value='11') Tribunal da Comarca de Bragan&ccedil;a
+              option(value='12') Tribunal da Comarca de Castelo Branco
+              option(value='13') Tribunal da Comarca de Coimbra
+              option(value='14') Tribunal da Comarca de &Eacute;vora
+              option(value='15') Tribunal da Comarca de Faro
+              option(value='16') Tribunal da Comarca da Guarda
+              option(value='17') Tribunal da Comarca de Leiria
+              option(value='18') Tribunal da Comarca de Lisboa
+              option(value='19') Tribunal da Comarca de Lisboa Norte
+              option(value='20') Tribunal da Comarca de Lisboa Oeste
+              option(value='21') Tribunal da Comarca da Madeira
+              option(value='22') Tribunal da Comarca de Portalegre
+              option(value='23') Tribunal da Comarca do Porto
+              option(value='24') Tribunal da Comarca de Porto Este
+              option(value='25') Tribunal da Comarca de Santar&eacute;m
+              option(value='26') Tribunal da Comarca de Set&uacute;bal
+              option(value='27') Tribunal da Comarca de Viana do Castelo
+              option(value='28') Tribunal da Comarca de Vila Real
+              option(value='29') Tribunal da Comarca de Viseu
+              option(value='30') Tribunal da Propriedade Intelectual
+              option(value='31') Tribunal da Concorr&ecirc;ncia, Regula&ccedil;&atilde;o e Supervis&atilde;o
+              option(value='32') Tribunal Mar&iacute;timo
+              option(value='33') Tribunal de Execu&ccedil;&atilde;o de Penas
+              option(value='34') Tribunal Central de Instru&ccedil;&atilde;o Criminal
+              option(value='35') Supremo Tribunal Administrativo
+              option(value='36') Tribunal Central Administrativo Sul
+              option(value='37') Tribunal Central Administrativo Norte
+              option(value='38') Tribunal de Conflitos
+              option(value='39') Pareceres do Minist&eacute;rio P&uacute;blico
+              option(value='40') Ac&oacute;rd&atilde;os do Tribunal Constitucional
+            span.select2.select2-container.select2-container--default(dir='ltr', style='width: 100%;')
+              span.selection
+                span.select2-selection.select2-selection--multiple(role='combobox', aria-haspopup='true', aria-expanded='false', tabindex='-1')
+                  ul.select2-selection__rendered
+                    li.select2-search.select2-search--inline
+                      input.select2-search__field(type='search', tabindex='0', autocomplete='off', autocorrect='off', autocapitalize='off', spellcheck='false', role='textbox', aria-autocomplete='list', placeholder='Escolher Tribunais ...', style='width: 288.4px;')
+              span.dropdown-wrapper(aria-hidden='true')
