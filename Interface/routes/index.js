@@ -3,10 +3,9 @@ var router = express.Router();
 var axios = require("axios")
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/acordaos', function(req, res, next) {
   axios.get("http://localhost:5555/acordaos")
     .then(dados=>{
-      console.log(dados.data)
       res.render('main', { processos: dados.data });
     })
     .catch(erro=>{
@@ -14,15 +13,10 @@ router.get('/', function(req, res, next) {
     })
 });
 
-router.get('/:id', function(req, res, next) {
+router.get('/acordaos/:id', function(req, res, next) {
   axios.get("http://localhost:5555/acordaos/"+req.params.id)
       .then(dados=>{
-        for (var d = 0; d < dados.data.length; d++){
-          if (dados.data[d] != null) {
-            acord = dados.data[d]
-          }
-        }
-        res.render('pagAcordao', { acordao: acord });
+        res.render('pagAcordao', { acordao: dados.data });
       })
       .catch(erro=>{
         res.render('error', { error: erro,message:"Erro a obter a página do acordao" });    

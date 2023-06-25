@@ -9,7 +9,6 @@ var Acordaos = require('../controler/acordaos');
 /* GET home page. */
 router.get('/acordaos', function(req, res, next) {
   if(req.query.processo){
-    //Promise.all([Atco.acordaosProcesso(req.query.processo), Jcon.acordaosProcesso(req.query.processo), Jdgpj.acordaosProcesso(req.query.processo)])
     Acordaos.acordaosProcesso(req.query.processo)
     .then(acordao=>{
           res.json(acordao)
@@ -19,7 +18,6 @@ router.get('/acordaos', function(req, res, next) {
         })
   }
   else if(req.query.relator){
-    //Promise.all([Atco.acordaosRelator(req.query.relator), Jcon.acordaosRelator(req.query.relator), Jdgpj.acordaosRelator(req.query.relator)])
     Acordaos.acordaosRelator(req.query.relator)
       .then(acordao=>{
           res.json(acordao)
@@ -29,7 +27,6 @@ router.get('/acordaos', function(req, res, next) {
         })
   }
   else if(req.query.tribunal){
-    //Promise.all([Jdgpj.acordaosTribunal(req.query.tribunal),Atco.acordaosTribunal(req.query.tribunal),Jcon.acordaosTribunal(req.query.tribunal)])
     Acordaos.acordaosTribunal(req.query.tribunal)
         .then(acordao=>{
           res.json(acordao)
@@ -39,7 +36,6 @@ router.get('/acordaos', function(req, res, next) {
         })
   }
   else if(req.query.descritor){
-    //Promise.all([Jdgpj.acordaosDescritor(req.query.descritor),Atco.acordaosDescritor(req.query.descritor),Jcon.acordaosDescritor(req.query.descritor)])
     Acordaos.acordaosDescritor(req.query.descritor)
         .then(acordao=>{
           res.json(acordao)
@@ -49,7 +45,6 @@ router.get('/acordaos', function(req, res, next) {
         })
   }
   else if(req.query.desde){
-    //Promise.all([Jdgpj.acordaosDataDesde(req.query.desde),Atco.acordaosDataDesde(req.query.desde),Jcon.acordaosDataDesde(req.query.desde)])
     Acordaos.acordaosDataDesde(req.query.desde)
         .then(acordao=>{
           res.json(acordao)
@@ -59,7 +54,6 @@ router.get('/acordaos', function(req, res, next) {
         })
   }
   else{
-    //Promise.all([Jdgpj.list(), Atco.list(), Jcon.list()])
     Acordaos.list()
       .then(acordaos=>{
         res.json(acordaos)
@@ -71,7 +65,6 @@ router.get('/acordaos', function(req, res, next) {
 });
 
 router.get('/acordaos/:id', function(req, res, next) {
-  //Promise.all([Atco.getAcordao(req.params.id), Jcon.getAcordao(req.params.id), Jdgpj.getAcordao(req.params.id)])
   Acordaos.getAcordao(req.params.id)
     .then(acordao=>{
       res.json(acordao)

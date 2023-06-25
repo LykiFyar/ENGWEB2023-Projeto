@@ -9,9 +9,143 @@ block content
         h4 Processo: #{acordao.Processo}
         h4 Data do Acordão: #{acordao['Data do Acordão']}
         h4 Relator: #{acordao.Relator}
-
+        h4 Descritores:
+        h4 Tribunal: #{acordao.tribunal}
+        h4 Url: #{acordao.url}
+        if acordao.Relator
+            h4 Relator: #{acordao.Relator}
+        if acordao.Votação
+            h4 Votação: #{acordao.Votação}
+        if acordao.Decisão
+            h4 Decisão: #{acordao.Decisão}
+        if acordao['Texto Integral']
+            h4 Texto Integral: #{acordao['Texto Integral']}
+        if acordao['Nº Convencional']
+            h4 Nº Convencional: #{acordao['Nº Convencional']}
+        if acordao['Nº do Documento']
+            h4 Nº do Documento: #{acordao['Nº do Documento']}
+        if acordao['Área Temática']
+            h4 Área Temática: #{acordao['Área Temática']}
+        if acordao['Legislação Nacional']
+            h4 Legislação Nacional: #{acordao['Legislação Nacional']}
+        if acordao.Sumário
+            h4 Sumário: #{acordao.Sumário}
+        if acordao['Meio Processual']
+            h4 Meio Processual: #{acordao['Meio Processual']}
+        if acordao.Privacidade
+            h4 Privacidade: #{acordao.Privacidade}
+        if acordao['Decisão Texto Integral']
+            h4 Decisão Texto Integral: #{acordao['Decisão Texto Integral']}
+        if acordao['Jurisprudência Nacional']
+            h4 Jurisprudência Nacional: #{acordao['Jurisprudência Nacional']}
+        if acordao['Indicações Eventuais']
+            h4 Indicações Eventuais: #{acordao['Indicações Eventuais']}
+        if acordao.Data
+            h4 Data: #{acordao.Data}
+        if acordao['Legislação Estrangeira']
+            h4 Legislação Estrangeira: #{acordao['Legislação Estrangeira']}
+        if acordao['Área Temática 2']
+            h4 Área Temática 2: #{acordao['Área Temática 2']}
+        if acordao['Data de Entrada']
+            h4 Data de Entrada: #{acordao['Data de Entrada']}
+        if acordao.Recorrente
+            h4 Recorrente: #{acordao.Recorrente}
+        if acordao['Recorrido 1']
+            h4 Recorrido 1: #{acordao['Recorrido 1']}
+        if acordao['Nº Processo/TAF']
+            h4 Nº Processo/TAF: #{acordao['Nº Processo/TAF']}
+        if acordao.Sub-Secção
+            h4 Sub-Secção: #{acordao.Sub-Secção}
+        if acordao.Magistrado
+            h4 Magistrado: #{acordao.Magistrado}
+        if acordao.Observações
+            h4 Observações: #{acordao.Observações}
+        if acordao['Disponível na JTCA']
+            h4 Disponível na JTCA: #{acordao['Disponível na JTCA']}
+        if acordao.Secção
+            h4 Secção: #{acordao.Secção}
+        if acordao.Tribunal
+            h4 Tribunal: #{acordao.Tribunal}
+        if acordao['Tribunal Recurso']
+            h4 Tribunal Recurso: #{acordao['Tribunal Recurso']}
+        if acordao.Contencioso
+            h4 Contencioso: #{acordao.Contencioso}
+        if acordao.Apêndice
+            h4 Apêndice: #{acordao.Apêndice}
+        if acordao['Data do Apêndice']
+            h4 Data do Apêndice: #{acordao['Data do Apêndice']}
+        if acordao.Acordão
+            h4 Acordão: #{acordao.Acordão}
+        if acordao.Espécie
+            h4 Espécie: #{acordao.Espécie}
+        if acordao.Requerente
+            h4 Requerente: #{acordao.Requerente}
+        if acordao.Requerido
+            h4 Requerido: #{acordao.Requerido}
+        if acordao['Normas Apreciadas']
+            h4 Normas Apreciadas: #{acordao['Normas Apreciadas']}
+        if acordao['Normas Julgadas Inconst']
+            h4 Normas Julgadas Inconst: #{acordao['Normas Julgadas Inconst']}
+        if acordao.Constituição
+            h4 Constituição: #{acordao.Constituição}
+        if acordao['Nº do Diário da República']
+            h4 Nº do Diário da República: #{acordao['Nº do Diário da República']}
+        if acordao['Série do Diário da República']
+            h4 Série do Diário da República: #{acordao['Série do Diário da República']}
+        if acordao['Data do Diário da República']
+            h4 Data do Diário da República: #{acordao['Data do Diário da República']}
+        if acordao['Página do Diário da República']
+            h4 Página do Diário da República: #{acordao['Página do Diário da República']}
+        if acordao['Jurisprudência Constitucional']
+            h4 Jurisprudência Constitucional: #{acordao['Jurisprudência Constitucional']}
+        if acordao['Normas Suscitadas']
+            h4 Normas Suscitadas: #{acordao['Normas Suscitadas']}
+        if acordao['Voto Vencido']
+            h4 Voto Vencido: #{acordao['Voto Vencido']}
+        if acordao['Recorrido 2']
+            h4 Recorrido 2: #{acordao['Recorrido 2']}
+        if acordao['Referência a Doutrina']
+            h4 Referência a Doutrina: #{acordao['Referência a Doutrina']}
+        if acordao['Tribunal 1ª instância']
+            h4 Tribunal 1ª instância: #{acordao['Tribunal 1ª instância']}
+        if acordao['Juízo ou Secção']
+            h4 Juízo ou Secção: #{acordao['Juízo ou Secção']}
+        if acordao['Tipo de Ação']
+            h4 Tipo de Ação: #{acordao['Tipo de Ação']}
+        if acordao['Tipo de Contrato']
+            h4 Tipo de Contrato: #{acordao['Tipo de Contrato']}
+        if acordao.Autor
+            h4 Autor: #{acordao.Autor}
+        if acordao.Réu
+            h4 Réu: #{acordao.Réu}
+        if acordao['Data da Decisão']
+            h4 Data da Decisão: #{acordao['Data da Decisão']}
+        if acordao['Texto das Cláusulas Abusivas']
+            h4 Texto das Cláusulas Abusivas: #{acordao['Texto das Cláusulas Abusivas']}
+        if acordao.Recursos
+            h4 Recursos: #{acordao.Recursos}
+        if acordao['Referência de Publicação']
+            h4 Referência de Publicação: #{acordao['Referência de Publicação']}
+        if acordao['Processo no Tribunal Recurso']
+            h4 Processo no Tribunal Recurso: #{acordao['Processo no Tribunal Recurso']}
+        if acordao['Processo no Tribunal Recorrido']
+            h4 Processo no Tribunal Recorrido: #{acordao['Processo no Tribunal Recorrido']}
+        if acordao['Parecer Ministério Publico']
+            h4 Parecer Ministério Publico: #{acordao['Parecer Ministério Publico']}
+        if acordao['Peça Processual']
+            h4 Peça Processual: #{acordao['Peça Processual']}
+        if acordao.Tema
+            h4 Tema: #{acordao.Tema}
+        if acordao['Texto Parcial']
+            h4 Texto Parcial: #{acordao['Texto Parcial']}
+        if acordao.Reclamações
+            h4 Reclamações: #{acordao.Reclamações}
+        if acordao['Tribunal Recorrido']
+            h4 Tribunal Recorrido: #{acordao['Tribunal Recorrido']}
+        if acordao.Doutrina
+            h4 Doutrina: #{acordao.Doutrina}        
     footer.w3-container.w3-teal 
-        h5 Generated by Marta Sá  - #[a(href="/") Voltar]
+        h5 Generated by Marta Sá  - #[a(href="/acordaos") Voltar]
 
 
 
