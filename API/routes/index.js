@@ -61,6 +61,7 @@ router.get('/acordaos', function(req, res, next) {
   }
 });
 
+
 router.get('/acordaos/:id', function(req, res, next) {
   Acordaos.getAcordao(req.params.id)
     .then(acordao=>{
@@ -70,6 +71,7 @@ router.get('/acordaos/:id', function(req, res, next) {
       res.status(605).json({ message: "Erro a eliminar acordão",error:erro })
     })
 });
+
 
 router.post('/acordaos', function(req, res, next) {
   Acordaos.addAcordao(req.body)
@@ -91,5 +93,6 @@ router.delete('/acordaos/:id', function(req, res, next) {
       res.status(605).json({ message: "Erro a eliminar acordão",error:erro })
     })
 });
+
 
 module.exports = router;

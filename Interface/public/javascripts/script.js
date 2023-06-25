@@ -2,6 +2,11 @@ $(function(){
 
 })
 
-function changePage(id){
-    window.location.href = "http://localhost:7778/exames/"+id;
+function loadRelator(r){
+    window.location.href = "http://localhost:5556/acordaos?relator="+r;
+}
+
+
+function loadDescritor(d){
+    window.location.href = "http://localhost:5556/acordaos?descritor="+d;
 }

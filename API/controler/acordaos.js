@@ -1,7 +1,7 @@
 var Arcordaos = require('../models/acordaos')
 
 module.exports.list = () =>{
-    return Arcordaos.find({},{"Processo":1, "Data do Acordão":1, "Relator":1, "Descritores":1})
+    return Arcordaos.find({},{"Processo":1, "Data do Acordão":1, "Relator":1, "Descritores":1}).limit(7)
                 .then(dados=>{
                     return dados
                 }
@@ -33,7 +33,7 @@ module.exports.acordaosDataDesde = (data) =>{
                                             ]
                                         }
                                     }
-                         }],{"Processo":1, "Data do Acordão":1, "Relator":1, "Descritores":1})
+                         }],{"Processo":1, "Data do Acordão":1, "Relator":1, "Descritores":1}).limit(7)
                 .then(dados=>{
                     return dados
                 }
@@ -44,7 +44,7 @@ module.exports.acordaosDataDesde = (data) =>{
 }
 
 module.exports.acordaosProcesso = (processo) =>{
-    return Arcordaos.find({"Processo":processo},{"Processo":1, "Data do Acordão":1, "Relator":1, "Descritores":1})
+    return Arcordaos.find({"Processo":processo},{"Processo":1, "Data do Acordão":1, "Relator":1, "Descritores":1}).limit(7)
                 .then(dados=>{
                     return dados
                 }
@@ -55,7 +55,7 @@ module.exports.acordaosProcesso = (processo) =>{
 }
 
 module.exports.acordaosRelator = (relator) =>{
-    return Arcordaos.find({"Relator":relator},{"Processo":1, "Data do Acordão":1, "Relator":1, "Descritores":1})
+    return Arcordaos.find({"Relator":relator},{"Processo":1, "Data do Acordão":1, "Relator":1, "Descritores":1}).limit(7)
                 .then(dados=>{
                     return dados
                 }
@@ -66,7 +66,7 @@ module.exports.acordaosRelator = (relator) =>{
 }
 
 module.exports.acordaosTribunal = (tribunal) =>{
-    return Arcordaos.find({"tribunal":tribunal},{"Processo":1, "Data do Acordão":1, "Relator":1, "Descritores":1})
+    return Arcordaos.find({"tribunal":tribunal},{"Processo":1, "Data do Acordão":1, "Relator":1, "Descritores":1}).limit(7)
                 .then(dados=>{
                     return dados
                 }
@@ -77,7 +77,7 @@ module.exports.acordaosTribunal = (tribunal) =>{
 }
 
 module.exports.acordaosDescritor = (descritor) =>{
-    return Arcordaos.find({"Descritores":descritor},{"Processo":1, "Data do Acordão":1, "Relator":1, "Descritores":1})
+    return Arcordaos.find({"Descritores":descritor},{"Processo":1, "Data do Acordão":1, "Relator":1, "Descritores":1}).limit(7)
                 .then(dados=>{
                     return dados
                 }
