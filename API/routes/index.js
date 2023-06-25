@@ -5,8 +5,9 @@ var Acordaos = require('../controler/acordaos');
 
 /* GET home page. */
 router.get('/acordaos', function(req, res, next) {
+  var pageNumber = 1
   if(req.query.processo){
-    Acordaos.acordaosProcesso(req.query.processo)
+    Acordaos.acordaosProcesso(req.query.processo,pageNumber)
     .then(acordao=>{
           res.json(acordao)
         })
@@ -15,7 +16,7 @@ router.get('/acordaos', function(req, res, next) {
         })
   }
   else if(req.query.relator){
-    Acordaos.acordaosRelator(req.query.relator)
+    Acordaos.acordaosRelator(req.query.relator, pageNumber)
       .then(acordao=>{
           res.json(acordao)
         })
@@ -24,7 +25,7 @@ router.get('/acordaos', function(req, res, next) {
         })
   }
   else if(req.query.tribunal){
-    Acordaos.acordaosTribunal(req.query.tribunal)
+    Acordaos.acordaosTribunal(req.query.tribunal, pageNumber)
         .then(acordao=>{
           res.json(acordao)
         })
@@ -33,7 +34,7 @@ router.get('/acordaos', function(req, res, next) {
         })
   }
   else if(req.query.descritor){
-    Acordaos.acordaosDescritor(req.query.descritor)
+    Acordaos.acordaosDescritor(req.query.descritor, pageNumber)
         .then(acordao=>{
           res.json(acordao)
         })
@@ -42,7 +43,7 @@ router.get('/acordaos', function(req, res, next) {
         })
   }
   else if(req.query.desde){
-    Acordaos.acordaosDataDesde(req.query.desde)
+    Acordaos.acordaosDataDesde(req.query.desde,pageNumber)
         .then(acordao=>{
           res.json(acordao)
         })
@@ -51,7 +52,7 @@ router.get('/acordaos', function(req, res, next) {
         })
   }
   else{
-    Acordaos.list()
+    Acordaos.list(pageNumber)
       .then(acordaos=>{
         res.json(acordaos)
       })
