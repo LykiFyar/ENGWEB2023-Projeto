@@ -44,7 +44,7 @@ router.get('/acordaos/:id', function(req, res, next) {
 router.get('/edit/:id', function(req,res){
   axios.get("http://localhost:5555/acordaos/"+req.params.id)
   .then(acordao=>{
-    res.render('editForm', { acordao: acordao.data });
+    res.render('editForm', { a: acordao.data });
   })
   .catch(erro=>{
     res.render('error', { error: erro,message:"Erro na abtenção do acordao" });    
@@ -67,9 +67,11 @@ router.get('/login', function(req, res){
 
 
 router.post('/edit/:id', function(req, res) {
+  console.log(req.body)
   axios.put("http://localhost:5555/acordaos/"+req.params.id, req.body)
     .then(acordao => {
-      res.render('editConfirm', {a: acordao})
+      //res.render('editConfirm', {a: acordao})
+      res.redirect('/acordaos')
     })
     .catch(erro => {
       res.render('error', {error: erro, message: "Erro na alteração do acordão"})
