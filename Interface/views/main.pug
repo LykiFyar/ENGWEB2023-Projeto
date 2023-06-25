@@ -2,7 +2,7 @@ extends layout
 block content
   header.w3-bar.w3-teal.w3-wide.w3-card
     a.w3-bar-item
-      img(src='/images/favicon.ico', alt='Logo', style='max-height: 20px; margin-right: 10px')
+      img(src='/images/themis.ico', alt='Logo', style='max-height: 30px; margin-right: 10px')
       | EW - Sistema de Acordãos
     // Float links to the right. Hide them on small screens
     .w3-right.w3-hide-small(style='margin-right: 15px')
@@ -27,34 +27,41 @@ block content
               td= processo.Descritores
               if admin
                   td
-                      button.w3-btn.w3-round.w3-indigo.w3-margin-right  
-                          a(href="/retrieveList/" + processo._id) Edit
-                      button.w3-btn.w3-round.w3-indigo.w3-margin-right  
-                          a(href="#") Delete
+                    button.w3-btn.w3-round.w3-indigo.w3-margin-right  
+                        a(href="/retrieveList/" + processo._id) Edit
+                    button.w3-btn.w3-round.w3-indigo.w3-margin-right  
+                        a(href="#") Delete
+        .w3-container(style='max-height: 30px;').w3-center
+          button(onclick='loadPagina(\"' + pagAnterior + '\")', style="display: flex; justify-content: center; align-items: center;").w3-left
+            img(src='/images/esquerda.ico', alt='pagEsquerda', style='max-height: 20px; max-width: 25px')
+          input#pag(type='text', name='pag', placeholder='página atual: '+ getNumeroPaginaAtual).w3-center
+          button(onclick='loadPagina(\"' + pag + '\")').w3-center Saltar
+
+          button(onclick='loadPagina(\"' + pagSeguinte + '\")', style="display: flex; justify-content: center; align-items: center;").w3-right
+            img(src='/images/direita.ico', alt='pagDireita', style='max-height: 20px; max-width: 25px')
     .w3-container-4.w3-left(style='width:10%; margin-left:15px')
-        form(action='/acordaos')
-          div.row
-            div.col-sm-12
-              input#lname(type='text', name='lastname', placeholder='Your last name..')
-              button(onclick="document.getElementById('lname').value = ''") 
-                img(src='/images/erase.ico', alt='Limpar', style='max-height: 20px;')
-            div.col-sm-12
-              input#relator(type='text', name='relator', placeholder='Relator')
-              button(onclick='loadRelator(\"' + relator + '\")') 
-                img(src='/images/erase.ico', alt='Limpar', style='max-height: 20px;')
-            div.col-sm-12
-              input#descritor(type='text', name='descritor', placeholder='Descritor')
-              button(onclick='loadDescritor(\"' + descritor + '\")') 
-                img(src='/images/erase.ico', alt='Limpar', style='max-height: 20px;')
-            div.col-sm-12
-              select#country(name='country')
-                option(value='australia') Australia
-                option(value='canada') Canada
-                option(value='usa') USA
-              button(onclick="document.getElementById('country').value = ''")
-                img(src='/images/erase.ico', alt='Limpar', style='max-height: 20px;')
-          div.row
-            input(type='', value='Submit')
-            input(type='submit', value='Submit')        
+        form(action='/acordaos', style="margin")
+          div#form(style="display: flex; align-items: center;")
+            input#lname(type='text', name='lastname', placeholder='Your last name..')
+            button(onclick="document.getElementById('lname').value = ''", style="display: flex; justify-content: center; align-items: center;") 
+              img(src='/images/erase.ico', alt='Limpar', style='max-height: 20px;')
+          div#form(style="display: flex; align-items: center;")
+            input#relator(type='text', name='relator', placeholder='Relator')
+            button(onclick='loadRelator(\"' + relator + '\")', style="display: flex; justify-content: center; align-items: center;") 
+              img(src='/images/erase.ico', alt='Limpar', style='max-height: 20px;')
+          div#form(style="display: flex; align-items: center;")
+            input#descritor(type='text', name='descritor', placeholder='Descritor')
+            button(onclick='loadDescritor(\"' + descritor + '\")', style="display: flex; justify-content: center; align-items: center;") 
+              img(src='/images/erase.ico', alt='Limpar', style='max-height: 20px;')
+          div#form(style="display: flex; justify-content: center; align-items: center;")
+            select#country(name='country')
+              option(value='all') All
+              option(value='australia') Australia
+              option(value='canada') Canada
+              option(value='usa') USA
+            button(onclick="document.getElementById('country').value = ''", style="display: flex; justify-content: center; align-items: center;")
+              img(src='/images/erase.ico', alt='Limpar', style='max-height: 20px;')
+          div#form(style="display: flex; align-items: center;")
+            input(type='submit', value='Submit')  
   footer.w3-container.w3-teal
     h5 &COPY Generated by João Braga, Rafael Ferreira, Marta Sá :: EngWeb2023 in #{d}
