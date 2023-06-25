@@ -100,6 +100,19 @@ module.exports.addAcordao = (acordao) => {
                 })
   }
 
+
+module.exports.editAcordao = (id,acordao)=>{
+    return Arcordaos.updateOne({_id:id},acordao)
+            .then(dados=>{
+                return dados
+            }
+            )
+            .catch(erro=>{
+                return erro
+            })
+}
+
+
 module.exports.deleteAcordao = id =>{
     return Arcordaos.deleteOne({_id:id})
                 .then(dados=>{

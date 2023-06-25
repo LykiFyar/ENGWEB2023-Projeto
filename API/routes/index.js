@@ -4,7 +4,7 @@ var Acordaos = require('../controler/acordaos');
 
 
 /* GET home page. */
-router.get('/acordaos', function(req, res, next) {
+router.get('/acordaos', function(req, res) {
   var pageNumber = 1
   if(req.query.processo){
     Acordaos.acordaosProcesso(req.query.processo,pageNumber)
@@ -63,7 +63,7 @@ router.get('/acordaos', function(req, res, next) {
 });
 
 
-router.get('/acordaos/:id', function(req, res, next) {
+router.get('/acordaos/:id', function(req, res) {
   Acordaos.getAcordao(req.params.id)
     .then(acordao=>{
       res.json(acordao)
@@ -74,7 +74,18 @@ router.get('/acordaos/:id', function(req, res, next) {
 });
 
 
-router.post('/acordaos', function(req, res, next) {
+router.put('/acordaos/:id', function(req, res) {
+  Acordaos.editAcordao(req.params.id, req.body)
+    .then(acordao=>{
+      res.json(acordao)
+    })
+    .catch(erro=>{
+      res.status(604).json({ message: "Erro a atualizar acordão",error:erro })
+    })
+});
+
+
+router.post('/acordaos', function(req, res) {
   Acordaos.addAcordao(req.body)
     .then(acordao=>{
       res.status(201).json(acordao)
@@ -85,7 +96,7 @@ router.post('/acordaos', function(req, res, next) {
 });
 
 
-router.delete('/acordaos/:id', function(req, res, next) {
+router.delete('/acordaos/:id', function(req, res) {
   Acordaos.deleteAcordao(req.params.id)
     .then(acordao=>{
       res.json(acordao)
