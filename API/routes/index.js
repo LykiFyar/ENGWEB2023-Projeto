@@ -1,8 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var Jcon = require('../controler/jcon');
-var Jdgpj = require('../controler/jdgpj');
-var Atco = require('../controler/atco');
 var Acordaos = require('../controler/acordaos');
 
 
