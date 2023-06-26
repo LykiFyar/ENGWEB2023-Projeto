@@ -60,7 +60,7 @@ router.get('/edit/:id', function(req,res){
     res.render('editForm', { a: acordao.data, campos: campos });
   })
   .catch(erro=>{
-    res.render('error', { error: erro,message:"Erro na abtenção do acordao" });    
+    res.render('error', { error: erro,message:"Erro na obtenção do acordao" });    
   })  
 })
 
