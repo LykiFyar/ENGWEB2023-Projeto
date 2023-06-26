@@ -2,6 +2,19 @@ var express = require('express');
 var router = express.Router();
 var axios = require("axios")
 
+
+var campos = ['Nº do Documento',' Nº Convencional','Data da Decisão','Data','Data de Entrada','Votação','Área Temática','Área Temática 2','Privacidade','Legislação Nacional',
+              'Meio Processual','Texto Integral','Decisão','Decisão Texto Integral','Sumário',
+              'Jurisprudência Nacional','Indicações Eventuais','Legislação Estrangeira',
+              'Recorrente','Recorrido 1','Nº Processo/TAF','Sub-Secção','Magistrado','Observações','Disponível na JTCA','Secção',
+              'Tribunal','Tribunal Recurso','Contencioso','Apêndice','Data do Apêndice','Acordão','Espécie','Requerente','Requerido',
+              'Normas Apreciadas','Normas Julgadas Inconst','Constituição','Nº do Diário da República','Série do Diário da República',
+              'Data do Diário da República','Página do Diário da República','Jurisprudência Constitucional','Normas Suscitadas','Voto Vencido',
+              'Recorrido 2','Tribunal 1ª instância','Juízo ou Secção','Tipo de Ação','Tipo de Contrato','Autor','Réu',
+              'Texto das Cláusulas Abusivas','Recursos','Referência de Publicação','Processo no Tribunal Recurso','Tema',
+              'Processo no Tribunal Recorrido','Parecer Ministério Publico','Peça Processual','Texto Parcial','Reclamações','Tribunal Recorrido','Referência a Doutrina','Doutrina']
+
+
 /* GET home page. */
 router.get('/acordaos', function(req, res, next) {
   query = ''
@@ -44,7 +57,7 @@ router.get('/acordaos/:id', function(req, res, next) {
 router.get('/edit/:id', function(req,res){
   axios.get("http://localhost:5555/acordaos/"+req.params.id)
   .then(acordao=>{
-    res.render('editForm', { a: acordao.data });
+    res.render('editForm', { a: acordao.data, campos: campos });
   })
   .catch(erro=>{
     res.render('error', { error: erro,message:"Erro na abtenção do acordao" });    
@@ -53,7 +66,7 @@ router.get('/edit/:id', function(req,res){
 
 
 router.get('/add', function(req, res) {
-  res.render('addForm', {});
+  res.render('addForm', {campos: campos});
 });
 
 router.get('/faq', function(req, res){
