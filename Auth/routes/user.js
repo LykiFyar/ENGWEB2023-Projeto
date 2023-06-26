@@ -27,8 +27,8 @@ router.post('/', auth.verificaAcesso, function(req, res){
 
 router.post('/register', auth.verificaAcesso, function(req, res) {
   var d = new Date().toISOString().substring(0,19)
-  userModel.register(new userModel({ username: req.body.username, name: req.body.name, 
-                                      level: req.body.level, active: true, dateCreated: d }), 
+  userModel.register(new userModel({ username: req.body.username, filiation: req.body.filiation, name: req.body.name, 
+                                      level: req.body.level, active: true, dateCreated: d, favorites: [] }), 
                 req.body.password, 
                 function(err, user) {
                   if (err) 
@@ -45,18 +45,28 @@ router.post('/register', auth.verificaAcesso, function(req, res) {
                         });
                     })
                   }     
-  })
+                }
+  )
 })
   
 router.post('/login', passport.authenticate('local'), function(req, res){
+  var d = new Date().toISOString().substring(0,19);
   jwt.sign({ username: req.user.username, level: req.user.level, 
     sub: 'projeto de EngWeb2023 - Base de Dados de Acordãos'}, 
     "EWProject_a97368_a97642_a97158",
     {expiresIn: 3600},
     function(e, token) {
       if(e) res.status(500).jsonp({error: "Erro na geração do token: " + e}) 
-      else res.status(201).jsonp({token: token})
-});
+      else {
+        User.updateLastAccess(req.user.username, d)
+          .then(dados => {
+            res.status(201).jsonp({token: token})
+          })
+          .catch((e) => {
+            res.status(500).jsonp({error: "Erro a atualizar último acesso do utilizador: " + e}) 
+          })
+      }
+  });
 })
 
 router.put('/:id', auth.verificaAcesso, function(req, res) {

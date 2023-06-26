@@ -56,6 +56,16 @@ module.exports.updateUserStatus = (id, status) => {
             })
 }
 
+module.exports.updateLastAccess = (id, d) => {
+    return User.updateOne({_id:id}, {lastAccess: d})
+            .then(resposta => {
+                return resposta
+            })
+            .catch(erro => {
+                return erro
+            })
+}
+
 module.exports.updateUserPassword = (id, pwd) => {
     return User.updateOne({_id:id}, pwd)
             .then(resposta => {
