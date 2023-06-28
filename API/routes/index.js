@@ -2,73 +2,75 @@ var express = require('express');
 var router = express.Router();
 var Acordaos = require('../controler/acordaos');
 
-var last_id = -1
-var prev_ac = {}
-var pageNumber = 0
+var aaa = 1
 
 /* GET home page. */
 router.get('/acordaos', function(req, res) {
-  pageNumber = req.query.page
+  var nQueries = Object.keys(req.query).length;
+  var pageNumber = req.query.page
+  var nextPage = "undefined" 
+  if (aaa != 1){
+    nextPage = req.query.nextPage 
+  } 
   var limit = 7
 
-  console.log(req.query)
 
-  console.log(last_id, pageNumber)
-
-  if(req.query.processo){
-    Acordaos.acordaosProcesso(req.query.processo,last_id)
-    .then(acordao=>{
-          last_id = acordao[limit-1]["_id"]
-          res.json(acordao)
-        })
-        .catch(erro=>{
-          res.status(602).json({ message: "Erro a obter acordãos pelo número de processo",error:erro })
-        })
-  }
-  else if(req.query.relator){
-    Acordaos.acordaosRelator(req.query.relator, limit, last_id)
-      .then(acordao=>{
-          prev_ac_id = acordao[0]["_id"]
-          last_id = acordao[limit-2]["_id"]
-          res.json(acordao)
-        })
-        .catch(erro=>{
-          res.status(602).json({ message: "Erro a obter acordãos pelo relator",error:erro })
-        })
-  }
-  else if(req.query.tribunal){
-    Acordaos.acordaosTribunal(req.query.tribunal, limit, last_id)
+  if(req.query.desde){
+    Acordaos.acordaosDataDesde(req.query.desde,limit,next_id)
         .then(acordao=>{
-          last_id = acordao[limit-1]["_id"]
-          res.json(acordao)
-        })
-        .catch(erro=>{
-          res.status(602).json({ message: "Erro a obter acordãos pelo tribunal",error:erro })
-        })
-  }
-  else if(req.query.descritor){
-    Acordaos.acordaosDescritor(req.query.descritor, limit, last_id)
-        .then(acordao=>{
-          last_id = acordao[limit-1]["_id"]
-          res.json(acordao)
-        })
-        .catch(erro=>{
-          res.status(602).json({ message: "Erro a obter acordãos pelo descritor",error:erro })
-        })
-  }
-  else if(req.query.desde){
-    Acordaos.acordaosDataDesde(req.query.desde,limit, last_id)
-        .then(acordao=>{
-          last_id = acordao[limit-1]["_id"]
+          next_id = acordao[limit-2]["_id"]
           res.json(acordao)
         })
         .catch(erro=>{
           res.status(602).json({ message: "Erro a obter acordãos pela data",error:erro })
         })
   }
-  else{
-    last_id = limit * pageNumber
-    Acordaos.list(limit, last_id)
+  else if (nQueries > 2) {
+    delete req.query.page
+    delete req.query.nextPage
+
+    if(nextPage == "true"){
+      Acordaos.acordaosFilter(req.query,limit,next_id,nextPage)
+      .then(acordaos=>{
+        console.log(acordaos.length)
+        next_id = acordaos[acordaos.length - 1]["_id"]
+        prev_id = acordaos[0]["_id"]
+        res.json(acordaos)
+      })
+      .catch(erro=>{
+        res.status(602).json({ message: "Erro a obter acordãos com os filtros aplicados",error:erro })
+      })
+    } else if(nextPage == "false") {
+      Acordaos.acordaosFilter(req.query,limit,prev_id,nextPage)
+      .then(acordaos=>{
+        acordaos = acordaos.sort((a,b) => {
+          if (a._id < b._id){
+            return -1
+          }
+        })
+        next_id = acordaos[acordaos.length - 1]["_id"]
+        prev_id = acordaos[0]["_id"]
+        res.json(acordaos)
+      })
+      .catch(erro=>{
+        res.status(602).json({ message: "Erro a obter acordãos com os filtros aplicados",error:erro })
+      })
+    } else {
+      Acordaos.acordaosFilter(req.query,limit,0,"true")
+      .then(acordaos=>{
+        next_id = acordaos[acordaos.length - 1]["_id"]
+        prev_id = acordaos[0]["_id"]
+        aaa = 2
+        res.json(acordaos)
+      })
+      .catch(erro=>{
+        res.status(602).json({ message: "Erro a obter acordãos com os filtros aplicados",error:erro })
+      })
+    }
+  }
+  else  { 
+    next_id = limit * pageNumber
+    Acordaos.list(limit, next_id)
       .then(acordaos=>{
         res.json(acordaos)
       })
