@@ -2,11 +2,13 @@ $(function(){
 
 })
 
-function loadRelator(r){
-    window.location.href = "http://localhost:5556/acordaos?relator="+r;
-}
-
-
-function loadDescritor(d){
-    window.location.href = "http://localhost:5556/acordaos?descritor="+d;
+function loadPagina(page,querieString){
+    const queries = JSON.parse(querieString);
+    query=''
+    for (let key in queries){
+        if (key != "page"){
+            query += key + "=" + queries[key] + "&"
+        }
+    }
+    window.location.href = "http://localhost:5556/acordaos?"+query+"page="+page;
 }

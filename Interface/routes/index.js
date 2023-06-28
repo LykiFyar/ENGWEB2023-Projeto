@@ -17,25 +17,18 @@ var campos = ['Nº do Documento',' Nº Convencional','Data da Decisão','Data','
 
 /* GET home page. */
 router.get('/acordaos', function(req, res, next) {
+  let page = req.query.page ? req.query.page : 0
+
   query = ''
-  if(req.query.processo){
-    query = '?processo='+req.query.processo
-  }
-  else if(req.query.relator){
-    query = '?relator='+req.query.relator
-  }
-  else if(req.query.tribunal){
-    query = '?tribunal='+req.query.tribunal
-  }
-  else if(req.query.descritor){
-    query = '?descritor='+req.query.descritor
-  }
-  else if(req.query.desde){
-    query = '?desde='+req.query.desde
-  }
-  axios.get("http://localhost:5555/acordaos"+query)
+  for (let key in req.query){
+    if (req.query[key] != '' && key != "page"){
+        query += key + "=" + req.query[key] + "&"
+    }
+}
+
+  axios.get("http://localhost:5555/acordaos?"+query+"page="+page)
     .then(dados=>{
-      res.render('main', { processos: dados.data });
+      res.render('main', { processos: dados.data, page: page, queries: req.query });
     })
     .catch(erro=>{
       res.render('error', { error: erro,message:"Erro a obter lista de acordaos" });

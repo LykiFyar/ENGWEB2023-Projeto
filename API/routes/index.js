@@ -6,8 +6,10 @@ var last_id = -1
 
 /* GET home page. */
 router.get('/acordaos', function(req, res) {
+  var pageNumber = req.query.page
   var limit = 7
-  var pageNumber = 47000
+
+  console.log(last_id, pageNumber)
 
   if(req.query.processo){
     Acordaos.acordaosProcesso(req.query.processo,last_id)
