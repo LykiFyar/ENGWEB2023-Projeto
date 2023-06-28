@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 
 var acordaosSchema = new mongoose.Schema({
-        "_id": String,
+        "_id": Number,
         "Processo": String,
         "Descritores": [String],
         "tribunal": String,
@@ -77,4 +77,4 @@ var acordaosSchema = new mongoose.Schema({
 });
 
 
-module.exports = new mongoose.model('acordaos', acordaosSchema, 'acordaos');
+module.exports = new mongoose.model('acordaos', acordaosSchema, 'acordaos2');

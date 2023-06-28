@@ -2,13 +2,17 @@ var express = require('express');
 var router = express.Router();
 var Acordaos = require('../controler/acordaos');
 
+var last_id = -1
 
 /* GET home page. */
 router.get('/acordaos', function(req, res) {
-  var pageNumber = 1
+  var limit = 7
+  var pageNumber = 47000
+
   if(req.query.processo){
-    Acordaos.acordaosProcesso(req.query.processo,pageNumber)
+    Acordaos.acordaosProcesso(req.query.processo,last_id)
     .then(acordao=>{
+          last_id = acordao[limit-1]["_id"]
           res.json(acordao)
         })
         .catch(erro=>{
@@ -16,8 +20,9 @@ router.get('/acordaos', function(req, res) {
         })
   }
   else if(req.query.relator){
-    Acordaos.acordaosRelator(req.query.relator, pageNumber)
+    Acordaos.acordaosRelator(req.query.relator, limit, last_id)
       .then(acordao=>{
+          last_id = acordao[limit-1]["_id"]
           res.json(acordao)
         })
         .catch(erro=>{
@@ -25,8 +30,9 @@ router.get('/acordaos', function(req, res) {
         })
   }
   else if(req.query.tribunal){
-    Acordaos.acordaosTribunal(req.query.tribunal, pageNumber)
+    Acordaos.acordaosTribunal(req.query.tribunal, limit, last_id)
         .then(acordao=>{
+          last_id = acordao[limit-1]["_id"]
           res.json(acordao)
         })
         .catch(erro=>{
@@ -34,8 +40,9 @@ router.get('/acordaos', function(req, res) {
         })
   }
   else if(req.query.descritor){
-    Acordaos.acordaosDescritor(req.query.descritor, pageNumber)
+    Acordaos.acordaosDescritor(req.query.descritor, limit, last_id)
         .then(acordao=>{
+          last_id = acordao[limit-1]["_id"]
           res.json(acordao)
         })
         .catch(erro=>{
@@ -43,8 +50,9 @@ router.get('/acordaos', function(req, res) {
         })
   }
   else if(req.query.desde){
-    Acordaos.acordaosDataDesde(req.query.desde,pageNumber)
+    Acordaos.acordaosDataDesde(req.query.desde,limit, last_id)
         .then(acordao=>{
+          last_id = acordao[limit-1]["_id"]
           res.json(acordao)
         })
         .catch(erro=>{
@@ -52,7 +60,8 @@ router.get('/acordaos', function(req, res) {
         })
   }
   else{
-    Acordaos.list(pageNumber)
+    last_id = limit * pageNumber
+    Acordaos.list(limit, last_id)
       .then(acordaos=>{
         res.json(acordaos)
       })

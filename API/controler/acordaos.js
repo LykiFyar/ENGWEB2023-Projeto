@@ -1,13 +1,13 @@
 var Arcordaos = require('../models/acordaos')
 
-module.exports.list = (pageNumber) =>{
-    return Arcordaos.find({},{"Processo":1, "Data do Acordão":1, "tribunal":1,"Relator":1, "Descritores":1}).skip(7 * pageNumber).limit(7)
+module.exports.list = (limit, last_id) =>{
+    return Arcordaos.find({'_id': {'$gte': last_id}}, {"Processo":1, "Data do Acordão":1, "tribunal":1,"Relator":1, "Descritores":1}).sort("_id").limit(limit)
                 .then(dados=>{
                     return dados
                 }
                 )
                 .catch(erro=>{
-                   return erro
+                    return erro
                 })
 }
 
@@ -23,7 +23,7 @@ module.exports.getAcordao = id =>{
 }
 
 
-module.exports.acordaosDataDesde = (data, pageNumber) =>{
+module.exports.acordaosDataDesde = (data, limit, last_id) =>{
     var date = new Date(data)
     return Arcordaos.aggregate([{$match: { 
                                         $expr: {
@@ -33,7 +33,7 @@ module.exports.acordaosDataDesde = (data, pageNumber) =>{
                                             ]
                                         }
                                     }
-                         }],{"Processo":1, "Data do Acordão":1, "tribunal":1, "Relator":1, "Descritores":1}).skip(0).limit(7)
+                         }],{"Processo":1, "Data do Acordão":1, "tribunal":1, "Relator":1, "Descritores":1}).sort("_id").limit(limit)
                 .then(dados=>{
                     return dados
                 }
@@ -43,8 +43,8 @@ module.exports.acordaosDataDesde = (data, pageNumber) =>{
                 })
 }
 
-module.exports.acordaosProcesso = (processo, pageNumber) =>{
-    return Arcordaos.find({"Processo":processo},{"Processo":1, "Data do Acordão":1, "tribunal":1, "Relator":1, "Descritores":1}).skip(0).limit(7)
+module.exports.acordaosProcesso = (processo, limit, last_id) =>{
+    return Arcordaos.find({"_id": {'$gte': last_id},"Processo":processo},{"Processo":1, "Data do Acordão":1, "tribunal":1, "Relator":1, "Descritores":1}).sort("_id").limit(limit)
                 .then(dados=>{
                     return dados
                 }
@@ -54,8 +54,8 @@ module.exports.acordaosProcesso = (processo, pageNumber) =>{
                 })
 }
 
-module.exports.acordaosRelator = (relator, pageNumber) =>{
-    return Arcordaos.find({"Relator":relator},{"Processo":1, "Data do Acordão":1, "tribunal":1, "Relator":1, "Descritores":1}).skip(0).limit(7)
+module.exports.acordaosRelator = (relator, limit, last_id) =>{
+    return Arcordaos.find({"Relator":relator, "_id": {'$gte': last_id}},{"Processo":1, "Data do Acordão":1, "tribunal":1, "Relator":1, "Descritores":1}).sort("_id").limit(limit)
                 .then(dados=>{
                     return dados
                 }
@@ -65,8 +65,8 @@ module.exports.acordaosRelator = (relator, pageNumber) =>{
                 })
 }
 
-module.exports.acordaosTribunal = (tribunal, pageNumber) =>{
-    return Arcordaos.find({"tribunal":tribunal},{"Processo":1, "Data do Acordão":1, "tribunal":1, "Relator":1, "Descritores":1}).skip(0).limit(7)
+module.exports.acordaosTribunal = (tribunal, limit, last_id) =>{
+    return Arcordaos.find({"tribunal":tribunal, "_id": {'$gte': last_id}},{"Processo":1, "Data do Acordão":1, "tribunal":1, "Relator":1, "Descritores":1}).sort("_id").limit(limit)
                 .then(dados=>{
                     return dados
                 }
@@ -76,9 +76,8 @@ module.exports.acordaosTribunal = (tribunal, pageNumber) =>{
                 })
 }
 
-module.exports.acordaosDescritor = (descritor,pageNumber) =>{
-    return Arcordaos.find(
-        {"Descritores":descritor},{"Processo":1, "Data do Acordão":1, "tribunal":1, "Relator":1, "Descritores":1}).skip(0).limit(7)
+module.exports.acordaosDescritor = (descritor, limit, last_id) =>{
+    return Arcordaos.find({"Descritores":descritor, "_id": {'$gte': last_id}},{"Processo":1, "Data do Acordão":1, "tribunal":1, "Relator":1, "Descritores":1}).sort("_id").limit(limit)
                 .then(dados=>{
                     return dados
                 }
