@@ -12,3 +12,7 @@ function loadPagina(page,querieString){
     }
     window.location.href = "http://localhost:5556/acordaos?"+query+"page="+page;
 }
+
+function limparCampo(campo){
+
+}

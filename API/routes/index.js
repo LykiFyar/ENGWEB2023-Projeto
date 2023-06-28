@@ -3,11 +3,15 @@ var router = express.Router();
 var Acordaos = require('../controler/acordaos');
 
 var last_id = -1
+var prev_ac = {}
+var pageNumber = 0
 
 /* GET home page. */
 router.get('/acordaos', function(req, res) {
-  var pageNumber = req.query.page
+  pageNumber = req.query.page
   var limit = 7
+
+  console.log(req.query)
 
   console.log(last_id, pageNumber)
 
@@ -24,7 +28,8 @@ router.get('/acordaos', function(req, res) {
   else if(req.query.relator){
     Acordaos.acordaosRelator(req.query.relator, limit, last_id)
       .then(acordao=>{
-          last_id = acordao[limit-1]["_id"]
+          prev_ac_id = acordao[0]["_id"]
+          last_id = acordao[limit-2]["_id"]
           res.json(acordao)
         })
         .catch(erro=>{
