@@ -45,7 +45,7 @@ block content
           button#pag(onclick=`loadPagina(${prevPage},${pageDirection=false},'${JSON.stringify(queries)}')` style=`display: ${hidePrevButton}`).w3-left
             img#pag(src='/images/esquerda.ico', alt='pagEsquerda')
 
-          input.w3-center.w3-gray(value='Página '+page style="margin-top:10px; width:10%" readonly)
+          input#pag.w3-center(value='Página '+page readonly)
           
           butto#pag(onclick=`loadPagina(${nextPage},${pageDirection=true},'${JSON.stringify(queries)}')` style=`display: ${hideNextButton}`).w3-right
             img#pag(src='/images/direita.ico', alt='pagDireita')

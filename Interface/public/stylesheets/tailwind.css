@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 html {
     background-color: darkgrey;
 }
@@ -51,7 +52,7 @@ body {
     height: 100%;
     margin: 10px;
     display: flex;
-    flex-direction: row
+    flex-direction: row;
   }
 
 
@@ -81,6 +82,12 @@ body {
     background-color: #c5c1c0;
     padding: 4px;
     border-color: white;
+  }
+
+  input#pag{
+    margin-top:10px; 
+    width:10%;
+    background-color: aliceblue;
   }
 
   tr#campos {
