@@ -4,6 +4,20 @@
 
 --------------------                            #css:                      -------------------------
 
+====== a de cima fiz ontem ========
+  img#star {
+    border: 0px;
+    display: inline-block;
+    width: 25px; 
+    height: 25px; 
+    background-size: cover; /* Para ajustar o tamanho da imagem */
+    background-position: center; /* Para centralizar a imagem */
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+  }
+
+
+
 .star {
   display: inline-block;
   width: 20px;
