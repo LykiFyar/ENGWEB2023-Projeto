@@ -31,7 +31,9 @@ router.get('/acordaos', function(req, res) {
           prev_id = acordaos[0]["_id"]
           res.json(acordaos)
         }
-        res.json({ message: "Não foram encontrados registos"})
+        else{
+          res.json({message: "Não foram encontrados registos"})
+        }
       })
       .catch(erro=>{
         res.status(602).json({ message: "Erro a obter acordãos com os filtros aplicados",error:erro })
@@ -50,7 +52,9 @@ router.get('/acordaos', function(req, res) {
           prev_id = acordaos[0]["_id"]
           res.json(acordaos)
         }
-        res.json({ message: "Não foram encontrados registos"})
+        else{
+          res.json({message: "Não foram encontrados registos"})
+        }
       })
       .catch(erro=>{
         res.status(602).json({ message: "Erro a obter acordãos com os filtros aplicados",error:erro })
@@ -61,7 +65,12 @@ router.get('/acordaos', function(req, res) {
     next_id = limit * pageNumber
     Acordaos.list(limit, next_id)
       .then(acordaos=>{
-        res.json(acordaos)
+        if(acordaos.length > 0){
+          res.json(acordaos)        
+        }
+        else{
+          res.json({message: "Não foram encontrados registos"})
+        }
       })
       .catch(erro=>{
         res.status(601).json({ message: "Erro a obter lista de acordãos", error:erro })

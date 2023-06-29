@@ -14,6 +14,12 @@ var campos = ['Nº do Documento',' Nº Convencional','Data da Decisão','Data','
               'Texto das Cláusulas Abusivas','Recursos','Referência de Publicação','Processo no Tribunal Recurso','Tema',
               'Processo no Tribunal Recorrido','Parecer Ministério Publico','Peça Processual','Texto Parcial','Reclamações','Tribunal Recorrido','Referência a Doutrina','Doutrina']
 
+var tribunais= {"Tribunal Constitucional": "atco1", "Tribunal dos Conflitos": "jcon", "Cláusulas Abusivas Julgadas pelos Tribunais": "jdgpj", 
+                "Supremo Tribunal Administrativo": "jsta", "Supremo Tribunal de Justiça": "jstj", "Tribunal Central Administrativo Sul": "jtca", 
+                "Tribunal Central Administrativo Sul - Contencioso Administrativo": "jtcampca", "Tribunal Central Administrativo Sul - Contencioso Tributário": "jtcampct", 
+                "Tribunal Central Administrativo Norte": "jtcn", "Tribunal da Relação de Coimbra": "jtrc", "Tribunal da Relação de Évora": "jtre", 
+                "Tribunal da Relação de Guimarães": "jtrg", "Tribunal da Relação de Lisboa": "jtrl", "Tribunal da Relação de Porto": "jtrp" } 
+
 
 /* GET home page. */
 router.get('/acordaos', function(req, res, next) {
@@ -25,11 +31,11 @@ router.get('/acordaos', function(req, res, next) {
     if (req.query[key] != '' && key != "page" && key != "pageDirection"){
         query += key + "=" + req.query[key] + "&"
     }
-}
+  }
 
   axios.get("http://localhost:5555/acordaos?"+query+"page="+page+"&pageDirection="+pageDirection)
     .then(dados=>{
-      res.render('main', { processos: dados.data, queries: req.query, page: page, pageDirection: pageDirection});
+      res.render('main', { processos: dados.data, queries: req.query, page: page, pageDirection: pageDirection, tribunais: tribunais, originalUrl: req.originalUrl});
     })
     .catch(erro=>{
       res.render('error', { error: erro,message:"Erro a obter lista de acordaos" });
@@ -38,9 +44,16 @@ router.get('/acordaos', function(req, res, next) {
 
 
 router.get('/acordaos/:id', function(req, res, next) {
+
+  prevUrl = req.query.prevUrl
+  for (let key in req.query){
+    if (key != "prevUrl" && key != "page" && key != "pageDirection")
+      prevUrl += key + "=" + req.query[key] + "&"
+  }
+
   axios.get("http://localhost:5555/acordaos/"+req.params.id)
       .then(acordao=>{
-        res.render('pagAcordao', { acordao: acordao.data });
+        res.render('pagAcordao', { acordao: acordao.data, tribunais: tribunais, prevUrl: prevUrl});
       })
       .catch(erro=>{
         res.render('error', { error: erro,message:"Erro a obter a página do acordao" });    
@@ -59,12 +72,18 @@ router.get('/edit/:id', function(req,res){
 })
 
 
+router.get('/delete/:id', function(req, res) {
+  axios.delete("http://localhost:5555/acordaos/"+req.params.id)
+  res.redirect('/acordaos');
+});
+
 router.get('/add', function(req, res) {
   res.render('addForm', {campos: campos});
 });
 
-router.get('/faq', function(req, res){
-  res.render('faq')
+
+router.get('/alteracoes', function(req, res){
+  res.render('alteracoes')
 })
 
 
@@ -74,7 +93,10 @@ router.get('/login', function(req, res){
 
 
 router.post('/edit/:id', function(req, res) {
-  console.log(req.body)
+  const descritores = req.body.Descritores.split('\n').map(linha => linha.toUpperCase())
+  delete req.body.Descritores
+  req.body["Descritores"] = descritores
+
   axios.put("http://localhost:5555/acordaos/"+req.params.id, req.body)
     .then(acordao => {
       //res.render('editConfirm', {a: acordao})
@@ -87,6 +109,14 @@ router.post('/edit/:id', function(req, res) {
 
 
 router.post('/add', function(req, res) {
+  const _id = parseInt(req.body._id)
+  delete req.body._id
+  req.body["_id"] = _id
+
+  const descritores = req.body.Descritores.split('\n').map(linha => linha.toUpperCase())
+  delete req.body.Descritores
+  req.body["Descritores"] = descritores
+  
   axios.post("http://localhost:5555/acordaos", req.body)
     .then(acordao => {
       //res.render('editConfirm', {a: acordao})

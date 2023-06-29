@@ -1,7 +1,7 @@
 var Arcordaos = require('../models/acordaos')
 
 module.exports.list = (limit, next_id) =>{
-    return Arcordaos.find({'_id': {'$gte': next_id}}, {"Processo":1, "Data do Acordão":1, "tribunal":1,"Relator":1, "Descritores":1}).sort("_id").limit(limit)
+    return Arcordaos.find({'_id': {'$gte': next_id}}, {"Processo":1, "Data do Acordão":1, "Relator":1, "Descritores":1}).sort("_id").limit(limit)
                 .then(dados=>{
                     return dados
                 }
@@ -33,7 +33,7 @@ module.exports.acordaosDataDesde = (data, limit, next_id) =>{
                                             ]
                                         }
                                     }
-                         }],{"Processo":1, "Data do Acordão":1, "tribunal":1, "Relator":1, "Descritores":1}).sort("_id").limit(limit)
+                         }],{"Processo":1, "Data do Acordão":1, "Relator":1, "Descritores":1}).sort("_id").limit(limit)
                 .then(dados=>{
                     return dados
                 }
@@ -47,9 +47,11 @@ module.exports.acordaosFilter = (queries, limit, next_id, pageDirection) => {
     delete queries.page
     delete queries.pageDirection
 
+    console.log(next_id, pageDirection)
+
     if (!pageDirection) {
         queries["_id"] = {'$lt': next_id}
-        return Arcordaos.find(queries, {"Processo":1}).sort({_id:-1}).limit(limit)
+        return Arcordaos.find(queries, {"Processo":1, "Data do Acordão":1, "Relator":1, "Descritores":1}).sort({_id:-1}).limit(limit)
                     .then(dados=>{
                         return dados
                     })
@@ -59,7 +61,7 @@ module.exports.acordaosFilter = (queries, limit, next_id, pageDirection) => {
     }
     else{
         queries["_id"] = {'$gt': next_id}
-        return Arcordaos.find(queries, {"Processo":1}).sort({_id:1}).limit(limit)
+        return Arcordaos.find(queries, {"Processo":1, "Data do Acordão":1, "Relator":1, "Descritores":1}).sort({_id:1}).limit(limit)
                     .then(dados=>{
                         return dados
                     }
