@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+    background-color: darkgrey;
+}
+body {
+    background-color: darkgray;
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  }
+  
+  a {
+    color: white;
+  }
+
+  a#header {
+    display: flex;
+    flex-direction: row;
+    
+  }
+
+  button#erase {
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    max-height: 100%;
+  }
+
+  button#pag:hover {
+    transform: scale(1.1), ;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+  button#pag {
+    background-color: #c5c1c0;
+    padding: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .w3-container#pag {
+    margin-top: 10px;
+  }
+
+  div#form {
+    height: 100%;
+    margin: 10px;
+    display: flex;
+    flex-direction: row
+  }
+
+
+  img#erase {
+    background-color: #c5c1c0;
+    max-height: 100%;
+    max-width: 25px;
+  }
+
+  img#pag {
+    max-height: 25px;
+    max-width: 20px;
+  }
+
+  input#Submit:hover{
+    transform: scale(1.1), ;
+    box-shadow: 0 0 10px #9e9e9e;
+  }
+  
+  input#Submit {
+    max-height: 100%;
+    background-color: #c5c1c0;
+    padding: 4px;
+    border-color: white;
+  }
+
+.w3-light-rose,.w3-hover-light-rose:hover{color:#fff!important;background-color: #1A2930!important}
