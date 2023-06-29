@@ -522,12 +522,12 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
-.mt-1 {
-  margin-top: 0.25rem;
-}
-
 .block {
   display: block;
+}
+
+.flex {
+  display: flex;
 }
 
 .table {
@@ -548,13 +548,15 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-a {
-  color: white;
-}
-
 a#header {
+  text-decoration: none;
   display: flex;
   flex-direction: row;
+}
+
+a {
+  text-decoration: underline;
+  color: white;
 }
 
 button#erase {
@@ -599,6 +601,10 @@ img#pag {
   max-width: 20px;
 }
 
+input#campo {
+  max-height: 100%;
+}
+
 input#Submit:hover{
   transform: scale(1.1), ;
   box-shadow: 0 0 10px #9e9e9e;
@@ -606,12 +612,18 @@ input#Submit:hover{
 
 input#Submit {
   max-height: 100%;
+  align-items: flex-start;
   background-color: #c5c1c0;
   padding: 4px;
   border-color: white;
 }
 
-.w3-light-rose,.w3-hover-light-rose:hover{
+tr#campos {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.w3-blue-dark,.w3-hover-blue-dark:hover{
   color:#fff!important;
-  background-color: #1A2930!important
+  background-color: #252525!important
 }

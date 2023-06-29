@@ -87,6 +87,9 @@ router.post('/edit/:id', function(req, res) {
 
 
 router.post('/add', function(req, res) {
+  const _id = parseInt(req.body._id)
+  delete req.body._id
+  req.body["_id"] = _id
   axios.post("http://localhost:5555/acordaos", req.body)
     .then(acordao => {
       //res.render('editConfirm', {a: acordao})
