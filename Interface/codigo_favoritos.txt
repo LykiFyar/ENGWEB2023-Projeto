@@ -1,0 +1,27 @@
+--------------------                            #html:                     -------------------------
+
+<div class="star"></div>
+
+--------------------                            #css:                      -------------------------
+
+.star {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-image: url('https://static.vecteezy.com/system/resources/previews/000/362/844/original/star-vector-icon.jpg'); /* imagem da estrela vazia */
+  background-size: cover;
+  cursor: pointer;
+}
+
+.star:hover, .star.selected {
+  background-image: url('https://pngimg.com/uploads/star/star_PNG41474.png'); /* imagem da estrela amarela */
+}
+
+--------------------                            #js:                        -------------------------
+
+const star = document.querySelector('.star');
+
+star.addEventListener('click', function() {
+  star.classList.toggle('selected');
+});
+

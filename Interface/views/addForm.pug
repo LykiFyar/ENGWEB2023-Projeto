@@ -1,13 +1,14 @@
 extends layout
 block content
     .w3-card-4
-        header.w3-container.w3-teal
+        header.w3-container.w3-gray
             h2 Adicionar Acordão
         
         form.w3-container(method="POST" action="/add")
             fieldset
                 legend Formulário
                 label Id *
+                input.w3-input.w3-round(type="number" name="_id")
                 input.w3-input.w3-round(type="number" name="_id")
                 label Processo *
                 input.w3-input.w3-round(type="text" name="Processo", required)

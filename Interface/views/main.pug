@@ -9,6 +9,7 @@ block content
   -var hideNextButton = page==processos.length && pageDirection ? 'none' : 'flex' 
   -var campos= ["Processo","Relator","Descritores"]
 
+
   header.w3-bar.w3-teal.w3-wide.w3-card
     a.w3-bar-item
       img(src='/images/themis.ico', alt='Logo', style='max-height: 30px; margin-right: 10px')
@@ -23,54 +24,60 @@ block content
   body.w3-container
     .w3-container-4.w3-right(style='width:70%') 
       .w3-container
-        if processos.length > 0 
-          table.w3-table-all
+        table.w3-table-all
+          tr
+            th Processo
+            th Data
+            th Tribunal
+            th Relator
+            th Descritores
+          each processo in processos
             tr
-              th Processo
-              th Data do Acordão
-              //th Tribunal
-              th Relator
-              th Descritores
-            each processo in processos
-              tr
-                td #[a(href="/acordaos/"+processo._id+"?prevUrl="+originalUrl)= processo.Processo]
-                td= processo['Data do Acordão']
-                //td= processo.tribunal
-                td= processo.Relator
-                td= processo.Descritores
+              td #[a(href="/acordaos/"+processo._id)= processo.Processo]
+              td= processo['Data do Acordão']
+              td= processo.tribunal
+              td= processo.Relator
+              td= processo.Descritores
+              if admin
+                  td
+                    button.w3-btn.w3-round.w3-indigo.w3-margin-right  
+                        a(href="/retrieveList/" + processo._id) Edit
+                    button.w3-btn.w3-round.w3-indigo.w3-margin-right  
+                        a(href="#") Delete
 
-          .w3-container(style='max-height: 30px;').w3-center
-            button(onclick=`loadPagina(${prevPage},${pageDirection=false},'${JSON.stringify(queries)}')` style=`display: ${hidePrevButton}; justify-content: center; align-items: center;`).w3-left
-              img(src='/images/esquerda.ico', alt='pagEsquerda', style='max-height: 20px; max-width: 25px')
 
-            h5.w3-center #{page}
-            
-            button(onclick=`loadPagina(${nextPage},${pageDirection=true},'${JSON.stringify(queries)}')` style=`display: ${hideNextButton}; justify-content: center; align-items: center;`).w3-right
-              img(src='/images/direita.ico', alt='pagDireita', style='max-height: 20px; max-width: 25px')
-        
-        else
-          h5.w3-center Não foram encontrados registos!
+        .w3-container(style='max-height: 30px;').w3-center
+          button#pag(onclick=`loadPagina(${prevPage},${pageDirection=false},'${JSON.stringify(queries)}')` style=`display: ${hidePrevButton}`).w3-left
+            img#pag(src='/images/esquerda.ico', alt='pagEsquerda')
+
+          input#pag.w3-center(value='Página '+page readonly)
+          
+          butto#pag(onclick=`loadPagina(${nextPage},${pageDirection=true},'${JSON.stringify(queries)}')` style=`display: ${hideNextButton}`).w3-right
+            img#pag(src='/images/direita.ico', alt='pagDireita')
+
+
 
     .w3-container-4.w3-left(style='width:10%; margin-left:15px')
         form(action='/acordaos', style="margin")
   
           each campo in campos
-            div#form(style="display: flex; align-items: center;") 
-              input#campo( type='text', name=campo, placeholder=campo)
-              button(onclick=`document.getElementById(${campo}).value = ''`, style="display: flex; justify-content: center; align-items: center;")                 
-                img(src='/images/erase.ico', alt='Limpar', style='max-height: 22px;')
-              
-          div#form(style="display: flex;align-items: center;")
-            select#tribunal(style="max-width:153%")
-              option(value='') Selecionar Tribunal
-              each v, key in tribunais
-                option(value=v) #{key}
-                
-            button(onclick=`document.getElementById('tribunal').value = ''`, style="display: flex; justify-content: center; align-items: center;")
-              img(src='/images/erase.ico', alt='Limpar', style='max-height: 22px;')
+            div#form
+              input#campo(type='text', name=campo, placeholder=campo, value=queries.campo)
+              button#erase(onclick=`document.getElementById(${campo}).value = ''`) 
+                img#erase(src='/images/erase.ico', alt='Limpar')
           
-          div#form(style="display: flex; align-items: center;")
-            input(type='submit', value='Submit')  
+          div#form
+            - var tribunal = ["Trib. Porto", "Trib. Lisboa", "Trib. Coimbra", "Trib. Leiria addddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"]
+            select#tribunal(style="max-width:153%")
+              option(value='all')= "- Todos os tribunais -" + "   "
+              each t in tribunal
+                option(value=t) #{t}
+                
+            button#erase(onclick="document.getElementById('tribunal').value = ''")
+              img#erase(src='/images/erase.ico', alt='Limpar')
+          
+          div#form
+            input#Submit(type='submit', value='Submit')  
     
         script.
           document.querySelector('form').addEventListener('submit', function(event) {
@@ -78,5 +85,5 @@ block content
             selectElement.setAttribute('name', 'tribunal');
           });
 
-  footer.w3-container.w3-teal
+  footer.w3-container.w3-blue-dark
     h5 &COPY Generated by João Braga, Rafael Ferreira, Marta Sá :: EngWeb2023
