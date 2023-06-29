@@ -18,18 +18,18 @@ var campos = ['Nº do Documento',' Nº Convencional','Data da Decisão','Data','
 /* GET home page. */
 router.get('/acordaos', function(req, res, next) {
   let page = req.query.page ? req.query.page : 0
-  let nextPage = req.query.nextPage ? req.query.nextPage : true
+  let pageDirection = req.query.pageDirection ? JSON.parse(req.query.pageDirection) : true
 
   query = ''
   for (let key in req.query){
-    if (req.query[key] != '' && key != "page" && key != "nextPage"){
+    if (req.query[key] != '' && key != "page" && key != "pageDirection"){
         query += key + "=" + req.query[key] + "&"
     }
 }
 
-  axios.get("http://localhost:5555/acordaos?"+query+"page="+page+"&nextPage="+nextPage)
+  axios.get("http://localhost:5555/acordaos?"+query+"page="+page+"&pageDirection="+pageDirection)
     .then(dados=>{
-      res.render('main', { processos: dados.data, page: page, queries: req.query });
+      res.render('main', { processos: dados.data, queries: req.query, page: page, pageDirection: pageDirection});
     })
     .catch(erro=>{
       res.render('error', { error: erro,message:"Erro a obter lista de acordaos" });

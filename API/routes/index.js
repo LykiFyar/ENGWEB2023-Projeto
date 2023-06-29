@@ -1,24 +1,21 @@
 var express = require('express');
 var router = express.Router();
 var Acordaos = require('../controler/acordaos');
+const acordaos = require('../models/acordaos');
 
-var aaa = 1
+var next_id = 0
 
 /* GET home page. */
 router.get('/acordaos', function(req, res) {
   var nQueries = Object.keys(req.query).length;
+  var pageDirection = JSON.parse(req.query.pageDirection) 
   var pageNumber = req.query.page
-  var nextPage = "undefined" 
-  if (aaa != 1){
-    nextPage = req.query.nextPage 
-  } 
   var limit = 7
-
 
   if(req.query.desde){
     Acordaos.acordaosDataDesde(req.query.desde,limit,next_id)
         .then(acordao=>{
-          next_id = acordao[limit-2]["_id"]
+          next_id = acordao[acordaos.length - 1]["_id"]
           res.json(acordao)
         })
         .catch(erro=>{
@@ -26,49 +23,41 @@ router.get('/acordaos', function(req, res) {
         })
   }
   else if (nQueries > 2) {
-    delete req.query.page
-    delete req.query.nextPage
-
-    if(nextPage == "true"){
-      Acordaos.acordaosFilter(req.query,limit,next_id,nextPage)
+    if(pageDirection){
+      Acordaos.acordaosFilter(req.query,limit,next_id,pageDirection)
       .then(acordaos=>{
-        console.log(acordaos.length)
-        next_id = acordaos[acordaos.length - 1]["_id"]
-        prev_id = acordaos[0]["_id"]
-        res.json(acordaos)
+        if(acordaos.length > 0){
+          next_id = acordaos[acordaos.length - 1]["_id"]
+          prev_id = acordaos[0]["_id"]
+          res.json(acordaos)
+        }
+        res.json({ message: "Não foram encontrados registos"})
       })
       .catch(erro=>{
         res.status(602).json({ message: "Erro a obter acordãos com os filtros aplicados",error:erro })
       })
-    } else if(nextPage == "false") {
-      Acordaos.acordaosFilter(req.query,limit,prev_id,nextPage)
+    } 
+    else {
+      Acordaos.acordaosFilter(req.query,limit,prev_id,pageDirection)
       .then(acordaos=>{
-        acordaos = acordaos.sort((a,b) => {
-          if (a._id < b._id){
-            return -1
-          }
-        })
-        next_id = acordaos[acordaos.length - 1]["_id"]
-        prev_id = acordaos[0]["_id"]
-        res.json(acordaos)
+        if(acordaos.length > 0){
+          acordaos = acordaos.sort((a,b) => {
+            if (a._id < b._id){
+              return -1
+            }
+          })
+          next_id = acordaos[acordaos.length - 1]["_id"]
+          prev_id = acordaos[0]["_id"]
+          res.json(acordaos)
+        }
+        res.json({ message: "Não foram encontrados registos"})
       })
       .catch(erro=>{
         res.status(602).json({ message: "Erro a obter acordãos com os filtros aplicados",error:erro })
       })
-    } else {
-      Acordaos.acordaosFilter(req.query,limit,0,"true")
-      .then(acordaos=>{
-        next_id = acordaos[acordaos.length - 1]["_id"]
-        prev_id = acordaos[0]["_id"]
-        aaa = 2
-        res.json(acordaos)
-      })
-      .catch(erro=>{
-        res.status(602).json({ message: "Erro a obter acordãos com os filtros aplicados",error:erro })
-      })
-    }
+    } 
   }
-  else  { 
+  else { 
     next_id = limit * pageNumber
     Acordaos.list(limit, next_id)
       .then(acordaos=>{

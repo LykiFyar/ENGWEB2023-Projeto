@@ -3,6 +3,9 @@ block content
 
   -var nextPage = page==processos.length ? processos.length : parseInt(page,10)+1 
   -var prevPage = page==0 ? 0 : parseInt(page,10)-1 
+  -var hidePrevButton = page==0 && pageDirection ? 'none' : 'flex' 
+  -var hideNextButton = page==processos.length && pageDirection ? 'none' : 'flex' 
+
 
   header.w3-bar.w3-teal.w3-wide.w3-card
     a.w3-bar-item
@@ -37,13 +40,12 @@ block content
                     button.w3-btn.w3-round.w3-indigo.w3-margin-right  
                         a(href="#") Delete
         .w3-container(style='max-height: 30px;').w3-center
-          button(onclick=`loadPagina(${prevPage},'nextPage=false','${JSON.stringify(queries)}')` style="display: flex; justify-content: center; align-items: center;").w3-left
+          button(onclick=`loadPagina(${prevPage},${pageDirection=false},'${JSON.stringify(queries)}')` style=`display: ${hidePrevButton}; justify-content: center; align-items: center;`).w3-left
             img(src='/images/esquerda.ico', alt='pagEsquerda', style='max-height: 20px; max-width: 25px')
 
-          //input#pag(type='text', name='pag', placeholder='página atual: '+ getNumeroPaginaAtual).w3-center
-          //button(onclick='loadPagina(\"' + pag + '\")').w3-center Saltar
-
-          button(onclick=`loadPagina(${nextPage},'nextPage=true','${JSON.stringify(queries)}')` style="display: flex; justify-content: center; align-items: center;").w3-right
+          h5.w3-center #{page}
+          
+          button(onclick=`loadPagina(${nextPage},${pageDirection=true},'${JSON.stringify(queries)}')` style=`display: ${hideNextButton}; justify-content: center; align-items: center;`).w3-right
             img(src='/images/direita.ico', alt='pagDireita', style='max-height: 20px; max-width: 25px')
 
 
