@@ -13,12 +13,16 @@ block content
                 input.w3-input.w3-round(type="date" name="Data do Acordão", required) 
                 label Relator *
                 input.w3-input.w3-round(type="text" name="Relator", required) 
-                label Descritores *
-                input.w3-input.w3-round(type="text" name="Descritores" required)             
                 label Tribunal *
                 input.w3-input.w3-round(type="text" name="tribunal" required) 
-                label Url
-                input.w3-input.w3-round(type="text" name="url") 
+                label Url *
+                input.w3-input.w3-round(type="text" name="url" required) 
+                label Descritores *
+                textarea.w3-input.w3-round(name="Descritores" rows="3" required)
+                .w3-container(style="display: flex; flex-direction: row")
+                    input.w3-input.w3-round(type="text" id="novoDescritor" placeholder="Novo Descritor" style="width:80%; margin:10px").w3-left
+                    button.w3-btn.w3-gray(type="button" onclick="adicionarDescritor()" style="width:20%; margin:10px").w3-right Adicionar             
+
                 
                 each c in campos
                     if !['_id','Processo','Data do Acordão','Relator','Descritores','tribunal','url'].includes(c)
