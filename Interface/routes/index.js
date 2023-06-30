@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var env = require('../config/env')
 var axios = require("axios")
 
 
@@ -89,6 +90,10 @@ router.get('/login', function(req, res){
   res.render('loginForm')
 })
 
+router.get('/register', function(req, res){           
+  res.render('registerForm')
+})
+
 
 router.post('/edit/:id', function(req, res) {
   const descritores = req.body.Descritores.split('\n').map(linha => linha.toUpperCase())
@@ -126,19 +131,29 @@ router.post('/add', function(req, res) {
 })
 
 
-/*
+
 router.post('/login', function(req, res){
-  axios.post('http://localhost:5557/users/login', req.body)
+  axios.post(env.authAccessPoint +'/login', req.body)
     .then(response => {
       res.cookie('token', response.data.token)
-      res.redirect('/')
+      res.redirect('/acordaos')
     })
     .catch(e =>{
       res.render('error', {error: e, message: "Credenciais inválidas"})
     })
 })
 
+router.post("/register", (req, res) => {
+  axios.post(env.authAccessPoint + "/register", req.body)
+    .then(response => {
+      res.redirect('/')
+    })
+    .catch(err => {
+      res.render('error', {error: err})
+    })
+})
 
+/*
 router.get('/logout', verificaToken, (req, res) => {
   res.cookie('token', "revogado.revogado.revogado")
   res.redirect('/')
