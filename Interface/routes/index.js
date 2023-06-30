@@ -35,7 +35,7 @@ router.get('/acordaos', function(req, res, next) {
 
   axios.get("http://localhost:5555/acordaos?"+query+"page="+page+"&pageDirection="+pageDirection)
     .then(dados=>{
-      res.render('main', { processos: dados.data, queries: req.query, page: page, pageDirection: pageDirection, tribunais: tribunais, originalUrl: req.originalUrl});
+      res.render('main', { processos: dados.data, queries: req.query, page: page, pageDirection: pageDirection, tribunais: tribunais});
     })
     .catch(erro=>{
       res.render('error', { error: erro,message:"Erro a obter lista de acordaos" });
@@ -44,8 +44,6 @@ router.get('/acordaos', function(req, res, next) {
 
 
 router.get('/acordaos/:id', function(req, res, next) {
-
-  prevUrl = req.query.prevUrl
   for (let key in req.query){
     if (key != "prevUrl" && key != "page" && key != "pageDirection")
       prevUrl += key + "=" + req.query[key] + "&"
@@ -53,7 +51,7 @@ router.get('/acordaos/:id', function(req, res, next) {
 
   axios.get("http://localhost:5555/acordaos/"+req.params.id)
       .then(acordao=>{
-        res.render('pagAcordao', { acordao: acordao.data, tribunais: tribunais, prevUrl: prevUrl});
+        res.render('pagAcordao', { acordao: acordao.data, tribunais: tribunais});
       })
       .catch(erro=>{
         res.render('error', { error: erro,message:"Erro a obter a página do acordao" });    

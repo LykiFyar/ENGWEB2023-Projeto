@@ -1,21 +1,22 @@
 extends layout
 block content
 
-  //h1 #{originalUrl}
 
   -var nextPage = page==processos.length ? processos.length : parseInt(page,10)+1 
   -var prevPage = page==0 ? 0 : parseInt(page,10)-1 
-  -var hidePrevButton = page==0 && pageDirection ? 'none' : 'flex' 
-  -var hideNextButton = page==processos.length && pageDirection ? 'none' : 'flex' 
+  
+  -var hidePrevButton = page==0 ? 'none' : 'flex' 
+  -var hideNextButton = page==processos.length ? 'none' : 'flex'
+
   -var campos= ["Processo","Relator","Descritores"]
 
 
   header.w3-bar.w3-blue-dark.w3-wide.w3-card
     a.w3-bar-item
-      img(src='/images/themis.ico', alt='Logo', style='max-height: 30px; margin-right: 10px')
-      | EW - Sistema de Acordãos
+      img.w3-left(src='/images/themis.ico', alt='Logo', style='max-height: 30px; margin: 10px')
+      h5.w3-left(style="margin: 10px") EW - Sistema de Acordãos
 
-    .w3-right.w3-hide-small(style='margin-right: 15px')
+    .w3-right.w3-hide-small(style='margin: 10px; margin-right: 15px')
       a.w3-bar-item.w3-button(href='/alteracoes') SUGERIR ALTERAÇÕES
       a.w3-bar-item.w3-button(href='/acordaos') HOME
       a.w3-bar-item.w3-button(href='/login') LOGIN
@@ -39,13 +40,6 @@ block content
                 //td= processo.tribunal
                 td= processo.Relator
                 td= processo.Descritores
-                if admin
-                    td
-                      button.w3-btn.w3-round.w3-indigo.w3-margin-right  
-                          a(href="/retrieveList/" + processo._id) Edit
-                      button.w3-btn.w3-round.w3-indigo.w3-margin-right  
-                          a(href="#") Delete
-
 
           .w3-container(style='max-height: 30px;').w3-center
             button#pag(onclick=`loadPagina(${prevPage},${pageDirection=false},'${JSON.stringify(queries)}')` style=`display: ${hidePrevButton}`).w3-left
@@ -78,7 +72,7 @@ block content
               img#erase(src='/images/erase.ico', alt='Limpar')
           
           div#form
-            input#Submit(type='submit', value='Pesquisar')  
+            input#Submit(type='submit', value='Pesquisar' style="min-width:176%")  
     
         script.
           document.querySelector('form').addEventListener('submit', function(event) {
