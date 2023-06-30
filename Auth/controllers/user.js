@@ -67,7 +67,7 @@ module.exports.updateUserStatus = (id, status) => {
 }
 
 module.exports.updateLastAccess = (id, d) => {
-    return User.updateOne({username:id}, {lastAccess: d})
+    return User.updateOne({_id:id}, {lastAccess: d})
             .then(resposta => {
                 return resposta
             })

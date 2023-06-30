@@ -8,9 +8,9 @@ var next_id = 0
 /* GET home page. */
 router.get('/acordaos', function(req, res) {
   var nQueries = Object.keys(req.query).length;
-  var pageDirection = JSON.parse(req.query.pageDirection)
+  var pageDirection = JSON.parse(req.query.pageDirection) 
   var pageNumber = req.query.page
-  var limit = 7
+  var limit = 8
 
   if(req.query.desde){
     Acordaos.acordaosDataDesde(req.query.desde,limit,next_id)
@@ -31,9 +31,7 @@ router.get('/acordaos', function(req, res) {
           prev_id = acordaos[0]["_id"]
           res.json(acordaos)
         }
-        else{
-          res.json({message: "Não foram encontrados registos"})
-        }
+        res.json({ message: "Não foram encontrados registos"})
       })
       .catch(erro=>{
         res.status(602).json({ message: "Erro a obter acordãos com os filtros aplicados",error:erro })
@@ -52,9 +50,7 @@ router.get('/acordaos', function(req, res) {
           prev_id = acordaos[0]["_id"]
           res.json(acordaos)
         }
-        else{
-          res.json({message: "Não foram encontrados registos"})
-        }
+        res.json({ message: "Não foram encontrados registos"})
       })
       .catch(erro=>{
         res.status(602).json({ message: "Erro a obter acordãos com os filtros aplicados",error:erro })
@@ -62,15 +58,14 @@ router.get('/acordaos', function(req, res) {
     } 
   }
   else { 
-    next_id = limit * pageNumber
+    if (pageNumber == 0){
+      next_id = 0
+    } else{
+      next_id = (limit * pageNumber) - 1      
+    }
     Acordaos.list(limit, next_id)
-      .then(dados=>{
-        if(dados.length > 0){
-          res.json(dados)        
-        }
-        else{
-          res.json({message: "Não foram encontrados registos"})
-        }
+      .then(acordaos=>{
+        res.json(acordaos)
       })
       .catch(erro=>{
         res.status(601).json({ message: "Erro a obter lista de acordãos", error:erro })
