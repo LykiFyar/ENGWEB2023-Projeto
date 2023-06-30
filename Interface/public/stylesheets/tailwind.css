@@ -36,14 +36,8 @@ body {
     }
 
   button#pag {
-    padding: 0px;
-    width: 30px; 
-    height: 30px; 
-    background-size: cover;
-    background-position: center;
     background-color: #c5c1c0;
-    cursor: pointer;
-    border: 0px;
+    padding: 4px;
     display: flex;
     justify-content: center;
     align-items: center;
