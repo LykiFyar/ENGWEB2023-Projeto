@@ -10,7 +10,7 @@ router.get('/acordaos', function(req, res) {
   var nQueries = Object.keys(req.query).length;
   var pageDirection = JSON.parse(req.query.pageDirection)
   var pageNumber = req.query.page
-  var limit = 7
+  var limit = 8
 
   if(req.query.desde){
     Acordaos.acordaosDataDesde(req.query.desde,limit,next_id)
@@ -62,7 +62,11 @@ router.get('/acordaos', function(req, res) {
     } 
   }
   else { 
-    next_id = limit * pageNumber
+    if (pageNumber == 0){
+      next_id = 0
+    } else{
+      next_id = (limit * pageNumber) - 1      
+    }
     Acordaos.list(limit, next_id)
       .then(dados=>{
         if(dados.length > 0){

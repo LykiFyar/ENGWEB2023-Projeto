@@ -6,7 +6,7 @@ block content
   -var prevPage = page==0 ? 0 : parseInt(page,10)-1 
   
   -var hidePrevButton = page==0 ? 'none' : 'flex' 
-  -var hideNextButton = page==processos.length ? 'flex' : 'flex'
+  -var hideNextButton = processos.length > 7 ? 'none' : 'flex'
 
   -var campos= ["Processo","Relator","Descritores"]
 
