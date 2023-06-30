@@ -6,7 +6,7 @@ block content
   -var prevPage = page==0 ? 0 : parseInt(page,10)-1 
   
   -var hidePrevButton = page==0 ? 'none' : 'flex' 
-  -var hideNextButton = page==processos.length ? 'none' : 'flex'
+  -var hideNextButton = page==processos.length ? 'flex' : 'flex'
 
   -var campos= ["Processo","Relator","Descritores"]
 
@@ -33,13 +33,15 @@ block content
               //th Tribunal
               th Relator
               th Descritores
+              th
             each processo in processos
               tr
                 td #[a(href="/acordaos/"+processo._id+"?prevUrl="+originalUrl)= processo.Processo]
                 td= processo['Data do Acordão']
                 //td= processo.tribunal
                 td= processo.Relator
-                td= processo.Descritores
+                td(style='width: 45%; word-wrap: break-word;')= processo.Descritores
+                td #[img#star(src='/images/estrela.png', onmouseover="this.src='/images/estrela2.png'", onmouseout="this.src='/images/estrela.png'", onclick=`adicionarPreferido(${processo._id})`)]
 
           .w3-container(style='max-height: 30px;').w3-center
             button#pag(onclick=`loadPagina(${prevPage},${pageDirection=false},'${JSON.stringify(queries)}')` style=`display: ${hidePrevButton}`).w3-left

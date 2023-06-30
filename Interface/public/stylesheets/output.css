@@ -572,8 +572,14 @@ button#pag:hover {
 }
 
 button#pag {
+  padding: 0px;
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+  background-position: center;
   background-color: #c5c1c0;
-  padding: 4px;
+  cursor: pointer;
+  border: 0px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -599,6 +605,20 @@ img#erase {
 img#pag {
   max-height: 25px;
   max-width: 20px;
+}
+
+img#star {
+  border: 0px;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  background-size: cover;
+  /* Para ajustar o tamanho da imagem */
+  background-position: center;
+  /* Para centralizar a imagem */
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
 }
 
 input#campo {

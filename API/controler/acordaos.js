@@ -1,6 +1,6 @@
 var Acordaos = require('../models/acordaos')
 
-var project = {"Processo":1, "Data do Acordão":1, "Relator":1, "Descritores":1}
+var project = {"Processo":1, "Data do Acordão":1, "tribunal":1,"Relator":1, "Descritores":1}
 /*
 module.exports.list = (limit, next_id) =>{
     return Acordaos.aggregate
