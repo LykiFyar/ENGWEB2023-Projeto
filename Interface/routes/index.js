@@ -4,6 +4,17 @@ var env = require('../config/env')
 var axios = require("axios")
 
 
+function verificaToken(req, res, next) {
+  if(req.cookies && req.cookies.token) next()
+  else {
+    res.redirect("/login")
+  }
+}
+
+function isAdmin() {
+  axios.get()
+}
+
 var campos = ['Nº do Documento',' Nº Convencional','Data da Decisão','Data','Data de Entrada','Votação','Área Temática','Área Temática 2','Privacidade','Legislação Nacional',
               'Meio Processual','Texto Integral','Decisão','Decisão Texto Integral','Sumário',
               'Jurisprudência Nacional','Indicações Eventuais','Legislação Estrangeira',
@@ -94,6 +105,10 @@ router.get('/register', function(req, res){
   res.render('registerForm')
 })
 
+router.get('/', function(req, res) {
+  res.redirect("/acordaos");
+})
+
 
 router.post('/edit/:id', function(req, res) {
   const descritores = req.body.Descritores.split('\n').map(linha => linha.toUpperCase())
@@ -130,8 +145,6 @@ router.post('/add', function(req, res) {
     })
 })
 
-
-
 router.post('/login', function(req, res){
   axios.post(env.authAccessPoint +'/login', req.body)
     .then(response => {
@@ -159,15 +172,6 @@ router.get('/logout', verificaToken, (req, res) => {
   res.redirect('/')
 })
 
-
-router.post('/register', function(req, res) {
-  axios.post("http://localhost:8002/users/register", req.body)
-  .then(response => {
-    res.redirect('/')
-  })
-  .catch(err => {
-    res.render('error', {error: err, message: "Registo inválido"})
-  })
-})*/
+*/
 
 module.exports = router;

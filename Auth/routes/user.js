@@ -7,14 +7,19 @@ var auth = require('../auth/auth')
 
 var User = require('../controllers/user')
 
+router.get('/isAdmin', auth.verificaAcesso, function(req, res){
+  console.log(req.payload.level)
+  res.jsonp({isAdmin: (req.payload.level === "admin" ? true : false)})
+})
+
 router.get('/', auth.verificaAcesso, function(req, res){
   User.list()
     .then(dados => res.status(200).jsonp({dados: dados}))
     .catch(e => res.status(500).jsonp({error: e}))
 })
 
-router.get('/:id', auth.verificaAcesso, function(req, res){
-  User.getUser(req.params.id)
+router.get('/:username', auth.verificaAcesso, function(req, res){
+  User.getUser(req.params.username)
     .then(dados => res.status(200).jsonp({dados: dados}))
     .catch(e => res.status(500).jsonp({error: e}))
 })
@@ -60,6 +65,7 @@ router.post('/login', passport.authenticate('local'), function(req, res){
       else {
         User.updateLastAccess(req.user.username, d)
           .then(dados => {
+            console.log(token)
             res.status(201).jsonp({token: token})
           })
           .catch((e) => {
