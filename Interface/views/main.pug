@@ -42,10 +42,10 @@ block content
                 td= processo.Relator
                 td(style='width: 45%; word-wrap: break-word;')= processo.Descritores
 
-                - var corAmarela = processo in getUserFavourites()
-                if true //aqui tenho que ver se o acordao esta nos favoritos this.user.favs 
+                - var corAmarela = processo._id in favoritos.map(a => a._id)
+                if corAmarela
                   td #[img#star(src='/images/estrela2.png', onmouseover="this.src='/images/estrela2.png'", onclick=`removerPreferido(${processo});${corAmarela=false}`)]
-                else !corAmarela // senao esta nos favoritos
+                else 
                   td #[img#star(src='/images/estrela.png', onmouseover="this.src='/images/estrela2.png'", onmouseout="this.src='/images/estrela.png'", onclick=`adicionarPreferido(${processo});${corAmarela=true}`)]
                 script(src='../public/javascripts/script.js')
                 

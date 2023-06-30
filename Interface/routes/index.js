@@ -45,9 +45,14 @@ router.get('/acordaos', function(req, res, next) {
     }
   }
 
+  favorites = []
+  axios.get(env.authAccessPoint + '/favorites?token=' + req.cookies.token)
+    .then(favs => favorites = favs)
+    .catch(err => console.log(err))
+
   axios.get("http://localhost:5555/acordaos?"+query+"page="+page+"&pageDirection="+pageDirection)
     .then(dados=>{
-      res.render('main', { processos: dados.data, queries: req.query, page: page, pageDirection: pageDirection, tribunais: tribunais});
+      res.render('main', { processos: dados.data, queries: req.query, page: page, pageDirection: pageDirection, tribunais: tribunais, favoritos: favorites});
     })
     .catch(erro=>{
       res.render('error', { error: erro,message:"Erro a obter lista de acordaos" });

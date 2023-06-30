@@ -10,7 +10,12 @@ var userSchema = new mongoose.Schema({
     active: Boolean,
     dateCreated: String,
     lastAccess: String,
-    favorites: [Number]
+    favorites: [
+      {
+        _id: Number,
+        note: String
+      }
+    ]
   });
 
 userSchema.plugin(passportLocalMongoose);

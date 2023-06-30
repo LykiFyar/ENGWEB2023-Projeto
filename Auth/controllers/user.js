@@ -25,8 +25,8 @@ module.exports.getUser = username => {
             })
 }
 
-module.exports.getUserFavorites = username => {
-    return User.findOne({username:username}, {_id:0, favorites:1}).favorites
+module.exports.getUserFavorites = usr => {
+    return User.findOne({username:usr}, {_id:0, favorites:1}).favorites
             .then(resposta => {
                 return resposta
             })
@@ -34,6 +34,18 @@ module.exports.getUserFavorites = username => {
                 return erro
             })
 }
+
+/*
+module.exports.getUserFavoritesIDS = username => {
+    return User.findOne({username:username}, {_id:0, favorites:1}).favorites.find({},{_id:1})
+            .then(resposta => {
+                return resposta
+            })
+            .catch(erro => {
+                return erro
+            })
+}
+*/
 
 module.exports.addUser = u => {
     return User.create(u)
@@ -47,7 +59,7 @@ module.exports.addUser = u => {
 
 
 module.exports.updateUser = (id, info) => {
-    return User.updateOne({_id:id}, info)
+    return User.updateOne({username:id}, info)
             .then(resposta => {
                 return resposta
             })
@@ -57,7 +69,7 @@ module.exports.updateUser = (id, info) => {
 }
 
 module.exports.updateUserStatus = (id, status) => {
-    return User.updateOne({_id:id}, {active: status})
+    return User.updateOne({username:id}, {active: status})
             .then(resposta => {
                 return resposta
             })
@@ -67,7 +79,7 @@ module.exports.updateUserStatus = (id, status) => {
 }
 
 module.exports.updateLastAccess = (id, d) => {
-    return User.updateOne({_id:id}, {lastAccess: d})
+    return User.updateOne({username:id}, {lastAccess: d})
             .then(resposta => {
                 return resposta
             })
@@ -77,7 +89,7 @@ module.exports.updateLastAccess = (id, d) => {
 }
 
 module.exports.updateUserPassword = (id, pwd) => {
-    return User.updateOne({_id:id}, pwd)
+    return User.updateOne({username:id}, pwd)
             .then(resposta => {
                 return resposta
             })
@@ -86,8 +98,8 @@ module.exports.updateUserPassword = (id, pwd) => {
             })
 }
 
-module.exports.addFavorite = (id, obj) => {
-    return User.updateOne({_id:id}, {$push : {favorites : obj}})
+module.exports.addFavorite = (id, idAcord, note) => {
+    return User.updateOne({username:id}, {$push : {favorites : {_id:idAcord, note:note}}})
             .then(resposta => {
                 return resposta
             })
@@ -97,7 +109,7 @@ module.exports.addFavorite = (id, obj) => {
 }
 
 module.exports.removeFavorite = (id, idAcord) => {
-    return User.updateOne({_id:id}, {$pull : {favorites : {id: idAcord}}})
+    return User.updateOne({username:id}, {$pull : {favorites : {_id: idAcord}}})
             .then(resposta => {
                 return resposta
             })
@@ -107,7 +119,7 @@ module.exports.removeFavorite = (id, idAcord) => {
 }
 
 module.exports.updateFavoriteNote = (id, idAcord, newnote) => {
-    return User.updateOne({_id:id, "favorites.id": idAcord}, {$set : {"favorites.$.note" : newnote}})
+    return User.updateOne({username:id, "favorites._id": idAcord}, {$set : {"favorites.$.note" : newnote}})
             .then(resposta => {
                 return resposta
             })
@@ -117,7 +129,7 @@ module.exports.updateFavoriteNote = (id, idAcord, newnote) => {
 }
 
 module.exports.deleteUser = id => {
-    return User.deleteOne({_id:id})
+    return User.deleteOne({username:id})
             .then(resposta => {
                 return resposta
             })
