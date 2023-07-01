@@ -60,7 +60,7 @@ router.post('/updatefavorite/:id', auth.verificaAcesso, function(req, res){
     .catch(e => res.status(506).jsonp({error: e}))
 })
 
-router.post('/register', auth.verificaAcesso, function(req, res) {
+router.post('/register', function(req, res) {
   var d = new Date().toISOString().substring(0,19)
   userModel.register(new userModel({ username: req.body.username, filiation: req.body.filiation, name: req.body.name, 
                                       level: req.body.level, active: true, dateCreated: d, favorites: [] }), 

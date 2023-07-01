@@ -33,9 +33,6 @@ var tribunais= {"Tribunal Constitucional": "atco1", "Tribunal dos Conflitos": "j
                 "Tribunal da Relação de Guimarães": "jtrg", "Tribunal da Relação de Lisboa": "jtrl", "Tribunal da Relação de Porto": "jtrp" } 
 
 
-var id = 4000000
-
-
 /* GET home page. */
 router.get('/acordaos', function(req, res, next) {
   let page = req.query.page ? req.query.page : 0
@@ -91,6 +88,7 @@ router.get('/delete/:id', function(req, res) {
   res.redirect('/acordaos');
 });
 
+
 router.get('/add', function(req, res) {
   axios.get("http://localhost:5555/acordaos/total")
   .then(total => {      
@@ -102,11 +100,6 @@ router.get('/add', function(req, res) {
     res.render('error', {error: erro, message: "Erro ao atribuir id"})
 })
 });
-
-
-router.get('/alteracoes', function(req, res){
-  res.render('alteracoes')
-})
 
 
 router.get('/login', function(req, res){           
@@ -186,5 +179,67 @@ router.get('/logout', verificaToken, (req, res) => {
 })
 
 */
+
+router.get('/sugestoes', function(req, res, next) {
+  let page = req.query.page ? req.query.page : 0
+
+  axios.get("http://localhost:5555/sugestoes?page="+page)
+    .then(dados=>{
+      nRegistos = dados.data[0].message ? 0 : dados.data.length
+      res.render('sugestoes', { sugestoes: dados.data.slice(0,7), nRegistos: nRegistos, page: page});
+    })
+    .catch(erro=>{
+      res.render('error', { error: erro, message:"Erro a obter lista de sugestoes" });
+    })
+})
+
+
+router.get('/sugestoes/:id', function(req, res, next) {
+  axios.get("http://localhost:5555/sugestoes/"+req.params.id)
+      .then(sugestao=>{
+        res.render('pagSugestao', { sugestao: sugestao.data});
+      })
+      .catch(erro=>{
+        res.render('error', { error: erro,message:"Erro a obter a página do acordao" });    
+      })  
+})
+
+
+router.get('/add/sugestoes', function(req, res){
+  axios.get("http://localhost:5555/sugestoes/total")
+    .then(total => {      
+      console.log(total.data[0]._id)
+      const _id = total.data[0]._id+1
+      res.render('sugestoesForm', {id: _id})
+    })
+    .catch(erro => {
+      res.render('error', {error: erro, message: "Erro ao atribuir id de sugestão"})
+  })
+})
+
+
+router.post('/add/sugestao', function(req, res) {
+  const id = parseInt(req.body._id)
+  delete req.body._id
+  req.body["_id"] = id
+
+  const dataSubmissao = new Date()
+  req.body["Data de Submissão"] = dataSubmissao
+
+  axios.post("http://localhost:5555/sugestoes", req.body)
+    .then(acordao => {
+      res.redirect('/sugestoes')
+    })
+    .catch(erro => {
+      res.render('error', {error: erro, message: "Erro no envio de sugestao"})
+    })
+})
+
+
+router.get('/delete/sugestao/:id', function(req, res) {
+  axios.delete("http://localhost:5555/sugestoes/"+req.params.id)
+  res.redirect('/sugestoes');
+});
+
 
 module.exports = router;

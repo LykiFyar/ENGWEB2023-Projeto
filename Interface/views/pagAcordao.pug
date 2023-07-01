@@ -2,11 +2,11 @@ extends layout
 block content
     .w3-card-4
         header.w3-container.w3-gray
-            h1(style="color:blue-dark") Acordão: #{acordao._id}
+            h1(style="color:blue-dark") Acordão
             a.w3-bar-item.w3-button.w3-gray(href="/edit/"+acordao._id, style="margin-top: 10px") EDIT
             a.w3-bar-item.w3-button.w3-gray(href="/delete/"+acordao._id, style="margin-top: 10px") DELETE
 
-        form#acordaos.w3-container
+        form#acordaos.w3-container(style="padding-top:90px; padding-bottom:20px")
             fieldset 
                 tr#campos
                     label#campos Processo
@@ -16,10 +16,7 @@ block content
                     input.w3-input.w3-round#descricao(type="text" value= acordao['Data do Acordão'] readonly)
                 tr#campos
                     label#campos Relator:         
-                    input.w3-input.w3-round#descricao(type="text" value= acordao.Relator readonly)
-                tr#campos
-                    label#campos Descritores:
-                    input.w3-input.w3-round#descricao(type="text" value= acordao.Descritores readonly) 
+                    input.w3-input.w3-round#descricao(type="text" value= acordao.Relator readonly)  
                 tr#campos
                     label#campos tribunal:
                     each value, key in tribunais
@@ -28,11 +25,21 @@ block content
                 tr#campos
                     label#campos Url:
                     input.w3-input.w3-round#descricao(type="text" value= acordao.url readonly)
+                
+                tr#campos
+                    label#campos Descritores:
+                    textarea.w3-input.w3-round(name="Descritores" rows="3" readonly)
+                        each desc in acordao.Descritores
+                            | #{'\n'+desc} 
+
                 each value, key in acordao
                     if value && !['_id','Processo','Data do Acordão','Relator','Descritores','tribunal','url'].includes(key)
                         tr#campos
-                            label#campos #{key}:
-                            input.w3-input.w3-round#descricao(type="text" value= value readonly)
+                            label#campos #{key}
+                            if ['Decisão','Sumário','Decisão Texto Integral'].includes(key)
+                                textarea.w3-input.w3-round#descricao(readonly) #{value}
+                            else
+                                input.w3-input.w3-round#descricao(type="text" value=value readonly)
     
                 a.w3-button.w3-gray.w3-mb-2(href="Javascript:history.go(-1)") RETURN
 
