@@ -30,7 +30,9 @@ router.get('/favorites', auth.verificaAcesso, function(req, res){
     .catch(e => res.status(504).jsonp({error: e}))
 })
 
-
+router.get('/getUsername', auth.verificaAcesso, function(req, res){
+  res.status(200).jsonp(req.payload.username)
+})
 
 
 router.get('/', auth.verificaAcesso, function(req, res){
