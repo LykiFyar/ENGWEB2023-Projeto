@@ -14,19 +14,20 @@ function loadPagina(page,pageDirection,querieString){
 }
 
 function adicionarDescritor() {
-    var novoDescritor = document.getElementById('novoDescritor').value.trim();
-    if (novoDescritor) {
-      var textarea = document.getElementsByName('Descritores')[0];
-      var descritores = textarea.value.trim();
-      if (descritores) {
-        descritores += '\n' + novoDescritor;
-      } else {
-        descritores = novoDescritor;
-      }
-      textarea.value = descritores;
-      document.getElementById('novoDescritor').value = '';
+  var novoDescritor = document.getElementById('novoDescritor').value.trim();
+  if (novoDescritor) {
+    var textarea = document.getElementsByName('Descritores')[0];
+    var descritores = textarea.value.trim();
+    if (descritores) {
+      descritores += '\n' + novoDescritor;
+    } else {
+      descritores = novoDescritor;
     }
+    textarea.value = descritores;
+    document.getElementById('novoDescritor').value = '';
+  }
 }
+
 
 function removerDescritor() {
   const textarea = document.querySelector('textarea[name="Descritores"]');
@@ -36,4 +37,21 @@ function removerDescritor() {
     valores.splice(indice, 1);
     textarea.value = valores.join("\n");
   }
+}
+
+
+function favoritos(processos){
+  let favoritos_list = []
+  processos.forEach(processo => {
+      if (processo.fav) favoritos_list.push(processo)
+  });
+  return favoritos_list;
+}
+
+function removerPreferido(processo){
+  processo['fav'] = false;
+}
+
+function adicionarPreferido(processo){
+  processo['fav'] = true;
 }

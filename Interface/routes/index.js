@@ -4,6 +4,17 @@ var env = require('../config/env')
 var axios = require("axios")
 
 
+function verificaToken(req, res, next) {
+  if(req.cookies && req.cookies.token) next()
+  else {
+    res.redirect("/login")
+  }
+}
+
+function isAdmin() {
+  axios.get()
+}
+
 var campos = ['Nº do Documento',' Nº Convencional','Data da Decisão','Data','Data de Entrada','Votação','Área Temática','Área Temática 2','Privacidade','Legislação Nacional',
               'Meio Processual','Texto Integral','Decisão','Decisão Texto Integral','Sumário',
               'Jurisprudência Nacional','Indicações Eventuais','Legislação Estrangeira',
@@ -37,10 +48,15 @@ router.get('/acordaos', function(req, res, next) {
     }
   }
 
+  favorites = []
+  axios.get(env.authAccessPoint + '/favorites?token=' + req.cookies.token)
+    .then(favs => favorites = favs)
+    .catch(err => console.log(err))
+
   axios.get("http://localhost:5555/acordaos?"+query+"page="+page+"&pageDirection="+pageDirection)
     .then(dados=>{
       nRegistos = dados.data[0].message ? 0 : dados.data.length
-      res.render('main', { processos: dados.data.slice(0,7), nRegistos: nRegistos, queries: req.query, page: page, pageDirection: pageDirection, tribunais: tribunais});
+      res.render('main', { processos: dados.data.slice(0,7), nRegistos: nRegistos, queries: req.query, page: page, pageDirection: pageDirection, tribunais: tribunais, favoritos: favorites});
     })
     .catch(erro=>{
       res.render('error', { error: erro, message:"Erro a obter lista de acordaos" });
@@ -101,6 +117,10 @@ router.get('/register', function(req, res){
   res.render('registerForm')
 })
 
+router.get('/', function(req, res) {
+  res.redirect("/acordaos");
+})
+
 
 router.post('/edit/:id', function(req, res) {
   const descritores = req.body.Descritores.split('\n').map(linha => linha.toUpperCase())
@@ -138,8 +158,6 @@ router.post('/add', function(req, res) {
     })
 })
 
-
-
 router.post('/login', function(req, res){
   axios.post(env.authAccessPoint +'/login', req.body)
     .then(response => {
@@ -167,15 +185,6 @@ router.get('/logout', verificaToken, (req, res) => {
   res.redirect('/')
 })
 
-
-router.post('/register', function(req, res) {
-  axios.post("http://localhost:8002/users/register", req.body)
-  .then(response => {
-    res.redirect('/')
-  })
-  .catch(err => {
-    res.render('error', {error: err, message: "Registo inválido"})
-  })
-})*/
+*/
 
 module.exports = router;

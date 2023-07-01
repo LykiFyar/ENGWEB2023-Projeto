@@ -39,7 +39,14 @@ block content
                 td= processo['Data do Acordão']
                 td= processo.Relator
                 td(style='width: 45%; word-wrap: break-word;')= processo.Descritores
-                td #[img#star(src='/images/estrela.png', onmouseover="this.src='/images/estrela2.png'", onmouseout="this.src='/images/estrela.png'", onclick=`adicionarPreferido(${processo._id})`)]
+
+                - var corAmarela = processo._id in favoritos.map(a => a._id)
+                if corAmarela
+                  td #[img#star(src='/images/estrela2.png', onmouseover="this.src='/images/estrela2.png'", onclick=`removerPreferido(${processo});${corAmarela=false}`)]
+                else 
+                  td #[img#star(src='/images/estrela.png', onmouseover="this.src='/images/estrela2.png'", onmouseout="this.src='/images/estrela.png'", onclick=`adicionarPreferido(${processo});${corAmarela=true}`)]
+                script(src='../public/javascripts/script.js')
+                
 
           .w3-container(style='max-height: 30px;').w3-center
             button#pag(onclick=`loadPagina(${prevPage},${pageDirection=false},'${JSON.stringify(queries)}')` style=`display: ${hidePrevButton}`).w3-left
