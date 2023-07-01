@@ -24,19 +24,17 @@ block content
     .w3-container-4.w3-right(style='width:100%') 
       .w3-container
         if nRegistos > 0
-          table.w3-table-all
-            tr
-              th Username
-              th Assunto
-              th Data de Submissão
-              th 
-            each sugestao in sugestoes
+          table.w3-table.w3-hoverable
+            thead
               tr
+                th Username
+                th Assunto
+                th Data de Submissão
+            each sugestao in sugestoes
+              tr(onclick=`loadSugestao(${sugestao._id})`)
                 td= sugestao.Username
                 td= sugestao.Assunto
                 td= sugestao['Data de Submissão']
-                td #[a(href="/sugestoes/"+sugestao._id)= "Obter mais"]
-
 
           .w3-container(style='max-height: 30px;').w3-center
             button#pag(onclick=`loadPagina(${prevPage},${pageDirection=false},'${JSON.stringify(queries)}')` style=`display: ${hidePrevButton}`).w3-left

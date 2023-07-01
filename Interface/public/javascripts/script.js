@@ -6,6 +6,9 @@ function loadProcesso(id){
   window.location.href = "http://localhost:5556/acordaos/"+id
 }
 
+function loadSugestao(id){
+  window.location.href = "http://localhost:5556/sugestoes/"+id
+}
 
 function loadPagina(page,pageDirection,querieString){
     const queries = JSON.parse(querieString);
