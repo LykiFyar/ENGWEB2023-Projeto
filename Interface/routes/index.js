@@ -48,15 +48,22 @@ router.get('/acordaos', function(req, res, next) {
     }
   }
 
-  favorites = []
-  axios.get(env.authAccessPoint + '/favorites?token=' + req.cookies.token)
-    .then(favs => favorites = favs)
-    .catch(err => console.log(err))
 
   axios.get("http://localhost:5555/acordaos?"+query+"page="+page+"&pageDirection="+pageDirection)
     .then(dados=>{
       nRegistos = dados.data[0].message ? 0 : dados.data.length
-      res.render('main', { processos: dados.data.slice(0,7), nRegistos: nRegistos, queries: req.query, page: page, pageDirection: pageDirection, tribunais: tribunais, favoritos: favorites});
+      favorites = []
+      
+      axios.get(env.authAccessPoint + '/favorites?token=' + req.cookies.token) 
+      .then(favs => {
+        favorites = favs.data.map(a => a._id)
+        console.log(favorites)
+        res.render('main', { processos: dados.data.slice(0,7), nRegistos: nRegistos, queries: req.query, page: page, pageDirection: pageDirection, tribunais: tribunais, favoritos: favorites, path: req.originalUrl});
+      })
+      .catch(e => {
+        res.render('main', { processos: dados.data.slice(0,7), nRegistos: nRegistos, queries: req.query, page: page, pageDirection: pageDirection, tribunais: tribunais, favoritos: favorites, path: req.originalUrl})
+      })
+      
     })
     .catch(erro=>{
       res.render('error', { error: erro, message:"Erro a obter lista de acordaos" });
@@ -157,6 +164,23 @@ router.post('/add', function(req, res) {
       res.render('error', {error: erro, message: "Erro na criação do acordão"})
     })
 })
+
+router.post('/addfavorite/:id', function(req,res) {
+  if(req.cookies.token) {
+    axios.get(env.authAccessPoint+'/addfavorite/' + req.params.id + "?token=" + req.cookies.token)
+      .then(dados => res.redirect(req.body.path))
+      .catch(err => res.redirect(req.body.path))
+  }
+})
+
+router.post('/removefavorite/:id', function(req,res) {
+  if(req.cookies.token) {
+    axios.delete(env.authAccessPoint+'/deletefavorite/' + req.params.id + "?token=" + req.cookies.token)
+      .then(dados => res.redirect(req.body.path))
+      .catch(err => res.redirect(req.body.path))
+  }
+})
+
 
 router.post('/login', function(req, res){
   axios.post(env.authAccessPoint +'/login', req.body)

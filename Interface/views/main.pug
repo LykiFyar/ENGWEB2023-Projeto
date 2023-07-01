@@ -40,11 +40,17 @@ block content
                 td= processo.Relator
                 td(style='width: 45%; word-wrap: break-word;')= processo.Descritores
 
-                - var corAmarela = processo._id in favoritos.map(a => a._id)
+                - var corAmarela = favoritos.includes(processo._id)
                 if corAmarela
-                  td #[img#star(src='/images/estrela2.png', onmouseover="this.src='/images/estrela2.png'", onclick=`removerPreferido(${processo});${corAmarela=false}`)]
+                  td 
+                    form(action="/removefavorite/" + processo._id, method="POST")
+                      input(type="hidden", value=path, name="path")
+                      button(type="submit") #[img#star(src='/images/estrela2.png', onmouseover="this.src='/images/estrela.png'", onmouseout="this.src='/images/estrela2.png'", onclick=`removerPreferido(${processo._id})`)]
                 else 
-                  td #[img#star(src='/images/estrela.png', onmouseover="this.src='/images/estrela2.png'", onmouseout="this.src='/images/estrela.png'", onclick=`adicionarPreferido(${processo});${corAmarela=true}`)]
+                  td 
+                    form(action="/addfavorite/" + processo._id, method="POST")
+                      input(type="hidden", value=path, name="path")
+                      button(type="submit") #[img#star(src='/images/estrela.png', onmouseover="this.src='/images/estrela2.png'", onmouseout="this.src='/images/estrela.png'", onclick=`adicionarPreferido(${processo._id})`)]
                 script(src='../public/javascripts/script.js')
                 
 

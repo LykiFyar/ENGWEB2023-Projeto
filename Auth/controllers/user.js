@@ -26,9 +26,9 @@ module.exports.getUser = username => {
 }
 
 module.exports.getUserFavorites = usr => {
-    return User.findOne({username:usr}, {_id:0, favorites:1}).favorites
+    return User.findOne({username:usr}, {_id:0, favorites:1})
             .then(resposta => {
-                return resposta
+                return resposta.favorites
             })
             .catch(erro => {
                 return erro

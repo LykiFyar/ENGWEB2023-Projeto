@@ -25,7 +25,6 @@ router.get('/favorites_ids', auth.verificaAcesso, function(req, res){
 })
 */
 router.get('/favorites', auth.verificaAcesso, function(req, res){
-  console.log(req.payload.username)
   User.getUserFavorites(req.payload.username)
     .then(dados => res.status(200).jsonp(dados))
     .catch(e => res.status(504).jsonp({error: e}))
