@@ -54,7 +54,6 @@ router.get('/acordaos', function(req, res, next) {
       axios.get(env.authAccessPoint + '/favorites?token=' + req.cookies.token) 
       .then(favs => {
         favorites = favs.data.map(a => a._id)
-        console.log(favorites)
         res.render('main', { processos: dados.data.slice(0,7), nRegistos: nRegistos, queries: req.query, page: page, pageDirection: pageDirection, tribunais: tribunais, favoritos: favorites, path: req.originalUrl});
       })
       .catch(e => {
@@ -99,7 +98,6 @@ router.get('/delete/:id', function(req, res) {
 router.get('/add', function(req, res) {
   axios.get("http://localhost:5555/acordaos/total")
   .then(total => {      
-    console.log(total.data[0]._id)
     const _id = total.data[0]._id+1
     res.render('addForm', {campos: campos, id: _id});
   })
@@ -108,6 +106,21 @@ router.get('/add', function(req, res) {
 })
 });
 
+router.get('/perfil', function(req, res) {
+  axios.get(env.authAccessPoint + '/getUsername?token=' + req.cookies.token)
+  .then(username => {
+    axios.get(env.authAccessPoint + '/' + username.data + '?token=' + req.cookies.token)
+      .then(user => {
+        res.render('pagUser', {user: user.data["dados"]});
+      })
+      .catch(erro => {
+        res.render('error', {error: erro, message: "Erro na obtenção do user"})
+      })
+  })
+  .catch(erro => {
+    res.render('error', {error: erro, message: "Erro na obtenção do username"})
+  })
+});
 
 router.get('/login', function(req, res){           
   res.render('loginForm')
@@ -232,7 +245,6 @@ router.get('/sugestoes/:id', function(req, res, next) {
 router.get('/add/sugestoes', function(req, res){
   axios.get("http://localhost:5555/sugestoes/total")
     .then(total => {      
-      console.log(total.data[0]._id)
       const _id = total.data[0]._id+1
       res.render('sugestoesForm', {id: _id})
     })
@@ -250,12 +262,20 @@ router.post('/add/sugestao', function(req, res) {
   const dataSubmissao = new Date()
   req.body["Data de Submissão"] = dataSubmissao
 
-  axios.post("http://localhost:5555/sugestoes", req.body)
-    .then(acordao => {
-      res.redirect('/sugestoes')
+  axios.get(env.authAccessPoint +'/getUsername?token='+ req.cookies.token)
+    .then(username => {
+      req.body["Username"] = username.data
+
+      axios.post("http://localhost:5555/sugestoes", req.body)
+      .then(sugestao => {
+        res.redirect('/sugestoes')
+      })
+      .catch(erro => {
+        res.render('error', {error: erro, message: "Erro no envio de sugestao"})
+      })
     })
     .catch(erro => {
-      res.render('error', {error: erro, message: "Erro no envio de sugestao"})
+      res.render('error', {error: erro, message: "Erro ao obter o username"})
     })
 })
 

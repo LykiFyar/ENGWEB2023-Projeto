@@ -2,6 +2,11 @@ $(function(){
 
 })
 
+function loadProcesso(id){
+  window.location.href = "http://localhost:5556/acordaos/"+id
+}
+
+
 function loadPagina(page,pageDirection,querieString){
     const queries = JSON.parse(querieString);
     query=''
