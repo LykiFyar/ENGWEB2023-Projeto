@@ -7,6 +7,8 @@ block content
         form.w3-container(method="POST" action="/add")
             fieldset
                 legend Formulário
+                label(style="display: none") ID *
+                input.w3-input.w3-round(type="text" name="_id", value=id style="display: none")
                 label Processo *
                 input.w3-input.w3-round(type="text" name="Processo", required)
                 label Data do Acordão *

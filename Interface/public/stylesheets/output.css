@@ -548,6 +548,10 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+h5{
+  color: white;
+}
+
 a#header {
   text-decoration: none;
   display: flex;

@@ -3,7 +3,20 @@ var router = express.Router();
 var Acordaos = require('../controler/acordaos');
 const acordaos = require('../models/acordaos');
 
+
 var next_id = 0
+
+
+router.get('/acordaos/total', function(req, res) {
+  Acordaos.getTotal()
+    .then(total=>{
+      res.json(total)
+    })
+    .catch(erro=>{
+      res.status(605).json({ message: "Erro ao obter o total de registos",error:erro })
+    })
+});
+
 
 /* GET home page. */
 router.get('/acordaos', function(req, res) {
@@ -27,11 +40,17 @@ router.get('/acordaos', function(req, res) {
       Acordaos.acordaosFilter(req.query,limit,next_id,pageDirection)
       .then(acordaos=>{
         if(acordaos.length > 0){
-          next_id = acordaos[acordaos.length - 1]["_id"]
+          if (acordaos.length == 1) {
+            next_id = acordaos[0]["_id"]
+          }else{
+            next_id = acordaos[acordaos.length - 2]["_id"]
+          }          
           prev_id = acordaos[0]["_id"]
           res.json(acordaos)
         }
-        res.json({ message: "Não foram encontrados registos"})
+        else {
+          res.json([{ message: "Não foram encontrados registos"}])
+        }
       })
       .catch(erro=>{
         res.status(602).json({ message: "Erro a obter acordãos com os filtros aplicados",error:erro })
@@ -46,11 +65,17 @@ router.get('/acordaos', function(req, res) {
               return -1
             }
           })
-          next_id = acordaos[acordaos.length - 1]["_id"]
+          if (acordaos.length == 1) {
+            next_id = acordaos[0]["_id"]
+          }else{
+            next_id = acordaos[acordaos.length - 2]["_id"]
+          }
           prev_id = acordaos[0]["_id"]
           res.json(acordaos)
         }
-        res.json({ message: "Não foram encontrados registos"})
+        else{
+          res.json([{ message: "Não foram encontrados registos"}])
+        }
       })
       .catch(erro=>{
         res.status(602).json({ message: "Erro a obter acordãos com os filtros aplicados",error:erro })
@@ -58,11 +83,7 @@ router.get('/acordaos', function(req, res) {
     } 
   }
   else { 
-    if (pageNumber == 0){
-      next_id = 0
-    } else{
-      next_id = (limit * pageNumber) - 1      
-    }
+    next_id = ((limit-1) * pageNumber)      
     Acordaos.list(limit, next_id)
       .then(acordaos=>{
         res.json(acordaos)
@@ -83,6 +104,7 @@ router.get('/acordaos/:id', function(req, res) {
       res.status(605).json({ message: "Erro a eliminar acordão",error:erro })
     })
 });
+
 
 
 router.put('/acordaos/:id', function(req, res) {

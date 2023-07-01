@@ -2,11 +2,11 @@ extends layout
 block content
 
 
-  -var nextPage = page==processos.length ? processos.length : parseInt(page,10)+1 
+  -var nextPage = parseInt(page,10)+1 
   -var prevPage = page==0 ? 0 : parseInt(page,10)-1 
   
   -var hidePrevButton = page==0 ? 'none' : 'flex' 
-  -var hideNextButton = page==processos.length ? 'flex' : 'flex'
+  -var hideNextButton = nRegistos > 7 ? 'flex' : 'none'
 
   -var campos= ["Processo","Relator","Descritores"]
 
@@ -25,20 +25,18 @@ block content
   body.w3-container
     .w3-container-4.w3-right(style='width:70%') 
       .w3-container
-        if processos.length > 0
+        if nRegistos > 0
           table.w3-table-all
             tr
               th Processo
               th Data
-              //th Tribunal
               th Relator
               th Descritores
               th
             each processo in processos
               tr
-                td #[a(href="/acordaos/"+processo._id+"?prevUrl="+originalUrl)= processo.Processo]
+                td #[a(href="/acordaos/"+processo._id)= processo.Processo]
                 td= processo['Data do Acordão']
-                //td= processo.tribunal
                 td= processo.Relator
                 td(style='width: 45%; word-wrap: break-word;')= processo.Descritores
                 td #[img#star(src='/images/estrela.png', onmouseover="this.src='/images/estrela2.png'", onmouseout="this.src='/images/estrela.png'", onclick=`adicionarPreferido(${processo._id})`)]

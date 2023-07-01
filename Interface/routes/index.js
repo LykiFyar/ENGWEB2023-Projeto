@@ -22,6 +22,9 @@ var tribunais= {"Tribunal Constitucional": "atco1", "Tribunal dos Conflitos": "j
                 "Tribunal da Relação de Guimarães": "jtrg", "Tribunal da Relação de Lisboa": "jtrl", "Tribunal da Relação de Porto": "jtrp" } 
 
 
+var id = 4000000
+
+
 /* GET home page. */
 router.get('/acordaos', function(req, res, next) {
   let page = req.query.page ? req.query.page : 0
@@ -36,20 +39,16 @@ router.get('/acordaos', function(req, res, next) {
 
   axios.get("http://localhost:5555/acordaos?"+query+"page="+page+"&pageDirection="+pageDirection)
     .then(dados=>{
-      res.render('main', { processos: dados.data, queries: req.query, page: page, pageDirection: pageDirection, tribunais: tribunais});
+      nRegistos = dados.data[0].message ? 0 : dados.data.length
+      res.render('main', { processos: dados.data.slice(0,7), nRegistos: nRegistos, queries: req.query, page: page, pageDirection: pageDirection, tribunais: tribunais});
     })
     .catch(erro=>{
-      res.render('error', { error: erro,message:"Erro a obter lista de acordaos" });
+      res.render('error', { error: erro, message:"Erro a obter lista de acordaos" });
     })
 })
 
 
 router.get('/acordaos/:id', function(req, res, next) {
-  for (let key in req.query){
-    if (key != "prevUrl" && key != "page" && key != "pageDirection")
-      prevUrl += key + "=" + req.query[key] + "&"
-  }
-
   axios.get("http://localhost:5555/acordaos/"+req.params.id)
       .then(acordao=>{
         res.render('pagAcordao', { acordao: acordao.data, tribunais: tribunais});
@@ -77,7 +76,15 @@ router.get('/delete/:id', function(req, res) {
 });
 
 router.get('/add', function(req, res) {
-  res.render('addForm', {campos: campos});
+  axios.get("http://localhost:5555/acordaos/total")
+  .then(total => {      
+    console.log(total.data[0]._id)
+    const _id = total.data[0]._id+1
+    res.render('addForm', {campos: campos, id: _id});
+  })
+  .catch(erro => {
+    res.render('error', {error: erro, message: "Erro ao atribuir id"})
+})
 });
 
 
@@ -112,9 +119,10 @@ router.post('/edit/:id', function(req, res) {
 
 
 router.post('/add', function(req, res) {
-  const _id = parseInt(req.body._id)
+  const id = parseInt(req.body._id)
   delete req.body._id
-  req.body["_id"] = _id
+  req.body["_id"] = id
+
 
   const descritores = req.body.Descritores.split('\n').map(linha => linha.toUpperCase())
   delete req.body.Descritores
