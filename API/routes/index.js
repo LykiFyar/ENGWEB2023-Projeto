@@ -1,7 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var Acordaos = require('../controler/acordaos');
-const acordaos = require('../models/acordaos');
+//const acordaos = require('../models/acordaos');
+var Sugestoes = require('../controler/sugestoes');
+const sugestoes = require('../models/sugestoes');
+
 
 
 var next_id = 0
@@ -136,6 +139,66 @@ router.delete('/acordaos/:id', function(req, res) {
     })
     .catch(erro=>{
       res.status(605).json({ message: "Erro a eliminar acordão",error:erro })
+    })
+});
+
+
+router.get('/sugestoes/total', function(req, res) {
+  Sugestoes.getTotal()
+    .then(total=>{
+      res.json(total)
+    })
+    .catch(erro=>{
+      res.status(605).json({ message: "Erro ao obter o total de sugestões",error:erro })
+    })
+});
+
+
+router.get('/sugestoes', function(req, res) {
+  var pageNumber = req.query.page
+  var limit = 8
+
+  next_id = ((limit-1) * pageNumber)      
+  Sugestoes.list(limit, next_id)
+    .then(sugestoes=>{
+      if (sugestoes.length > 0) res.json(sugestoes)
+      else res.json([{ message: "Não foram encontradas sugestões"}])
+    })
+    .catch(erro=>{
+      res.status(601).json({ message: "Erro a obter lista de sugestões", error:erro })
+    })
+});
+
+
+router.get('/sugestoes/:id', function(req, res) {
+  Sugestoes.getSugestao(req.params.id)
+    .then(sugestao=>{
+      res.json(sugestao)
+    })
+    .catch(erro=>{
+      res.status(605).json({ message: "Erro na obtenção da sugestão",error:erro })
+    })
+});
+
+
+router.post('/sugestoes', function(req, res) {
+  Sugestoes.addSugestao(req.body)
+    .then(sugestao=>{
+      res.status(201).json(sugestao)
+    })
+    .catch(erro=>{
+      res.status(603).json({ message: "Erro a adicionar sugestão",error:erro })
+    })
+});
+
+
+router.delete('/sugestoes/:id', function(req, res) {
+  Sugestoes.deleteSugestao(req.params.id)
+    .then(acordao=>{
+      res.json(acordao)
+    })
+    .catch(erro=>{
+      res.status(605).json({ message: "Erro a eliminar sugestão",error:erro })
     })
 });
 
