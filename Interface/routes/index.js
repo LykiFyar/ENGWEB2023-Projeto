@@ -37,7 +37,7 @@ router.get('/acordaos', function(req, res, next) {
   query = ''
   for (let key in req.query){
     if (req.query[key] != '' && key != "page" && key != "pageDirection"){
-        query += key + "=" + req.query[key].toUpperCase() + "&"
+        query += key + "=" +  (key=='tribunal' ?  req.query[key] : req.query[key].toUpperCase()) + "&"
     }
   }
 
@@ -280,7 +280,7 @@ router.post('/login', function(req, res){
 router.post("/register", (req, res) => {
   axios.get(env.authAccessPoint+"/isLogged?token=" + req.cookies.token)
   .then(obj => {
-    if(!obj.data.isLogged && obj.data.isAdmin)
+    if((obj.data.isLogged && obj.data.isAdmin) || !obj.data.isLogged)
       axios.post(env.authAccessPoint + "/register", req.body)
       .then(response => {
         res.redirect('/')
@@ -292,7 +292,13 @@ router.post("/register", (req, res) => {
     res.redirect('back')
   })
   .catch(e => {
-    res.redirect('back')
+    axios.post(env.authAccessPoint + "/register", req.body)
+    .then(response => {
+      res.redirect('/')
+    })
+    .catch(err => {
+      res.render('error', {error: err})
+    })  
   }) 
   
   
