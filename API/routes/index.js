@@ -1,10 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Acordaos = require('../controler/acordaos');
-//const acordaos = require('../models/acordaos');
 var Sugestoes = require('../controler/sugestoes');
-const sugestoes = require('../models/sugestoes');
-
 
 
 var next_id = 0
@@ -28,17 +25,12 @@ router.get('/acordaos', function(req, res) {
   var pageNumber = req.query.page
   var limit = 8
 
-  if(req.query.desde){
-    Acordaos.acordaosDataDesde(req.query.desde,limit,next_id)
-        .then(acordao=>{
-          next_id = acordao[acordaos.length - 1]["_id"]
-          res.json(acordao)
-        })
-        .catch(erro=>{
-          res.status(602).json({ message: "Erro a obter acordãos pela data",error:erro })
-        })
+  if (pageNumber == 0) {
+    next_id = 0
   }
-  else if (nQueries > 2) {
+
+  if (nQueries > 2) {
+
     if(pageDirection){
       Acordaos.acordaosFilter(req.query,limit,next_id,pageDirection)
       .then(acordaos=>{
