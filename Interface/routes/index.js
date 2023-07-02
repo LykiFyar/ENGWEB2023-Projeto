@@ -190,7 +190,7 @@ router.get('/', function(req, res) {
 router.post('/edit/:id', function(req, res) {
   axios.get(env.authAccessPoint+"/isLogged?token=" + req.cookies.token)
   .then(obj => {
-    if(obj.data.isLogged && obj.data.isAdmin){
+    if((obj.data.isLogged && obj.data.isAdmin) || !obj.data.isLogged){
       const descritores = req.body.Descritores.split('\n').map(linha => linha.toUpperCase())
       delete req.body.Descritores
       req.body["Descritores"] = descritores
@@ -280,7 +280,7 @@ router.post('/login', function(req, res){
 router.post("/register", (req, res) => {
   axios.get(env.authAccessPoint+"/isLogged?token=" + req.cookies.token)
   .then(obj => {
-    if(!obj.data.isLogged && obj.data.isAdmin)
+    if((obj.data.isLogged && obj.data.isAdmin) || !obj.data.isLogged)
       axios.post(env.authAccessPoint + "/register", req.body)
       .then(response => {
         res.redirect('/')
@@ -292,7 +292,13 @@ router.post("/register", (req, res) => {
     res.redirect('back')
   })
   .catch(e => {
-    res.redirect('back')
+    axios.post(env.authAccessPoint + "/register", req.body)
+      .then(response => {
+        res.redirect('/')
+      })
+      .catch(err => {
+        res.render('error', {error: err})
+      })
   }) 
   
   
