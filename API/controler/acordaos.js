@@ -20,7 +20,7 @@ module.exports.acordaosFilter = (queries, limit, next_id, pageDirection) => {
     delete queries.pageDirection
 
     if (!pageDirection) {
-        queries["_id"] = {'$lt': next_id}
+        queries["_id"] = {'$lte': next_id}
         return Arcordaos.find(queries, project).sort({_id:-1}).limit(limit)
                     .then(dados=>{
                         return dados
