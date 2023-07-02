@@ -1,5 +1,9 @@
 extends layout
 block content
+
+    -var data = new Date(user.dateCreated);
+    -var dataISO = data.toISOString().split('T')[0];
+
     .w3-card-4
         header.w3-bar.w3-wide.w3-card
             h1(style="color:blue-dark") Perfil de #{user.username}
@@ -16,7 +20,7 @@ block content
                 label Nível
                 input#form.w3-input.w3-round(type="text" value=user.level readonly)
                 label Data de Registo
-                input#form.w3-input.w3-round(type="text" value=user.dateCreated readonly)
+                input#form.w3-input.w3-round(type="text" value=dataISO readonly)
                 label Acordãos Favoritos
 
                 table.w3-table.w3-hoverable
