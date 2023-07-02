@@ -1,40 +1,57 @@
 extends layout
 block content
+
+    -var data = new Date(user.dateCreated);
+    -var dataISO = data.toISOString().split('T')[0];
+
     .w3-card-4
         header.w3-bar.w3-wide.w3-card
             h1(style="color:blue-dark") Perfil de #{user.username}
-            //a#Action.w3-btn.w3-mb-2(href="/delete/sugestao/"+sugestao._id) LOGOUT
             a#Action.w3-btn.w3-mb-2(href="Javascript:history.go(-1)") VOLTAR
 
         form#sugestaos.w3-container(style="padding-top:90px;padding-bottom:20px; ")
             fieldset 
-                tr#campos
-                    label#campos Nome
-                    input#form.w3-input.w3-round(type="text" value=user.name readonly)
-                tr#campos
-                    label#campos Email
-                    input#form.w3-input.w3-round(type="text" value=user.email readonly)
-                tr#campos
-                    label#campos Filiação
-                    input#form.w3-input.w3-round(type="text" value=user.filiation readonly)
-                tr#campos
-                    label#campos Nível
-                    input#form.w3-input.w3-round(type="text" value=user.level readonly)
-                tr#campos
-                    label#campos Data de Registo         
-                    input#form.w3-input.w3-round(type="text" value=user.dateCreated readonly)
-                tr#campos
-                    label#campos Acordãos Favoritos
-                    table.w3-table.w3-hoverable
-                        thead
-                            tr 
-                                th Id Processo
-                                th Descrição 
+                label Nome
+                input#form.w3-input.w3-round(type="text" value=user.name readonly)
+                label Email
+                input#form.w3-input.w3-round(type="text" value=user.email readonly)
+                label Filiação
+                input#form.w3-input.w3-round(type="text" value=user.filiation readonly)
+                label Nível
+                input#form.w3-input.w3-round(type="text" value=user.level readonly)
+                label Data de Registo
+                input#form.w3-input.w3-round(type="text" value=dataISO readonly)
+                label Acordãos Favoritos
 
-                        each fav in user.favorites
-                            tr(onclick=`loadProcesso(${fav._id})`) 
-                                td #{fav._id}
-                                td #{fav["note"]}
+                table.w3-table.w3-hoverable
+                    thead
+                        tr 
+                            th Id Acordão
+                            th Nota 
+
+                    each fav in user.favorites
+                        tr(onclick=`loadProcesso(${fav._id})`)
+                            td #{fav._id}
+                            if fav.note == ""
+                                td.desc(style='word-wrap: break-word;')
+                                    form(action='/perfil/'+user.username method="POST" style="background-color: transparent;" id="add"+fav._id)
+                                        input(type="hidden" value=fav._id, name="_id").w3-left
+                                        input#form.w3-input.w3-round(type="text" style="border: none; width:75%;" name="note" )
+                                        button#Action.w3-btn.w3-mb-2(type="submit" style="width:20%; margin:10px" form="add"+fav._id).w3-right Adicionar Nota 
+
+                            else
+                                td.desc(style='word-wrap: break-word;')
+                                    form(action='/perfil/'+user.username method="POST" style="background-color: transparent;" id="edit"+fav._id) 
+                                        input(type="hidden" value=fav._id, name="_id").w3-left
+                                        input#form.w3-input.w3-round(type="text" value=fav.note style="background-color: transparent; border: none; width:75%;" name="note") 
+                                        button#Action.w3-btn.w3-mb-2(type="submit" style="width:20%; margin:10px" form="edit"+fav._id).w3-right Editar Nota 
+                            
+                            script.
+                                document.querySelectorAll(`.desc`).forEach((column) => {
+                                    column.onclick = (event) => {
+                                        event.stopPropagation();
+                                    };
+                                });
 
 
         footer.w3-bar.w3-wide.w3-card

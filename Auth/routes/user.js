@@ -58,6 +58,10 @@ router.post('/', auth.verificaAcesso, function(req, res){
 })
 
 router.post('/updatefavorite/:id', auth.verificaAcesso, function(req, res){
+  console.log(req.payload.username)
+  console.log(req.params.id)
+  console.log(req.body.note)
+  
   User.updateFavoriteNote(req.payload.username, req.params.id, req.body.note)
     .then(dados => res.status(200).jsonp(dados))
     .catch(e => res.status(506).jsonp({error: e}))

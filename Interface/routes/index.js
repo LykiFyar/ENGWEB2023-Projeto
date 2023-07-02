@@ -37,7 +37,7 @@ router.get('/acordaos', function(req, res, next) {
   query = ''
   for (let key in req.query){
     if (req.query[key] != '' && key != "page" && key != "pageDirection"){
-        query += key + "=" + req.query[key] + "&"
+        query += key + "=" + req.query[key].toUpperCase() + "&"
     }
   }
 
@@ -372,6 +372,20 @@ router.get('/add/sugestoes', function(req, res){
 
 
   
+})
+
+
+router.post('/perfil/:id', function(req, res){
+  console.log(req.params.id)  
+  console.log(req.body)
+
+  axios.post(env.authAccessPoint + '/updatefavorite/' + req.body._id + '?token=' + req.cookies.token, req.body)
+    .then(dados => {      
+      res.redirect('/acordaos')
+    })
+    .catch(erro => {
+      res.render('error', {error: erro, message: "Erro ao atribuir uma descrição ao favorito"})
+  })
 })
 
 

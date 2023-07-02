@@ -8,25 +8,26 @@ block content
   -var hidePrevButton = page==0 ? 'none' : 'flex' 
   -var hideNextButton = nRegistos > 7 ? 'flex' : 'none'
 
-
   header.w3-bar.w3-wide.w3-card
     a.w3-bar-item
       img.w3-left(src='/images/themis.ico', alt='Logo', style='max-height: 30px; margin: 10px')
       h5.w3-left(style="margin: 10px") EW - Sistema de Acordãos
 
     .w3-right.w3-hide-small(style='margin: 10px; margin-right: 15px')
-      a.w3-bar-item.w3-button(href='/acordaos') HOME
+
       if isLogged
         if isAdmin
+          a.w3-bar-item.w3-button(href='/sugestoes') VER SUGESTÕES
+          a.w3-bar-item.w3-button(href="/add") ADICIONAR ACORDÃO
           a.w3-bar-item.w3-button(href='/register') REGISTAR
-          a.w3-bar-item.w3-button(href='/sugestoes') VER ALTERAÇÕES
-          a.w3-bar-item.w3-button(href="/add") ADD ACORDÃO
-        a.w3-bar-item.w3-button(href='/add/sugestoes') SUGERIR ALTERAÇÕES 
+        else
+          a.w3-bar-item.w3-button(href='/add/sugestoes') SUGERIR ALTERAÇÕES 
         a.w3-bar-item.w3-button(href="/perfil") PERFIL 
         a.w3-bar-item.w3-button(href="/logout") LOGOUT 
       else          
         a.w3-bar-item.w3-button(href='/login') LOGIN
-        a.w3-bar-item.w3-button(href='/register') REGISTER
+        a.w3-bar-item.w3-button(href='/register') REGISTAR
+      a.w3-bar-item.w3-button(href='/acordaos') HOME
 
   body.w3-container(style="padding-top:100px;padding-bottom:20px; ")
     .w3-container-4.w3-right(style='width:100%') 
@@ -42,7 +43,10 @@ block content
               tr(onclick=`loadSugestao(${sugestao._id})`)
                 td= sugestao.Username
                 td= sugestao.Assunto
-                td= sugestao['Data de Submissão']
+
+                -var data = new Date(sugestao['Data de Submissão']);
+                -var dataISO = data.toISOString().split('T')[0];
+                td= dataISO
 
           .w3-container(style='max-height: 30px;').w3-center
             button#pag(onclick=`loadPagina(${prevPage},${pageDirection=false},'${JSON.stringify(queries)}')` style=`display: ${hidePrevButton}`).w3-left
