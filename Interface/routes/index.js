@@ -171,7 +171,7 @@ router.get('/login', function(req, res){
 router.get('/register', function(req, res){   
   axios.get(env.authAccessPoint+"/isLogged?token=" + req.cookies.token)
   .then(obj => {
-    if(obj.data.isLogged && !obj.data.isAdmin)
+    if(!obj.data.isLogged && obj.data.isAdmin)
       res.redirect("/")
     else
       res.render('registerForm', {isLogged: obj.data.isLogged, isAdmin: obj.data.isAdmin})
@@ -280,7 +280,7 @@ router.post('/login', function(req, res){
 router.post("/register", (req, res) => {
   axios.get(env.authAccessPoint+"/isLogged?token=" + req.cookies.token)
   .then(obj => {
-    if(obj.data.isLogged && !obj.data.isAdmin)
+    if(!obj.data.isLogged && obj.data.isAdmin)
       axios.post(env.authAccessPoint + "/register", req.body)
       .then(response => {
         res.redirect('/')
