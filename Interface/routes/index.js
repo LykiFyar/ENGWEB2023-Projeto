@@ -171,10 +171,10 @@ router.get('/login', function(req, res){
 router.get('/register', function(req, res){   
   axios.get(env.authAccessPoint+"/isLogged?token=" + req.cookies.token)
   .then(obj => {
-    if(obj.data.isLogged)
+    if(obj.data.isLogged && !obj.data.isAdmin)
       res.redirect("/")
     else
-      res.render('registerForm')
+      res.render('registerForm', {isLogged: obj.data.isLogged, isAdmin: obj.data.isAdmin})
   })
   .catch(e => {
     res.render('registerForm')
@@ -278,13 +278,25 @@ router.post('/login', function(req, res){
 })
 
 router.post("/register", (req, res) => {
-  axios.post(env.authAccessPoint + "/register", req.body)
-    .then(response => {
-      res.redirect('/')
-    })
-    .catch(err => {
-      res.render('error', {error: err})
-    })
+  axios.get(env.authAccessPoint+"/isLogged?token=" + req.cookies.token)
+  .then(obj => {
+    if(obj.data.isLogged && !obj.data.isAdmin)
+      axios.post(env.authAccessPoint + "/register", req.body)
+      .then(response => {
+        res.redirect('/')
+      })
+      .catch(err => {
+        res.render('error', {error: err})
+      })
+    else
+    res.redirect('back')
+  })
+  .catch(e => {
+    res.redirect('back')
+  }) 
+  
+  
+  
 })
 
 
