@@ -617,7 +617,6 @@ button#erase {
 
 button#pag:hover {
   transform: scale(1.1);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 textarea {
@@ -626,14 +625,15 @@ textarea {
 }
 
 button#pag {
-  padding: 0px;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  margin-top:7px;
   width: 30px;
   height: 30px;
   background-size: cover;
   background-position: center;
-  background-color: #c5c1c0;
   cursor: pointer;
-  border: 0px;
   display: flex;
   justify-content: center;
   align-items: center;

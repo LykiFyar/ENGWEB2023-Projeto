@@ -66,12 +66,12 @@ block content
 
           .w3-container(style='max-height: 30px;').w3-center
             button#pag(onclick=`loadPagina(${prevPage},${pageDirection=false},'${JSON.stringify(queries)}')` style=`display: ${hidePrevButton}`).w3-left
-              img#pag(src='/images/esquerda.ico', alt='pagEsquerda')
+              img#pag(src='/images/esquerda2.png', alt='pagEsquerda')
 
             input#pag.w3-center(value='Página '+page readonly)
             
             button#pag(onclick=`loadPagina(${nextPage},${pageDirection=true},'${JSON.stringify(queries)}')` style=`display: ${hideNextButton}`).w3-right
-              img#pag(src='/images/direita.ico', alt='pagDireita')
+              img#pag(src='/images/direita2.png', alt='pagDireita')
 
         else
           h5.w3-center Não foram encontrados registos!
