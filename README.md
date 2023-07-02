@@ -45,7 +45,7 @@ Tendo agora um contexto do problema foram definidos, em enunciado, os seguintes 
   - [x] password;
   - outros campos determinados pelo grupo ...
  
-# Construção dos requisitos
+## Construção dos requisitos
 Neste capítulo debruçamo-nos sobre a estrutura do projeto e quais as estratégias e decisões tomadas em cada uma das partes com vista a responder aos objetivos.
 
 ## Estruturação do sistema 
@@ -63,7 +63,7 @@ Como o projeto é modularizado, significa que existe uma parte dedicada a cada s
 Neste capítulo explicamos para cada uma, o que fazem e mostramos quais foram as ações desenvolvidas.
 
 
-###  API
+####  API
 Esta camada é responsável por receber um pedido/query da camada da interface. 
 Para que estes pedidos consigam ser respondidos é necessário que o que é pedido corresponda a uma estrutura bem definida dos dados que se traduz num modelo definido pelo ficheiro **Model**. Para isso é importante que os dados sejam estudados e tratados para se conseguir obter uma estrutura responsiva.
 
@@ -347,7 +347,7 @@ Definiram-se as seguintes rotas:
     -   Funções adicionais:
         -   Verifica se o utilizador tem login efetuado e se é administrados  antes de eliminar a sugestão.
 
-###  Autenticação
+####  Autenticação
 O serviço de autenticação depende de um token criado com auxílio do jsonwebtoken que é utilizado para validar vários pedidos feitos ao serviço e permitir efetuar ações no mesmo. Este token pode ser fornecido na query string ou no corpo do pedido HTTP (body) e é verificado pelo _middleware_ `verificaAcesso` que permite ou bloqueia o acesso ao serviço. Assim, neste módulo fomos capaz de criar e de manipular as informações relacionadas com o utilizador do sistema.
     
 - GET `/users/isLogged`: Verifica se o utilizador está autenticado e se este é Administrador do sistema através do token.
@@ -371,7 +371,7 @@ O serviço de autenticação depende de um token criado com auxílio do jsonwebt
 ## Programa
 Para a execução do programa é necessário ter em conta as ferramentas anteriormente mencionadas pelo que podem ser instalas utilizando o comando **npm start** em cada pasta correspondente a cada serviço, isto é, na pasta API, Auth e Interface.
 
-## Conclusão
+# Conclusão
 Após a realização do trabalho, concluímos que o mesmo permitiu compreender de um ponto de vista prático o funcionamento de plataformas web. 
 De acordo com os objetivos anteriormente propostos, podemos afirmar que foram, na sua maioria cumpridos, pelo que estamos satisfeitos com o resultado do trabalho. 
 Para trabalho futuro, há vários aspetos a melhorar, nomeadamente, a nível de eficiência do site e a nível de funcionalidades oferecidas.
