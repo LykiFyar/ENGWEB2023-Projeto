@@ -23,35 +23,38 @@ block content
                 input#form.w3-input.w3-round(type="text" value=dataISO readonly)
                 label Acordãos Favoritos
 
-                table.w3-table.w3-hoverable
-                    thead
-                        tr 
-                            th Id Acordão
-                            th Nota 
 
-                    each fav in user.favorites
-                        tr(onclick=`loadProcesso(${fav._id})`)
-                            td #{fav._id}
-                            if fav.note == ""
-                                td.desc(style='word-wrap: break-word;')
-                                    form(action='/perfil/'+user.username method="POST" style="background-color: transparent;" id="add"+fav._id)
-                                        input(type="hidden" value=fav._id, name="_id").w3-left
-                                        input#form.w3-input.w3-round(type="text" style="border: none; width:75%;" name="note" )
-                                        button#Action.w3-btn.w3-mb-2(type="submit" style="width:20%; margin:10px" form="add"+fav._id).w3-right Adicionar Nota 
+        .w3-container(style="background-color: white")
+            table.w3-table.w3-hoverable
+                thead
+                    tr 
+                        th Id Acordão
+                        th Nota 
 
-                            else
-                                td.desc(style='word-wrap: break-word;')
-                                    form(action='/perfil/'+user.username method="POST" style="background-color: transparent;" id="edit"+fav._id) 
-                                        input(type="hidden" value=fav._id, name="_id").w3-left
-                                        input#form.w3-input.w3-round(type="text" value=fav.note style="background-color: transparent; border: none; width:75%;" name="note") 
-                                        button#Action.w3-btn.w3-mb-2(type="submit" style="width:20%; margin:10px" form="edit"+fav._id).w3-right Editar Nota 
-                            
-                            script.
-                                document.querySelectorAll(`.desc`).forEach((column) => {
-                                    column.onclick = (event) => {
-                                        event.stopPropagation();
-                                    };
-                                });
+                each fav in user.favorites
+                    tr(onclick=`loadProcesso(${fav._id})`)
+                        td #{fav._id}
+
+                        if fav.note == ""
+                            td.desc(style='word-wrap: break-word;')
+                                form(action='/perfil/'+user.username method="POST" style="background-color: transparent;" id="add"+fav._id)
+                                    input(type="hidden" value=fav._id, name="_id").w3-left
+                                    input#form.w3-input.w3-round(type="text" style="border: none; width:75%;" name="note" )
+                                    button#Action.w3-btn.w3-mb-2(type="submit" style="width:20%; margin:10px" form="add"+fav._id).w3-right Adicionar Nota 
+
+                        else
+                            td.desc(style='word-wrap: break-word;')
+                                form(action='/perfil/'+user.username method="POST" style="background-color: transparent;" id="edit"+fav._id) 
+                                    input(type="hidden" value=fav._id, name="_id").w3-left
+                                    input#form.w3-input.w3-round(type="text" value=fav.note style="background-color: transparent; border: none; width:75%;" name="note") 
+                                    button#Action.w3-btn.w3-mb-2(type="submit" style="width:20%; margin:10px" form="edit"+fav._id).w3-right Editar Nota 
+                        
+                        script.
+                            document.querySelectorAll(`.desc`).forEach((column) => {
+                                column.onclick = (event) => {
+                                    event.stopPropagation();
+                                };
+                            });
 
 
         footer.w3-bar.w3-wide.w3-card

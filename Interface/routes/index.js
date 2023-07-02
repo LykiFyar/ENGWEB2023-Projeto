@@ -37,7 +37,7 @@ router.get('/acordaos', function(req, res, next) {
   query = ''
   for (let key in req.query){
     if (req.query[key] != '' && key != "page" && key != "pageDirection"){
-        query += key + "=" + req.query[key].toUpperCase() + "&"
+        query += key + "=" +  (key=='tribunal' ?  req.query[key] : req.query[key].toUpperCase()) + "&"
     }
   }
 
