@@ -1,6 +1,11 @@
 extends layout
 
 block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+  .w3-card-4
+    header.w3-bar.w3-wide.w3-card
+      h1(style="color:blue-dark") Error #{error.code}
+      button#Action.w3-btn.w3-mb-2(type="button" onclick="Javascript:history.go(-1)") VOLTAR
+    .w3-container.w3-white(style="padding-top:90px; padding-bottom:20px")
+      h2= message
+      h3= error.status
+      pre #{error.stack}
