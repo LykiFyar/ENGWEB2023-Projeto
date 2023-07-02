@@ -33,7 +33,6 @@ block content
               tr
                 th Processo
                 th Data
-                //th Tribunal
                 th Relator
                 th Descritores
                 th
@@ -41,7 +40,6 @@ block content
               tr(onclick=`loadProcesso(${processo._id})`)
                 td= processo.Processo
                 td= processo['Data do Acordão']
-                //td= processo.tribunal
                 td= processo.Relator
                 td(style='width: 45%; word-wrap: break-word;')= processo.Descritores
 
