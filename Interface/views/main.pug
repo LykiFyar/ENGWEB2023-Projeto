@@ -43,19 +43,26 @@ block content
                 td= processo.Relator
                 td(style='width: 45%; word-wrap: break-word;')= processo.Descritores
 
+
                 - var corAmarela = favoritos.includes(processo._id)
                 if corAmarela
-                  td 
+                  td.star 
                     form#star(action="/removefavorite/" + processo._id, method="POST")
                       input#star(type="hidden", value=path, name="path")
                       button#star(type="submit") #[img#star(src='/images/estrela2.png', onmouseover="this.src='/images/estrela.png'", onmouseout="this.src='/images/estrela2.png'", onclick=`removerPreferido(${processo._id})`)]
                 else 
-                  td 
+                  td.star 
                     form#star(action="/addfavorite/" + processo._id, method="POST")
                       input#star(type="hidden", value=path, name="path")
-                      button#star(type="submit") #[img#star(src='/images/estrela.png', onmouseover="this.src='/images/estrela2.png'", onmouseout="this.src='/images/estrela.png'", onclick=`adicionarPreferido(${processo._id})`)]
+                      button#star(type="submit" ) #[img#star(src='/images/estrela.png', onmouseover="this.src='/images/estrela2.png'", onmouseout="this.src='/images/estrela.png'", onclick=`adicionarPreferido(${processo._id})`)]
                 script(src='../public/javascripts/script.js')
                 
+                script.
+                  document.querySelectorAll(`.star`).forEach((column) => {
+                    column.onclick = (event) => {
+                      event.stopPropagation();
+                    };
+                  });
 
           .w3-container(style='max-height: 30px;').w3-center
             button#pag(onclick=`loadPagina(${prevPage},${pageDirection=false},'${JSON.stringify(queries)}')` style=`display: ${hidePrevButton}`).w3-left

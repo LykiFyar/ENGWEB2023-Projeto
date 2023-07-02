@@ -51,6 +51,12 @@ form#filtros {
   background-color: #1A2E3A;
 }
 
+form#star {
+  border: none;  
+  background-color: transparent;
+  padding: 0;
+}
+
 form {
   border: none;  
   background-color: #ffffff;
