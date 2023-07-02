@@ -1,3 +1,11 @@
+## Grupo
+| Número  | Nome        |
+| ------- | ----------- |
+| A97642  | José Rafael |
+| A97368  | João Braga  |
+| A97158  | Marta Sá    |
+
+
 # Base de Dados de Acórdãos
 
 O Ministério da Justiça Português é composto na sua organização por um conjunto de tribunais com autonomia própria. Cada um destes disponibiliza, periodicamente, um conjunto de acórdãos para o espaço público.
