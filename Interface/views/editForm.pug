@@ -1,6 +1,9 @@
 extends layout 
 block content 
 
+    -var dataAcordao = new Date(a['Data do Acordão']);
+    - var dataAcordaoISO = dataAcordao.toISOString().split('T')[0];
+
     .w3-card-4
         header.w3-bar.w3-wide.w3-card
             h1 Editar Acordão
@@ -12,7 +15,7 @@ block content
                 label Processo *
                 input#form.w3-input.w3-round(type="text" name="Processo" value=a.Processo required) 
                 label Data do Acordão *
-                input#form.w3-input.w3-round(type="date" name="Data do Acordão" value=a['Data do Acordão'] required) 
+                input#form.w3-input.w3-round(type="date" name="Data do Acordão" value=dataAcordaoISO required) 
                 label Relator *
                 input#form.w3-input.w3-round(type="text" name="Relator" value=a.Relator required) 
                 label Tribunal *
@@ -26,7 +29,7 @@ block content
                         | #{'\n'+desc}
 
                 .w3-container(style="display: flex; flex-direction: row")
-                    input#form.w3-input.w3-round(type="text" placeholder="Novo Descritor" style="width:60%; margin:10px").w3-left
+                    input.w3-input.w3-round(type="text" placeholder="Novo Descritor" id="novoDescritor" style="width:60%; margin:10px").w3-left
                     button#Action.w3-btn(type="button" onclick="adicionarDescritor()" style="width:30%; margin:10px").w3-right Adicionar             
                     button#Action.w3-btn(type="button" onclick="removerDescritor()" style="width:30%; margin:10px").w3-right Remover
                 each value, key in a

@@ -245,11 +245,25 @@ router.get('/sugestoes/:id', function(req, res, next) {
 router.get('/add/sugestoes', function(req, res){
   axios.get("http://localhost:5555/sugestoes/total")
     .then(total => {      
-      const _id = total.data[0]._id+1
+      const _id = total.data.length == 0 ? 0 : total.data[0]._id+1
       res.render('sugestoesForm', {id: _id})
     })
     .catch(erro => {
       res.render('error', {error: erro, message: "Erro ao atribuir id de sugestão"})
+  })
+})
+
+
+router.post('/perfil/:id', function(req, res){
+  console.log(req.params.id)  
+  console.log(req.body)
+
+  axios.post(env.authAccessPoint + '/updatefavorite/' + req.body._id + '?token=' + req.cookies.token, req.body)
+    .then(dados => {      
+      res.redirect('/acordaos')
+    })
+    .catch(erro => {
+      res.render('error', {error: erro, message: "Erro ao atribuir uma descrição ao favorito"})
   })
 })
 

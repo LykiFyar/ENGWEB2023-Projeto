@@ -16,8 +16,6 @@ module.exports.list = (limit, next_id) =>{
 
 
 module.exports.acordaosFilter = (queries, limit, next_id, pageDirection) => {
-    console.log(queries, next_id, pageDirection)
-
     delete queries.page
     delete queries.pageDirection
 
