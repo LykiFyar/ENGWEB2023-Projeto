@@ -14,8 +14,10 @@ router.get('/addfavorite/:id', auth.verificaAcesso, function(req, res){
     .catch(e => res.status(503).jsonp({error: e}))
 })
 
-router.get('/isAdmin', auth.verificaAcesso, function(req, res){
-  res.jsonp({isAdmin: (req.payload.level === "admin" ? true : false)})
+router.get('/isLogged', auth.verificaAcesso, function(req, res){
+  res.jsonp({isAdmin: (req.payload.level === "admin" ? true : false),
+            isLogged: true 
+})
 })
 /*
 router.get('/favorites_ids', auth.verificaAcesso, function(req, res){

@@ -78,4 +78,4 @@ var acordaosSchema = new mongoose.Schema({
 });
 
 
-module.exports = new mongoose.model('acordao', acordaosSchema, 'acordaos2');
+module.exports = new mongoose.model('acordao', acordaosSchema, 'acordaos');

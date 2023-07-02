@@ -15,10 +15,17 @@ block content
       h5.w3-left(style="margin: 10px") EW - Sistema de Acordãos
 
     .w3-right.w3-hide-small(style='margin: 10px; margin-right: 15px')
-      a.w3-bar-item.w3-button(href='/sugestoes') VER ALTERAÇÕES
       a.w3-bar-item.w3-button(href='/acordaos') HOME
-      a.w3-bar-item.w3-button(href='/login') LOGIN
-      a.w3-bar-item.w3-button(href="/add") ADD
+      if isLogged
+        if isAdmin
+          a.w3-bar-item.w3-button(href='/sugestoes') VER ALTERAÇÕES
+          a.w3-bar-item.w3-button(href="/add") ADD ACORDÃO
+        a.w3-bar-item.w3-button(href='/add/sugestoes') SUGERIR ALTERAÇÕES 
+        a.w3-bar-item.w3-button(href="/perfil") PERFIL 
+        a.w3-bar-item.w3-button(href="/logout") LOGOUT 
+      else          
+        a.w3-bar-item.w3-button(href='/login') LOGIN
+        a.w3-bar-item.w3-button(href='/register') REGISTER
 
   body.w3-container(style="padding-top:100px;padding-bottom:20px; ")
     .w3-container-4.w3-right(style='width:100%') 
