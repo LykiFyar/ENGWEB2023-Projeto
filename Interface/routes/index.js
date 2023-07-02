@@ -300,7 +300,7 @@ router.post("/register", (req, res) => {
 })
 
 
-router.get('/logout', verificaToken, (req, res) => {
+router.get('/logout', (req, res) => {
   res.cookie('token', undefined)
   res.redirect('/')
 })
