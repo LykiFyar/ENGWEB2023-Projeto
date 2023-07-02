@@ -6,13 +6,16 @@ block content
       button#Action.w3-btn.w3-mb-2(type="submit" form="login") CONFIRMAR
       a#Action.w3-btn.w3-mb-2(href="/register") REGISTAR
       a#Action.w3-btn.w3-mb-2(href="/acordaos") CANCELAR
-
+      
+    
     form#login.w3-container(action="/login" method="POST",style="padding-top:90px; padding-bottom:20px")
-        fieldset 
-          label Username 
-          input.w3-input(type="text" name="username")
-          label Password 
-          input.w3-input(type="password" name="password")
+      if errormessage 
+        p(style="color:red")=errormessage
+      fieldset 
+        label Username 
+        input.w3-input(type="text" name="username")
+        label Password 
+        input.w3-input(type="password" name="password")
 
 
     footer.w3-bar.w3-wide.w3-card
